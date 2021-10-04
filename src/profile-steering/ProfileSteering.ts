@@ -1,15 +1,46 @@
+// ---- BEGIN CONSTANTS ----
+/**
+ * Average energy consumption of an EV, in kWh per km.
+ * Source: https://ev-database.org/cheatsheet/energy-consumption-electric-car
+ */
+const ENERGY_CONSUMPTION : number = 0.194;
+
+/**
+ * Average CO2 emissions of grid energy, in kg per kWh.
+ * Source: https://nl.econologie.com/europe-emissie-co2-country-kwh-elektriciteit/
+ */
+const CO2_EMISSIONS_GRID : number = 0.642;
+
+/**
+ * Average CO2 emissions of solar energy, in kg per kWh.
+ * Source: https://www.treehugger.com/how-much-co-does-one-solar-panel-create-4868753
+ */
+const CO2_EMISSIONS_SOLAR : number = 0.050;
+
+/**
+ * Length of the time intervals, in minutes.
+ */
+const INTERVAL_LENGTH : number = 15;
+
+/**
+ * Charging power levels supported by the EV.
+ */
+const CHARGING_POWERS: number[] = [0, 1, 2, 3, 4, 5, 6, 7];
+
+// ---- END CONSTANTS ----
+
 /**
  * Computes an optimal profile with the requirements set.
  * @param desired           The desired profile from the EMS.
- * @param chargeRequired    The amount of charge the EV driver requires.
- * @param chargingPowers    The possible power levels the EV can be charged at.
- * @param powerlimitsUpper  How much energy the charger is able to take per time interval, empty by default.
+ * @param chargeRequired    The amount of charge the EV driver requires, in kWτ (τ = INTERVAL_LENGTH).
+ * @param chargingPowers    The possible power levels the EV can be charged at, in kW.
+ * @param powerlimitsUpper  How much power the charger is able to take per time interval (kW), empty by default.
  * @param prices            The price signals per time interval, or all zeroes by default.
  * @param beta              The rate of punishment, as a scalar for the cost. 1 by default.
  * @return result           The optimal profile it found.
  */
 function discreteBufferPlanningPositive(desired: number[], chargeRequired: number, chargingPowers: number[],
-                                         powerlimitsUpper: number[] = [], prices: number[] = null, beta: number = 1):number[] {
+             powerlimitsUpper: number[] = [], prices: number[] = null, beta: number = 1): number[] {
     // Initialization of the algorithm
     let result:number[] = new Array(desired.length);
     for (let i = 0; i < result.length; i++) {result[i] = 0;}
@@ -72,4 +103,19 @@ function discreteBufferPlanningPositive(desired: number[], chargeRequired: numbe
     }
 
     return result;
+}
+
+/**
+ * Retrieves all data needed and runs {@link #discreteBufferPlanningPositive()}.
+ */
+function planEV() {
+    const desired: number[] = [0,0,0,0,0,0,0,0,0]; // Fill in or retrieve
+    const chargeRequired: number = -1; // Retrieve from UI
+
+    const now: Date = new Date();
+    const startTime: number = Math.round(now.getHours() * (60 / INTERVAL_LENGTH) + now.getMinutes() / INTERVAL_LENGTH);
+    const endTime: number = 2; // Retrieve from UI and convert hours to INTERVAL_LENGTH
+
+    // Print result to console for now, TODO display as graph
+    console.log(discreteBufferPlanningPositive(desired.slice(startTime, endTime), chargeRequired, CHARGING_POWERS));
 }
