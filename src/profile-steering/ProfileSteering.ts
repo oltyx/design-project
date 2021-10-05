@@ -1,18 +1,18 @@
 // ---- BEGIN CONSTANTS ----
 /**
- * Average energy consumption of an EV, in kWh per km.
+ * Average energy consumption of an EV, in kWh per km. TODO change to Wh/km
  * Source: https://ev-database.org/cheatsheet/energy-consumption-electric-car
  */
 const ENERGY_CONSUMPTION : number = 0.194;
 
 /**
- * Average CO2 emissions of grid energy, in kg per kWh.
+ * Average CO2 emissions of grid energy, in kg per kWh. TODO change to kg/Wh
  * Source: https://nl.econologie.com/europe-emissie-co2-country-kwh-elektriciteit/
  */
 const CO2_EMISSIONS_GRID : number = 0.642;
 
 /**
- * Average CO2 emissions of solar energy, in kg per kWh.
+ * Average CO2 emissions of solar energy, in kg per kWh. TODO change to kg/Wh
  * Source: https://www.treehugger.com/how-much-co-does-one-solar-panel-create-4868753
  */
 const CO2_EMISSIONS_SOLAR : number = 0.050;
@@ -23,9 +23,11 @@ const CO2_EMISSIONS_SOLAR : number = 0.050;
 const INTERVAL_LENGTH : number = 15;
 
 /**
- * Charging power levels supported by the EV.
+ * Charging power levels supported by the EV, in kW (hardcoded for now, should be retrieved). TODO change to W
  */
 const CHARGING_POWERS: number[] = [0, 1, 2, 3, 4, 5, 6, 7];
+
+//TODO add price in €/W for grid and solar
 
 // ---- END CONSTANTS ----
 
