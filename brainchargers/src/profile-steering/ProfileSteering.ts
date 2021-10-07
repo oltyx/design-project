@@ -3,36 +3,36 @@
  * Average energy consumption of an EV, in Wh per km.
  * Source: https://ev-database.org/cheatsheet/energy-consumption-electric-car
  */
-const ENERGY_CONSUMPTION : number = 194;
+export const ENERGY_CONSUMPTION : number = 194;
 
 /**
  * Average CO2 emissions of grid energy, in g per Wh.
  * Source: https://nl.econologie.com/europe-emissie-co2-country-kwh-elektriciteit/
  */
-const CO2_EMISSIONS_GRID : number = 0.642;
+export const CO2_EMISSIONS_GRID : number = 0.642;
 
 /**
  * Average CO2 emissions of solar energy, in g per Wh.
  * Source: https://www.treehugger.com/how-much-co-does-one-solar-panel-create-4868753
  */
-const CO2_EMISSIONS_SOLAR : number = 0.050;
+export const CO2_EMISSIONS_SOLAR : number = 0.050;
 
 /**
  * Average price of grid energy, in €/W.
  * Source: https://www.consumentenbond.nl/energie-vergelijken/kwh-prijs
  */
-const PRICE_GRID : number = 0.00024;
+export const PRICE_GRID : number = 0.00024;
 
 /**
  * Price of solar energy, in €/W.
  * This is half the price of grid energy for now.
  */
-const PRICE_SOLAR : number = 0.00012;
+export const PRICE_SOLAR : number = 0.00012;
 
 /**
  * Length of the time intervals, in minutes.
  */
-const INTERVAL_LENGTH : number = 15;
+export const INTERVAL_LENGTH : number = 15;
 
 /**
  * Charging power levels supported by the EV, in W (hardcoded for now, should be retrieved).
@@ -44,7 +44,7 @@ const CHARGING_POWERS : number[] = [0, 1000, 2000, 3000, 4000, 5000, 6000, 7000]
 /**
  * Charging modes, currently Fast Charging and Smart Charging.
  */
-enum ChargingMode {
+export enum ChargingMode {
     Fast,
     Smart
 }
@@ -91,7 +91,7 @@ function discreteBufferPlanningFast(desired: number[], chargeRequired: number, c
  * @return result           The optimal profile it found.
  */
 function discreteBufferPlanningSmart(desired: number[], chargeRequired: number, chargingPowers: number[],
-                                     powerlimitsUpper: number[] = [], prices: number[] = null, beta: number = 1): number[] {
+                         powerlimitsUpper: number[] = [], prices: number[] | null = null, beta: number = 1): number[] {
     // Initialization of the algorithm
     let result:number[] = new Array(desired.length);
     for (let i = 0; i < result.length; i++) {result[i] = 0;}
@@ -159,7 +159,7 @@ function discreteBufferPlanningSmart(desired: number[], chargeRequired: number, 
 /**
  * Retrieves all data needed and runs {@link #discreteBufferPlanningFast()} or {@link #discreteBufferPlanningSmart()}.
  */
-function planEV(chargeRequired: number, endTime: [number, number], mode: ChargingMode): number[] {
+export function planEV(chargeRequired: number, endTime: [number, number], mode: ChargingMode): number[] {
     const desired: number[] = [0,0,0,0,0,0,0,0,0]; // Fill in or retrieve from back-end
     const chargingPowers: number[] = CHARGING_POWERS; // Retrieve from back-end
 
