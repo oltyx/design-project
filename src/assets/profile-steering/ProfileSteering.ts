@@ -1,33 +1,6 @@
+import {ChargingMode} from "../../data/models/ChargingMode";
+
 // ---- BEGIN CONSTANTS ----
-/**
- * Average energy consumption of an EV, in Wh per km.
- * Source: https://ev-database.org/cheatsheet/energy-consumption-electric-car
- */
-export const ENERGY_CONSUMPTION : number = 194;
-
-/**
- * Average CO2 emissions of grid energy, in g per Wh.
- * Source: https://nl.econologie.com/europe-emissie-co2-country-kwh-elektriciteit/
- */
-export const CO2_EMISSIONS_GRID : number = 0.642;
-
-/**
- * Average CO2 emissions of solar energy, in g per Wh.
- * Source: https://www.treehugger.com/how-much-co-does-one-solar-panel-create-4868753
- */
-export const CO2_EMISSIONS_SOLAR : number = 0.050;
-
-/**
- * Average price of grid energy, in €/W.
- * Source: https://www.consumentenbond.nl/energie-vergelijken/kwh-prijs
- */
-export const PRICE_GRID : number = 0.00024;
-
-/**
- * Price of solar energy, in €/W.
- * This is half the price of grid energy for now.
- */
-export const PRICE_SOLAR : number = 0.00012;
 
 /**
  * Length of the time intervals, in minutes.
@@ -40,14 +13,6 @@ export const INTERVAL_LENGTH : number = 15;
 const CHARGING_POWERS : number[] = [0, 1000, 2000, 3000, 4000, 5000, 6000, 7000];
 
 // ---- END CONSTANTS ----
-
-/**
- * Charging modes, currently Fast Charging and Smart Charging.
- */
-export enum ChargingMode {
-    Fast,
-    Smart
-}
 
 /**
  *
@@ -172,5 +137,6 @@ export function planEV(chargeRequired: number, endTime: [number, number], mode: 
             return discreteBufferPlanningFast(desired.slice(startInterval, endInterval), chargeRequired, chargingPowers);
         case ChargingMode.Smart:
             return discreteBufferPlanningSmart(desired.slice(startInterval, endInterval), chargeRequired, chargingPowers);
+        default: throw Error("ChargingMode not supported");
     }
 }
