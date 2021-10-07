@@ -1,5 +1,5 @@
 {
-  "name": "brainchargers",
+  "name": "design-project",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -17,10 +17,10 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "brainchargers/node_modules/.bin/react-scripts start",
-    "build": "brainchargers/node_modules/.bin/react-scripts build",
-    "test": "brainchargers/node_modules/.bin/react-scripts test",
-    "eject": "brainchargers/node_modules/.bin/react-scripts eject"
+    "start": "node_modules/.bin/react-scripts start",
+    "build": "node_modules/.bin/react-scripts build",
+    "test": "node_modules/.bin/react-scripts test",
+    "eject": "node_modules/.bin/react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
