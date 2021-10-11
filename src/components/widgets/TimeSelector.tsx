@@ -1,8 +1,9 @@
+import React from 'react';
 
 const DEFAULT_TIME : [number,number] = [17,0];
 
 export default function TimeSelector() {
-    return <div>
+    return (<div>
         <div>
             <span className="material-icons">
                 keyboard_arrow_up
@@ -23,5 +24,5 @@ export default function TimeSelector() {
             </span>
         </div>
     </div>
-    ;
+    );
 }
