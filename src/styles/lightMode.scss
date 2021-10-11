@@ -16,3 +16,10 @@ $card_color: rgba(255, 255, 255, 0.5);
 $feedback_vote: #166016;
 $feedback_border_color: 1px solid #166016;
 
+.globalButton {
+    background: $green_button_color;
+    filter: $global_shadow;
+    border: none;
+    border-radius: 5px;
+    color: $button_text_color;
+}
