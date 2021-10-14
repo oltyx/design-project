@@ -10,6 +10,8 @@ type CheckboxProps = {
     name: string,
     text?: string,
 }
+
+
 export const Checkbox= ({name, text, ...props}: CheckboxProps) => {
     const context = useFormContext();
     return(

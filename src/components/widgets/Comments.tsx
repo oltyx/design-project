@@ -1,5 +1,5 @@
-import React from 'react';
-import { Container, Row, Col, Button, Form, FormGroup, ButtonGroup, Input, Label } from 'reactstrap';
+import React, { useState } from 'react';
+import { Container, Row, Col, Input } from 'reactstrap';
 
 import '../../styles/feedback.scss';
 import TextField from '../styled/TextField';
@@ -7,22 +7,35 @@ import { Checkbox } from '../styled/Checkbox';
 
 
 export default function Comments() {
+    const [canCheck, setCanCheck] = useState(true);
+
     return(
         <Container className="commentsContainer">
-            <Row className="commentsRow">
-                <Col className="commentsCol">
+            <Row>
+                <Col>
                     <Checkbox name={"option1"} text={"I love it!"}></Checkbox>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
                     <Checkbox name={"option2"} text={"Easy to use"}></Checkbox>
-                    <Checkbox name={"option3"} text={"Annoying"}></Checkbox>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <Checkbox name={"option3"} text={"Annoying"}></Checkbox>  
+                </Col>
+            </Row>
+            <Row>
+                <Col>
                     <Checkbox name={"option4"} text={"Too much graphics"}></Checkbox>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <TextField/>
+                    <TextField name={"optional"}/>
                 </Col>
             </Row>
-
         </Container>
     );
 }

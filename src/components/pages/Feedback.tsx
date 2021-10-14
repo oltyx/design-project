@@ -47,7 +47,7 @@ export default function Feedback(props: FeedbackProps) {
                                 <Label className={"responsiveText"}>Hey {props.user?.name}, please rate us!</Label>
                                 <Rating></Rating>
                             </FormGroup>
-                            <FormGroup>
+                            <FormGroup className={"flexbox"}>
                                 <Comments/>
                             </FormGroup>
                     </Form>
