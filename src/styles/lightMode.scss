@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Aldrich);
+
 $global_background_color: linear-gradient(180deg, rgba(111, 111, 111, 0.3476) 0%, rgba(226, 226, 226, 0.420377) 57.29%, rgba(255, 255, 255, 0.44) 100%);
 $global_text_color: #2C2C2C;
 $global_border_radius: 5px;
@@ -16,10 +18,25 @@ $card_color: rgba(255, 255, 255, 0.5);
 $feedback_vote: #166016;
 $feedback_border_color: 1px solid #166016;
 
+$family-font: "Aldrich", sans-serif;
+
 .globalButton {
     background: $green_button_color;
     filter: $global_shadow;
     border: none;
     border-radius: 5px;
     color: $button_text_color;
+    font-family: $family-font;
+}
+
+body {
+    font-family: $family-font;
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $family-font;
+    font-weight: normal;
+    font-style: normal;
 }
