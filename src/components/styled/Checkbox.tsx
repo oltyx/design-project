@@ -8,7 +8,7 @@ import '../../styles/lightMode.scss';
 
 type CheckboxProps = {
     name: string,
-    text: string,
+    text?: string,
 }
 export const Checkbox= ({name, text, ...props}: CheckboxProps) => {
     const context = useFormContext();

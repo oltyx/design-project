@@ -7,9 +7,15 @@
     background: $global_background_color;
     flex-direction: column;
 
-    .feedbackRow {
+    .feedbackRow1 {
         width: 100%;
         margin-top: 2rem;
+    }
+
+    .feedbackRow2 {
+        width: 100%;
+        height: 100%;
+        margin-top: 5rem;
     }
 
     .iconRatingContainer {
@@ -18,6 +24,14 @@
         align-items: center;
         column-gap: 20px;
         width: 100%;
+        margin-top: 0.5rem;
+        margin-bottom: 3rem;
+
+        .iconRatingButton {
+            border: none;
+            color: $feedback_vote;
+            background: none;
+        }
     }
 
     .commentsContainer {
@@ -25,9 +39,12 @@
         flex-direction: column;
         justify-content: space-around;
 
-        .commentsCol {
-            display: flex;
-            flex-direction: column;
+        .commentsRow {
+        
+            .commentsCol {
+                display: flex;
+                flex-direction: column;
+            }
         }
     }
 
@@ -36,10 +53,16 @@
         color: $global_text_color;
         background: none;
     }
+
     
 }
 
-
+.flexbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
 .responsiveText {
     font-size: 2.5vh;

@@ -24,9 +24,10 @@ $family-font: "Aldrich", sans-serif;
     background: $green_button_color;
     filter: $global_shadow;
     border: none;
-    border-radius: 5px;
+    border-radius: 50%;
     color: $button_text_color;
     font-family: $family-font;
+    margin-bottom: 2rem;
 }
 
 body {
