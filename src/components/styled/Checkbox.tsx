@@ -17,8 +17,8 @@ export const Checkbox= ({name, text, ...props}: CheckboxProps) => {
         control={context.control}
         name={name}
         render={({ field: { onChange, onBlur, value, ref } }) => (
-            <Label check>
-                <input
+            <Label check className={"responsiveText"}>
+                <Input
                     className={"feedbackCheckbox"}
                     type={"checkbox"} 
                     ref={ref}

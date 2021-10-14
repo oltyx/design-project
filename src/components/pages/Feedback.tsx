@@ -27,33 +27,37 @@ type FeedbackProps = {
 }
 
 
+
 export default function Feedback(props: FeedbackProps) {
     const form = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+    
   
     return (
         <Container className="feedback">
-            <Row className="exitRow">
+            <Row className={"feedbackRow"}>
                 <Col>
-                    <Button className="exitButton"><FaTimes/></Button>
+                    <Button className="exitButton"><FaTimes style={{height:"3vh", width: "3vh"}}/></Button>
                 </Col>
             </Row>
             <Row>
                 <Col>
                     <FormProvider {...form}>
-                        <Form onSubmit={form.handleSubmit(onSubmit)}>
-                        <Label>Hey {props.user?.name}, please rate us!</Label>
+                    <Form onSubmit={form.handleSubmit(onSubmit)}>                            
                             <FormGroup>
+                                <Label className={"responsiveText"}>Hey {props.user?.name}, please rate us!</Label>
                                 <Rating></Rating>
                             </FormGroup>
                             <FormGroup>
                                 <Comments/>
                             </FormGroup>
                             <Button className="globalButton" onClick={form.handleSubmit(onSubmit)}>Submit</Button>
-                        </Form>  
-                    </FormProvider> 
+                    </Form>
+                </FormProvider>
                 </Col>
             </Row>
         </Container>
+        
+       
     );
 }

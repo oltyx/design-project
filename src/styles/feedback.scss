@@ -3,10 +3,14 @@
 .feedback {
     height: 100%;
     display: flex;
-    justify-content: space-around;
     align-items: center;
     background: $global_background_color;
     flex-direction: column;
+
+    .feedbackRow {
+        width: 100%;
+        margin-top: 2rem;
+    }
 
     .iconRatingContainer {
         display: flex;
@@ -26,18 +30,18 @@
             flex-direction: column;
         }
     }
+
+    .exitButton {
+        border: none;
+        color: $global_text_color;
+        background: none;
+    }
     
 }
 
-.exitButton {
-    border: none;
-    color: $global_text_color;
-    size: lg;
-    background: none;
-}
 
-.exitRow {
-    display: flex;
-    width: 100%;
+
+.responsiveText {
+    font-size: 2.5vh;
 }
 
