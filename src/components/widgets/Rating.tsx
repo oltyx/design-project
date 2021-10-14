@@ -9,15 +9,12 @@ export default function Rating() {
     const iconStyle = { color: "#166016" }
 
     return(
-        <div>
-            <Label>Hey Jos, please rate us!</Label>
-            <div className="iconRatingContainer">
-                <BsLightningChargeFill style={iconStyle}/>
-                <BsLightningChargeFill style={iconStyle}/>
-                <BsLightningChargeFill style={iconStyle}/>
-                <BsLightningChargeFill style={iconStyle}/>
-                <BsLightningChargeFill style={iconStyle}/>
-            </div>
+        <div className="iconRatingContainer">
+            <BsLightningChargeFill style={iconStyle}/>
+            <BsLightningChargeFill style={iconStyle}/>
+            <BsLightningChargeFill style={iconStyle}/>
+            <BsLightningChargeFill style={iconStyle}/>
+            <BsLightningChargeFill style={iconStyle}/>
         </div>
     );
 }

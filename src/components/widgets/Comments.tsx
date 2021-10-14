@@ -3,6 +3,7 @@ import { Container, Row, Col, Button, Form, FormGroup, ButtonGroup, Input, Label
 
 import '../../styles/feedback.scss';
 import TextField from '../styled/TextField';
+import { Checkbox } from '../styled/Checkbox';
 
 
 export default function Comments() {
@@ -10,9 +11,9 @@ export default function Comments() {
         <Container className="commentsContainer">
             <Row>
                 <Col className="commentsCol">
-                    <Button color="primary">One</Button>
-                    <Button color="primary">Two</Button>
-                    <Button color="primary">Three</Button>
+                    <Checkbox name={"option1"} text={"Good graphics"}></Checkbox>
+                    <Checkbox name={"option2"} text={"Good graphics"}></Checkbox>
+                    <Checkbox name={"option3"} text={"Good graphics"}></Checkbox>
                 </Col>
             </Row>
             <Row>

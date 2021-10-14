@@ -7,6 +7,26 @@
     align-items: center;
     background: $global_background_color;
     flex-direction: column;
+
+    .iconRatingContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 20px;
+        width: 100%;
+    }
+
+    .commentsContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        .commentsCol {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+    
 }
 
 .exitButton {
@@ -16,26 +36,8 @@
     background: none;
 }
 
-.iconRatingContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 20px;
-    width: 100%;
-}
-
 .exitRow {
     display: flex;
     width: 100%;
 }
 
-.commentsContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.commentsCol {
-    display: flex;
-    flex-direction: column;
-}
