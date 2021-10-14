@@ -10,6 +10,7 @@ import '../widgets/Rating';
 import '../styled/TextField';
 import Rating from '../widgets/Rating';
 import Comments from '../widgets/Comments';
+import { GlobalButton } from '../styled/Button';
 
 
 type Inputs = {
@@ -56,7 +57,7 @@ export default function Feedback(props: FeedbackProps) {
             </Row>
             <Row>
                 <Col>
-                <Button className="globalButton" style={{height:"5vh", width: "10vh"}} onClick={form.handleSubmit(onSubmit)}>Submit</Button>
+                    <GlobalButton text={"Submit"} onClick={form.handleSubmit(onSubmit)}/>
                 </Col>
             </Row>
         </Container>

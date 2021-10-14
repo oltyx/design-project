@@ -28,6 +28,12 @@ $family-font: "Aldrich", sans-serif;
     color: $button_text_color;
     font-family: $family-font;
     margin-bottom: 2rem;
+    height: 7vh;
+    width: 12vh;
+}
+
+.globalButtonText {
+    font-size: 2vh;
 }
 
 body {
