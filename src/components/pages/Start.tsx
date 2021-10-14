@@ -23,7 +23,13 @@ export default function Start() {
                     </h1>
                 </Col>
             </Row>
+
+            <Row>
+                <Col>
                     <img className={"carStyle"} src={EvCar} alt="Generic car" />
+                </Col>
+            </Row>
+
             <Row>
                 <Col>
                     <h4>
