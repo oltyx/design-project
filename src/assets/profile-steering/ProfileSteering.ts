@@ -77,7 +77,7 @@ function discreteBufferPlanningSmart(desired: number[], chargeRequired: number, 
     for (let i:number = 0; i < desired.length;i++) {
         // Calculate the first slopes
         // See if the next slope fits:
-        if (powerlimitsUpper.length == 0 || chargingPowers[1] <= powerlimitsUpper[i]) {
+        if (powerlimitsUpper.length === 0 || chargingPowers[1] <= powerlimitsUpper[i]) {
             const slope: number = (prices[i] * chargingPowers[1] + beta * Math.pow(chargingPowers[1] - desired[i], 2)
                                 - (prices[i] * chargingPowers[0] + beta * Math.pow(chargingPowers[0] - desired[i], 2))
                                 ) / (chargingPowers[1] - chargingPowers[0]);
@@ -104,7 +104,7 @@ function discreteBufferPlanningSmart(desired: number[], chargeRequired: number, 
         slopes.pop();
 
         if (j < chargingPowers.length - 1) {
-            if (powerlimitsUpper.length == 0 || chargingPowers[j+1] <= powerlimitsUpper[i]) {
+            if (powerlimitsUpper.length === 0 || chargingPowers[j+1] <= powerlimitsUpper[i]) {
                 // Add new entry to replace
                 const slope: number = (prices[i] * chargingPowers[j+1] + beta * Math.pow(chargingPowers[j+1] - desired[i], 2)
                                     - (prices[i] * chargingPowers[j] + beta * Math.pow(chargingPowers[j]  - desired[i], 2) )
