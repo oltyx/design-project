@@ -26,7 +26,10 @@ export default function Start() {
 
             <Row>
                 <Col>
-                    <img className={"carStyle"} src={EvCar} alt="Generic car" />
+                    <img className={"carStyle"}
+                         src={EvCar}
+                         alt="Generic car"
+                    />
                 </Col>
             </Row>
 
