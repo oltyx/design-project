@@ -27,16 +27,18 @@ $family-font: "Aldrich", sans-serif;
     border-radius: 5px;
     color: $button_text_color;
     font-family: $family-font;
+    font-size: 3vh;
 }
 
 body {
+    background: $global_background_color;
     font-family: $family-font;
     font-weight: normal;
     font-style: normal;
+    font-size: 2.55vh;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: $family-font;
     font-weight: normal;
     font-style: normal;
 }
