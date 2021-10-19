@@ -20,21 +20,9 @@ $feedback_border_color: 1px solid #166016;
 
 $family-font: "Aldrich", sans-serif;
 
-.globalButton {
-    background: $green_button_color;
-    filter: $global_shadow;
-    border: none;
-    border-radius: 50%;
-    color: $button_text_color;
-    font-family: $family-font;
-    margin-bottom: 2rem;
-    height: 7vh;
-    width: 12vh;
-}
-
-.globalButtonText {
-    font-size: 2vh;
-}
+// :export {
+//     border: $feedback_border_color;
+// }
 
 body {
     background: $global_background_color;
@@ -47,4 +35,56 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
     font-style: normal;
+}
+
+.globalButton {
+    background: $green_button_color;
+    filter: $global_shadow;
+    border: none;
+    border-radius: 50%;
+    color: $button_text_color;
+    font-family: $family-font;
+    height: 7vh;
+    width: 12vh;
+    // margin-top: 100%;
+
+
+    .globalButtonText {
+        font-size: 2vh;
+        margin: 0;
+    }
+}
+
+.checkboxStyle {
+    border: $feedback_border_color !important;
+    margin-right: 0.5rem;
+    height: 2.5vh !important;
+    width: 2.5vh !important;
+}
+
+.checkboxStyle:checked {
+    background-color: $feedback_vote !important;
+    
+}
+
+.checkboxStyle:focus {
+    box-shadow: none !important;
+}
+
+        
+.textFieldStyle {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+    border: $feedback_border_color;
+    font-family: $family-font;
+}
+
+.textFieldStyle:focus {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+    border: $feedback_border_color;
+    box-shadow: none;
+    font-family: $family-font;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
-import { Container, Row, Col, Button, Form, FormGroup, ButtonGroup, Input, Label } from 'reactstrap';
+import { Alert, Container, Row, Col, Button, Form, FormGroup, ButtonGroup, Input, Label } from 'reactstrap';
 import { BsX } from 'react-icons/bs';
 
 import '../../styles/feedback.scss';
@@ -29,33 +29,37 @@ interface FeedbackProps {
 
 export default function Feedback(props: FeedbackProps) {
     const form = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = data => console.log("data");
+    const onSubmit: SubmitHandler<Inputs> = data => {
+        console.log(data);
+    }
 
     return (
-        <Container className="feedback">
-            <Row className={"feedbackRow1"}>
-                <Col>
+        <Container className="feedback p-0">
+            {form.formState.isSubmitSuccessful ?
+            <Row><Col>
+            <Alert color="success"> Thank you for your feedback!</Alert>
+            </Col></Row>    
+            : null}
+            <Row className={"w-100"}>
+                <Col className="p-0">
                     <Button className="exitButton"><BsX style={{height:"5vh", width: "5vh"}}/></Button>
                 </Col>
             </Row>
-            <Row className={"feedbackRow2"}>
-                <Col className={"flexbox"} style={{height: "100%"}}>
+            <Row styles={{height: "100%"}}>
+                <Col className={"formFlexbox"}>
                     <FormProvider {...form}>
-                    <Form className={"flexbox"} style={{height: "100%"}}onSubmit={form.handleSubmit(onSubmit)}>                            
-                            <FormGroup className={"flexbox"}>
+                    <Form className={"feedbackForm"} onSubmit={form.handleSubmit(onSubmit)}>                            
+                            <FormGroup className={"centerFlexbox"}>
                                 <Label className={"responsiveText"}>Hey {props.user?.name}, please rate us!</Label>
                                 <Rating></Rating>
-                            </FormGroup>
-                            <FormGroup className={"flexbox"}>
                                 <Comments/>
                             </FormGroup>
+                            {/* <FormGroup>
+                                <Comments/>
+                            </FormGroup> */}
+                            <GlobalButton text={"Submit"}/>
                     </Form>
                 </FormProvider>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <GlobalButton text={"Submit"} onClick={form.handleSubmit(onSubmit)}/>
                 </Col>
             </Row>
         </Container>

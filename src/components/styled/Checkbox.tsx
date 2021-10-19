@@ -1,6 +1,7 @@
 import React from 'react';
 import { useFormContext, Controller } from "react-hook-form";
-import { Container, Row, Col, Button, Form, FormGroup, ButtonGroup, Input, Label } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Input, Label } from 'reactstrap';
 
 import '../../styles/lightMode.scss';
 
@@ -9,14 +10,17 @@ import '../../styles/lightMode.scss';
 interface CheckboxProps {
     name: string,
     text?: string,
+    className?: string,
+    style?: any,
 }
 
-
-export const Checkbox= ({name, text, ...props}: CheckboxProps) => {
-    const checkBoxStyle = {
-        borderColor: "red",
-        fontSize: "5vh",
-    }
+export const Checkbox= ({name, text, className, style, ...props}: CheckboxProps) => {
+    // const checkBoxStyle = {
+    //     border: "1px solid #166016",
+    //     marginRight: "0.5rem",
+    //     height: "2.5vh",
+    //     width: "2.5vh",
+    // }
     const context = useFormContext();
     return(
         <Controller
@@ -25,13 +29,14 @@ export const Checkbox= ({name, text, ...props}: CheckboxProps) => {
         render={({ field: { onChange, onBlur, value, ref } }) => (
             <Label check className={"responsiveText"}>
                 <Input
-                    style={checkBoxStyle}
+                    className={`${className} checkboxStyle`}
                     type={"checkbox"} 
                     ref={ref}
                     onChange={onChange} 
                     onBlur={onBlur}
                     name={name} 
                     value={value}
+                    style={style}
                     {...props} 
                     checked={value}/>{text}
             </Label>
