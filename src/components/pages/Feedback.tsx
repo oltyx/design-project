@@ -19,7 +19,7 @@ type Inputs = {
     optional: string,
   };
 
-type FeedbackProps = {
+interface FeedbackProps = {
     user?: {
         name?: string,
         surname?: string,
