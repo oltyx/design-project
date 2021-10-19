@@ -27,7 +27,6 @@ interface FeedbackProps {
 }
 
 
-
 export default function Feedback(props: FeedbackProps) {
     const form = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = data => console.log("data");

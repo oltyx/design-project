@@ -6,13 +6,17 @@ import '../../styles/lightMode.scss';
 
 // Checkbox feedback element, consisting of the box and associated text
 
-type CheckboxProps = {
+interface CheckboxProps {
     name: string,
     text?: string,
 }
 
 
 export const Checkbox= ({name, text, ...props}: CheckboxProps) => {
+    const checkBoxStyle = {
+        borderColor: "red",
+        fontSize: "5vh",
+    }
     const context = useFormContext();
     return(
         <Controller
@@ -21,7 +25,7 @@ export const Checkbox= ({name, text, ...props}: CheckboxProps) => {
         render={({ field: { onChange, onBlur, value, ref } }) => (
             <Label check className={"responsiveText"}>
                 <Input
-                    className={"feedbackCheckbox"}
+                    style={checkBoxStyle}
                     type={"checkbox"} 
                     ref={ref}
                     onChange={onChange} 
