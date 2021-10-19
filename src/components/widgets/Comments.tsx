@@ -13,25 +13,25 @@ export default function Comments() {
         <Container className="commentsContainer">
             <Row>
                 <Col>
-                    <Checkbox name={"option1"} text={"I love it!"}></Checkbox>
+                    <Checkbox name={"option1"} style={{marginBottom: "2rem"}} text={"I love it!"}></Checkbox>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <Checkbox name={"option2"} text={"Easy to use"}></Checkbox>
+                    <Checkbox name={"option2"} style={{marginBottom: "2rem"}} text={"Easy to use"}></Checkbox>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <Checkbox name={"option3"} text={"Annoying"}></Checkbox>  
+                    <Checkbox name={"option3"} style={{marginBottom: "2rem"}} text={"Annoying"}></Checkbox>  
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <Checkbox name={"option4"} text={"Too much graphics"}></Checkbox>
+                    <Checkbox name={"option4"} style={{marginBottom: "2rem"}} text={"Too much graphics"}></Checkbox>
                 </Col>
             </Row>
-            <Row>
+            <Row style={{marginBottom: "5rem"}}>
                 <Col>
                     <TextField name={"optional"}/>
                 </Col>

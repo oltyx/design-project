@@ -3,23 +3,29 @@ import { Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText } 
 import {BsLightningChargeFill} from "react-icons/bs"
 
 import '../../styles/feedback.scss';
-import { set } from 'react-hook-form';
+import { set, useFormContext } from 'react-hook-form';
 
 
 export default function Rating() {
     const [rating, setRating] = useState(0);
+    const context = useFormContext();
 
     const onClick = (value: number) => {
         setRating(value);
     }
 
     return(
-        <div className="iconRatingContainer">
-            <Button className={"iconRatingButton"} onClick={() => setRating(1)}><BsLightningChargeFill style={{height:"4vh", width: "3vh"}}/></Button>
-            <Button className={"iconRatingButton"} onClick={() => setRating(2)}><BsLightningChargeFill style={{height:"4vh", width: "3vh"}}/></Button>
-            <Button className={"iconRatingButton"} onClick={() => setRating(3)}><BsLightningChargeFill style={{height:"4vh", width: "3vh"}}/></Button>
-            <Button className={"iconRatingButton"} onClick={() => setRating(4)}><BsLightningChargeFill style={{height:"4vh", width: "3vh"}}/></Button>
-            <Button className={"iconRatingButton"} onClick={() => setRating(5)}><BsLightningChargeFill style={{height:"4vh", width: "3vh"}}/></Button>
-        </div>
+        <Container>
+            <Row>
+                <Col>
+                    <Button className={`${rating >= 1 ? "ratedButton" : "unratedButton"}`} onClick={() => setRating(1)}><BsLightningChargeFill style={{height:"4vh", width: "3vh"}}/></Button>
+                    <Button className={`${rating >= 2 ? "ratedButton" : "unratedButton"}`} onClick={() => setRating(2)}><BsLightningChargeFill style={{height:"4vh", width: "3vh"}}/></Button>
+                    <Button className={`${rating >= 3 ? "ratedButton" : "unratedButton"}`} onClick={() => setRating(3)}><BsLightningChargeFill style={{height:"4vh", width: "3vh"}}/></Button>
+                    <Button className={`${rating >= 4 ? "ratedButton" : "unratedButton"}`} onClick={() => setRating(4)}><BsLightningChargeFill style={{height:"4vh", width: "3vh"}}/></Button>
+                    <Button className={`${rating == 5 ? "ratedButton" : "unratedButton"}`} onClick={() => setRating(5)}><BsLightningChargeFill style={{height:"4vh", width: "3vh"}}/></Button>
+                </Col>
+            </Row>
+            
+        </Container>
     );
 }

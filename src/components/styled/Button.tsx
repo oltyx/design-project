@@ -6,15 +6,15 @@ import '../../styles/lightMode.scss';
 
 // Checkbox feedback element, consisting of the box and associated text
 
-type GlobalButtonProps = {
-    name?: string,
+interface GlobalButtonProps {
     text?: string,
-    onClick: React.MouseEventHandler<HTMLButtonElement>,
+    className?: string,
+    onClick?: React.MouseEventHandler<HTMLButtonElement>,
 }
 
 
-export const GlobalButton = ({ text, onClick, ...props}: GlobalButtonProps) => {
+export const GlobalButton = ({ text, onClick, className, ...props}: GlobalButtonProps) => {
     return(
-        <Button className="globalButton" onClick={onClick}><h1 className={"globalButtonText"} {...props}>{text}</h1></Button>
+        <Button className={`${className} globalButton`} onClick={onClick}><h1 className={"globalButtonText"} {...props}>{text}</h1></Button>
     );
 }

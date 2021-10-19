@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import './App.css';
+import './App.scss';
 import './components/widgets/TimeSelector';
 import Feedback from './components/pages/Feedback';
 import Start from './components/pages/Start';
