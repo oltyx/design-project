@@ -30,11 +30,13 @@ $family-font: "Aldrich", sans-serif;
     margin-bottom: 2rem;
     height: 7vh;
     width: 12vh;
+    
+    .globalButtonText {
+        font-size: 2vh;
+    }
+
 }
 
-.globalButtonText {
-    font-size: 2vh;
-}
 
 body {
     background: $global_background_color;

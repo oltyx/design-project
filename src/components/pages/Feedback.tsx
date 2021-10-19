@@ -43,7 +43,7 @@ export default function Feedback(props: FeedbackProps) {
                     <FormProvider {...form}>
                     <Form className={"flexbox"} style={{height: "100%"}}onSubmit={form.handleSubmit(onSubmit)}>                            
                             <FormGroup className={"flexbox"}>
-                                <Label className={"responsiveText"}>Hey {props.user?.name}, please rate us!</Label>
+                                <h1 className={"responsiveText"}>Hey {props.user?.name}, please rate us!</h1>
                                 <Rating></Rating>
                             </FormGroup>
                             <FormGroup className={"flexbox"}>
