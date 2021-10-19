@@ -2,40 +2,90 @@
 
 .feedback {
     height: 100%;
+    min-width: 100%;
+    width: 100%;
     display: flex;
-    justify-content: space-around;
     align-items: center;
     background: $global_background_color;
     flex-direction: column;
+
+    .feedbackRow1 {
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+    .feedbackRow2 {
+        width: 100%;
+        height: 100%;
+        margin-top: 5rem;
+    }
+
+    .iconRatingContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 20px;
+        min-width: 100%;
+        width: 100%;
+        margin-top: 0.5rem;
+        margin-bottom: 3rem;
+
+        .iconRatingButton {
+            border: none;
+            color: $feedback_vote;
+            background: none;
+        }
+    }
+
+    .commentsContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+
+        .feedbackTextField {
+            width: 100%;
+            height: 5rem;
+            border-radius: 0.5rem;
+            border: $feedback_border_color;
+            margin-top: 2rem;
+            font-family: $family-font;
+        }
+
+        .feedbackTextField:focus {
+            width: 100%;
+            height: 5rem;
+            border-radius: 0.5rem;
+            border: $feedback_border_color;
+            margin-top: 2rem;
+            font-family: $family-font;
+        }
+        
+        // .commentsCol {
+        //     display: flex;
+        //     flex-direction: column;
+        //     justify-content: space-between;
+        // }
+    }
+
+    .exitButton {
+        border: none;
+        color: $global_text_color;
+        background: none;
+    }
+
+    
 }
 
-.exitButton {
-    border: none;
-    color: $global_text_color;
-    size: lg;
-    background: none;
-}
-
-.iconRatingContainer {
+.flexbox {
     display: flex;
     justify-content: center;
     align-items: center;
-    column-gap: 20px;
-    width: 100%;
-}
-
-.exitRow {
-    display: flex;
-    width: 100%;
-}
-
-.commentsContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.commentsCol {
-    display: flex;
     flex-direction: column;
 }
+
+
+.responsiveText {
+    font-size: 2.5vh;
+}
+
