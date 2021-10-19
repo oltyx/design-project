@@ -1,0 +1,15 @@
+@import "lightMode.scss";
+
+.startPage {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: $global_background_color;
+  flex-direction: column;
+}
+
+.carStyle {
+  width: 95%;
+  height: 100%;
+}
