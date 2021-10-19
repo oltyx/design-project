@@ -4,6 +4,7 @@ import { Button, Col, Container, Row } from 'reactstrap';
 import EvCar from '../../assets/ev_car.svg';
 import '../../styles/lightMode.scss';
 import '../../styles/start.scss';
+import { GlobalButton } from '../styled/Button';
 
 // Landing page
 export default function Start() {
@@ -15,16 +16,14 @@ export default function Start() {
   }
     return(
         <Container className={"startPage"} fluid={true}>
-
             <Row >
                 <Col>
-                    <h1>
+                    <h1 className={"responsiveTitle"}>
                         Hello, Jos!
                     </h1>
                 </Col>
             </Row>
-
-            <Row>
+            <Row className={"carRow"}>
                 <Col>
                     <img className={"carStyle"}
                          src={EvCar}
@@ -32,23 +31,16 @@ export default function Start() {
                     />
                 </Col>
             </Row>
-
-            <Row>
+            <Row className={"startRow3"}>
                 <Col>
-                    <h4>
+                    <h4 className={"responsiveSubtitle"}>
                         Ready?
                     </h4>
                 </Col>
-            </Row>
-
-            <Row>
                 <Col>
-                    <Button className={"globalButton"} onClick={() => handleClick()}>
-                        Set
-                    </Button>
+                    <GlobalButton text={"Set"} onClick={handleClick}/>
                 </Col>
             </Row>
-
         </Container>
     )
 }
