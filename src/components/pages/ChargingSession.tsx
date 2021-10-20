@@ -20,9 +20,9 @@ export default function ChargingSession() {
     let history = useHistory();
 
     function handleClick() {
-        if (button=="Stop") {
+        if (button==="Stop") {
             setTime(today.getHours() + ' : ' + today.getMinutes());
-            setSessionTitle("Aborted at " + {time});
+            setSessionTitle("Aborted at ");
             setButton("Finish");
         } else {
             history.push("/feedback");
