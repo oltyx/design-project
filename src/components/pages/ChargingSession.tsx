@@ -1,6 +1,6 @@
-import React from 'react';
-import { useHistory, withRouter  } from "react-router-dom";
-import { Button, Container, Row, Col, Label} from 'reactstrap'
+import React, {useState} from 'react';
+import { useHistory } from "react-router-dom";
+import { Container, Row, Col, Label} from 'reactstrap';
 
 import EvCar from '../../assets/ev_car.svg';
 import { GlobalButton } from '../styled/Button';
@@ -11,16 +11,29 @@ import '../../styles/chargingSession.scss';
 
 // Page for the charging session as it goes on ("Session Page" on Figma)
 export default function ChargingSession() {
+
+    const[sessionTitle, setSessionTitle] = useState("Departure at ");
+    const[button, setButton] = useState("Stop");
+    const[time, setTime] = useState("13 : 15");
+    var today = new Date();
+
     let history = useHistory();
 
     function handleClick() {
-        history.push("/feedback");
-    }
+        if (button=="Stop") {
+            setTime(today.getHours() + ' : ' + today.getMinutes());
+            setSessionTitle("Aborted at " + {time});
+            setButton("Finish");
+        } else {
+            history.push("/feedback");
+        }
+    };
+
     return(
     <Container className="chargingSession">
         <Row>
             <Col>
-                <Label className="chargingTitle">Departure at 13 : 15</Label>
+                <Label className="chargingTitle">{sessionTitle} {time}</Label>
             </Col>
         </Row>
         <Row className={"carRow"}>
@@ -43,7 +56,7 @@ export default function ChargingSession() {
         </Row>
         <Row className="buttonRow"> 
             <Col>
-                <GlobalButton text={"Stop"} onClick={handleClick}/>
+                <GlobalButton text={button} onClick={handleClick}/>
             </Col>
         </Row>
     </Container>
