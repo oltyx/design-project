@@ -5,9 +5,10 @@ import '../../assets/profile-steering/Conversion';
 import {WhToKm} from "../../assets/profile-steering/Conversion";
 import {Box} from "@mui/material";
 
+interface Energy {energy: number, setEnergy: (newValue: number) => void};
+
 // Slider for km and kWh, with conversion from Conversion.ts
-export default function EnergySelector() {
-    let [energy, setEnergy] = useState<number>(0);
+export default function EnergySelector({energy, setEnergy}:Energy) {
 
     return(<Box sx={{ width: 200 }}>
         <Slider defaultValue={energy} step={500} min={0} max={100000} onChange={

@@ -11,11 +11,16 @@ import {
     Area
 } from "recharts";
 import '../../assets/profile-steering/ProfileSteering';
+import {ChargingData} from "../../data/models/ChargingData";
+import {planEV} from "../../assets/profile-steering/ProfileSteering";
+import {ChargingMode} from "../../data/models/ChargingMode";
+
+interface Settings  {chargeRequired: number, endHr: number, endMin: number, mode: ChargingMode};
 
 // Graph with result from ProfileSteering.ts, plus price and CO2 emissions
-export default function Graph() {
-    // Put a template for the elements here, result of planning algo should go in uv
-    let data = [{name: "08:00", pv: 1500, uv: 2000}, {name: "08:15", pv: 2000, uv: 1000}];
+export default function Graph({chargeRequired, endHr, endMin, mode}: Settings) {
+    // Put a template for the elements here, result of planning algo should go in charge
+    let data: ChargingData[] = planEV(chargeRequired, [endHr, endMin], mode);
 
     return(<ComposedChart
         width={500}
@@ -29,7 +34,7 @@ export default function Graph() {
         }}
     >
         <defs>
-            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="colorCharge" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#ddee00" stopOpacity={0.8} />
                 <stop offset="95%" stopColor="#acb80d" stopOpacity={0.2} />
             </linearGradient>
@@ -50,11 +55,11 @@ export default function Graph() {
         <Legend />
         <Area
             type="monotone"
-            dataKey="uv"
+            dataKey="charge"
             stroke="#d0de10"
             fillOpacity={1}
-            fill="url(#colorUv)"
+            fill="url(#colorCharge)"
         />
-        <Bar dataKey="pv" barSize={40} fill="url(#colorPv)" />
+        <Bar dataKey="pv" barSize={500/data.length} fill="url(#colorPv)" />
     </ComposedChart>);
 }

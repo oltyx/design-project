@@ -5,10 +5,10 @@ import {Button} from "reactstrap";
 import {MdOfflineBolt, MdWbSunny} from "react-icons/all";
 import {Box} from "@mui/material";
 
+interface Mode {mode: ChargingMode, setMode: (newValue: ChargingMode) => void};
+
 // Selector for Fast mode or Smart mode
-export default function ModeSelector() {
-    // Set default setting to Smart Charging
-    const [mode, setMode] = useState<ChargingMode>(ChargingMode.Smart);
+export default function ModeSelector({mode, setMode}: Mode) {
 
     // Set a class based on being selected or deselected
     let fast: string = mode === ChargingMode.Fast? "selected" : "deselected";

@@ -1,4 +1,5 @@
 import {ChargingMode} from "../../data/models/ChargingMode";
+import {getSolarPower, ChargingData, zipData, getIntervals} from "../../data/models/ChargingData";
 
 // ---- BEGIN CONSTANTS ----
 
@@ -124,19 +125,25 @@ function discreteBufferPlanningSmart(desired: number[], chargeRequired: number, 
 /**
  * Retrieves all data needed and runs {@link #discreteBufferPlanningFast()} or {@link #discreteBufferPlanningSmart()}.
  */
-export function planEV(chargeRequired: number, endTime: [number, number], mode: ChargingMode): number[] {
-    const desired: number[] = [0,0,0,0,0,0,0,0,0]; // Fill in or retrieve from back-end
+export function planEV(chargeRequired: number, endTime: [number, number], mode: ChargingMode): ChargingData[] {
+    const desired: number[] = getSolarPower();
     const chargingPowers: number[] = CHARGING_POWERS; // Retrieve from back-end
 
     const now: Date = new Date();
     const startInterval: number = Math.round((now.getHours() * 60  + now.getMinutes()) / INTERVAL_LENGTH);
     const endInterval : number = Math.round((endTime[0] * 60  + endTime[1]) / INTERVAL_LENGTH);
 
+    let result: number[];
+
     switch (mode) {
         case ChargingMode.Fast:
-            return discreteBufferPlanningFast(desired.slice(startInterval, endInterval), chargeRequired, chargingPowers);
+            result = discreteBufferPlanningFast(desired.slice(startInterval, endInterval), chargeRequired, chargingPowers);
+            break;
         case ChargingMode.Smart:
-            return discreteBufferPlanningSmart(desired.slice(startInterval, endInterval), chargeRequired, chargingPowers);
+            result = discreteBufferPlanningSmart(desired.slice(startInterval, endInterval), chargeRequired, chargingPowers);
+            break;
         default: throw Error("ChargingMode not supported");
     }
+
+    return zipData(getIntervals().slice(startInterval, endInterval), desired.slice(startInterval, endInterval), result);
 }
