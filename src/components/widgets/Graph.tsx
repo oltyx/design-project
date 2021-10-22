@@ -55,11 +55,11 @@ export default function Graph({chargeRequired, endHr, endMin, mode}: Settings) {
         <Legend />
         <Area
             type="monotone"
-            dataKey="charge"
+            dataKey="pv"
             stroke="#d0de10"
             fillOpacity={1}
             fill="url(#colorCharge)"
         />
-        <Bar dataKey="pv" barSize={500/data.length} fill="url(#colorPv)" />
+        <Bar dataKey="charge" barSize={500/data.length} fill="url(#colorPv)" />
     </ComposedChart>);
 }
