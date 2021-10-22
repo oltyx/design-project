@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-//import Slider from '@mui/material/Slider';
+import Slider from '@mui/material/Slider';
+import { Container, Row, Col } from 'reactstrap';
 
 import '../../assets/profile-steering/Conversion';
 import {WhToKm} from "../../assets/profile-steering/Conversion";
-//import {Box} from "@mui/material";
+import '../../styles/schedule.scss';
 
 interface Energy {energy: number, setEnergy: (newValue: number) => void};
 
@@ -11,12 +12,23 @@ interface Energy {energy: number, setEnergy: (newValue: number) => void};
 export default function EnergySelector({energy, setEnergy}:Energy) {
     return(<></>)
 
-    // return(<Box sx={{ width: 200 }}>
-    //     <Slider defaultValue={energy} step={500} min={0} max={100000} onChange={
-    //         (event: Event, newValue: number | number[]) => {
-    //         setEnergy(newValue as number);
-    //         }
-    //     }/>
-    //     {energy / 1000} kWh = {Math.round(WhToKm(energy))} km
-    // </Box>);
-}
+    return(
+        <Container className="energySelector">
+            <Row className="energyBar">
+                <Col>
+                    <Slider className="slider" defaultValue={energy} step={500} min={0} max={100000} onChange={
+                        (event: Event, newValue: number | number[]) => {
+                        setEnergy(newValue as number);
+                        }
+                    }/>
+                </Col>
+            </Row>
+            <Row className="conversionText">
+                <Col>
+                    {energy / 1000} kWh = {Math.round(WhToKm(energy))} km
+                </Col>
+            </Row>
+
+        </Container>
+    );
+};
