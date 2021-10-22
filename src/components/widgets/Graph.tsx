@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {
     ComposedChart,
     Line,
@@ -14,15 +14,32 @@ import '../../assets/profile-steering/ProfileSteering';
 import {ChargingData} from "../../data/models/ChargingData";
 import {planEV} from "../../assets/profile-steering/ProfileSteering";
 import {ChargingMode} from "../../data/models/ChargingMode";
+import {getEmissions, getPrice} from "../../assets/profile-steering/PriceEmissions";
 
-interface Settings  {chargeRequired: number, endHr: number, endMin: number, mode: ChargingMode};
+interface Settings  {chargeRequired: number
+                    , endHr: number
+                    , endMin: number
+                    , mode: ChargingMode
+                    , setPrice: (newValue: number) => void
+                    , setEmissions: (newValue: number) => void
+                    }
 
 // Graph with result from ProfileSteering.ts, plus price and CO2 emissions
-export default function Graph({chargeRequired, endHr, endMin, mode}: Settings) {
-    // Put a template for the elements here, result of planning algo should go in charge
-    let data: ChargingData[] = planEV(chargeRequired, [endHr, endMin], mode);
+export default function Graph({chargeRequired, endHr, endMin, mode, setPrice, setEmissions}: Settings) {
+    const deps = [chargeRequired, endHr, endMin, mode];
 
-    return(<ComposedChart
+    // Put a template for the elements here, result of planning algo should go in charge
+    const data: ChargingData[] = useMemo<ChargingData[]>(() => {
+        return planEV(chargeRequired, [endHr, endMin], mode)
+    }, deps);
+
+    useEffect(() => {
+        setPrice(getPrice(data));
+        setEmissions(getEmissions(data));
+    }, deps)
+
+    return(<div>
+    <ComposedChart
         width={500}
         height={400}
         data={data}
@@ -61,5 +78,5 @@ export default function Graph({chargeRequired, endHr, endMin, mode}: Settings) {
             fill="url(#colorCharge)"
         />
         <Bar dataKey="charge" barSize={500/data.length} fill="url(#colorPv)" />
-    </ComposedChart>);
+    </ComposedChart></div>);
 }

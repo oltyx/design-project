@@ -10,6 +10,7 @@ import Graph from '../widgets/Graph';
 import {ChargingMode} from "../../data/models/ChargingMode";
 import {GlobalButton} from "../styled/Button";
 import {useHistory} from "react-router-dom";
+import {getEmissions, getPrice} from "../../assets/profile-steering/PriceEmissions";
 
 const DEFAULT_TIME = {hour: 17, minutes: 30};
 const DEFAULT_CHARGE: number = 0;
@@ -27,8 +28,11 @@ export default function Schedule() {
     const [minutes, setMinutes] = useState<number>(DEFAULT_TIME.minutes);
     const [energy, setEnergy] = useState<number>(DEFAULT_CHARGE);
     const [mode, setMode] = useState<ChargingMode>(DEFAULT_MODE);
+    const [price, setPrice] = useState<number>(0);
+    const [emissions, setEmissions] = useState<number>(0);
 
     return(<body>
+        <div>Price: €{price}    Emissions: {emissions}g CO2</div>
         Select Departure Time
         <TimeSelector hour={hour} setHour={setHour} minutes={minutes} setMinutes={setMinutes} />
         Select Energy Consumption
@@ -36,7 +40,7 @@ export default function Schedule() {
         Select Charging Mode
         <ModeSelector mode={mode} setMode={setMode}/>
         Charging Schedule
-        <Graph chargeRequired={energy} endHr={hour} endMin={minutes} mode={mode}/>
+        <Graph chargeRequired={energy} endHr={hour} endMin={minutes} mode={mode} setPrice={setPrice} setEmissions={setEmissions}/>
         <GlobalButton text={"Go"} onClick={handleClick}/>
     </body>)
 }
