@@ -10,8 +10,6 @@ interface Energy {energy: number, setEnergy: (newValue: number) => void};
 
 // Slider for km and kWh, with conversion from Conversion.ts
 export default function EnergySelector({energy, setEnergy}:Energy) {
-    return(<></>)
-
     return(
         <Container className="energySelector">
             <Row className="energyBar">

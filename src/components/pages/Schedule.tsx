@@ -56,7 +56,7 @@ export default function Schedule() {
             <Row className="graphRow">
                 <Col>
                     Charging Schedule
-                    <Graph chargeRequired={energy} endHr={hour} endMin={minutes} mode={mode}/>
+                    <Graph chargeRequired={energy} endHr={hour} endMin={minutes} mode={mode} setPrice={setPrice} setEmissions={setEmissions}/>
                 </Col>
             </Row>
             <Row className="goButtonRow">
