@@ -9,19 +9,20 @@
     align-items: center;
     background: $global_background_color;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: start;
 
     .ratedButton {
-            border: none;
+            border: none !important;
             color: $feedback_vote;
-            background: none;
+            background: none !important;
+            background-color: none !important;
     }
 
     .unratedButton {
             border: none !important;
             color: $slider_circle_border;
-            background-color: none;
-            background: none;
+            background-color: none !important;
+            background: none !important;
     }
 
     .commentsContainer {
@@ -49,15 +50,9 @@
         background: none;
     }
 
-    .formFlexbox {
-        height: 100%;
-        max-height: 100%;
-
-        width: 100%;
-        min-width: 100%;
-        display: flex;
+    .rowrow {
         align-items: center;
-        flex-direction: column;
+
     }
 
     
