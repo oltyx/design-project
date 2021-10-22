@@ -31,7 +31,7 @@ export function getPrice(data: ChargingData[]): number {
             data[i].charge), Math.max(0, data[i].charge - data[i].pv)];
         res += PRICE_SOLAR * solar + PRICE_GRID * grid;
     }
-    return Math.round(res * 100) / 100;
+    return res;
 }
 
 export function getEmissions(data: ChargingData[]): number {
@@ -41,5 +41,5 @@ export function getEmissions(data: ChargingData[]): number {
             Math.max(0, data[i].charge - data[i].pv)];
         res += CO2_EMISSIONS_SOLAR * solar + CO2_EMISSIONS_GRID * grid;
     }
-    return Math.round(res);
+    return res;
 }

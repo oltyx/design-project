@@ -32,7 +32,7 @@ export default function Schedule() {
     const [emissions, setEmissions] = useState<number>(0);
 
     return(<body>
-        <div>Price: €{price}    Emissions: {emissions}g CO2</div>
+        <div>Price: €{price.toFixed(2)}    Emissions: {emissions.toFixed(0)}g CO2</div>
         Select Departure Time
         <TimeSelector hour={hour} setHour={setHour} minutes={minutes} setMinutes={setMinutes} />
         Select Energy Consumption
