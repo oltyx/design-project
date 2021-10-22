@@ -39,7 +39,7 @@
                 justify-content: end;
                 padding: 0;
                 margin: 0;
-                max-width: 25%;
+                max-width: 15%;
             }
 
             .barCol {
@@ -48,6 +48,9 @@
                 min-width: 75%;
             }
 
+            .progressBar {
+                background-color: #c9cccf;
+            }
         }
 
         
@@ -55,7 +58,7 @@
 
     .statsContainer {
         width: 100%;
-        height: 11.5rem;
+        height: auto;
         border-radius: 0.5rem;
         border: $global_border_color;
         background: $card_color;
