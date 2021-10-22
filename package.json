@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
+    "@mui/material": "^5.0.4",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -17,6 +20,8 @@
     "react-scripts": "4.0.3",
     "reactstrap": "^8.10.0",
     "styled-components": "^5.3.1",
+    "recharts": "2.0.6",
+    "sass": "^1.42.1",
     "typeface-aldrich": "^1.1.13",
     "web-vitals": "^1.1.2"
   },

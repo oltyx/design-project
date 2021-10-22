@@ -1,4 +1,5 @@
 import {ChargingMode} from "../../data/models/ChargingMode";
+import {getSolarPower, ChargingData, zipData, getIntervals} from "../../data/models/ChargingData";
 
 // ---- BEGIN CONSTANTS ----
 
@@ -77,7 +78,7 @@ function discreteBufferPlanningSmart(desired: number[], chargeRequired: number, 
     for (let i:number = 0; i < desired.length;i++) {
         // Calculate the first slopes
         // See if the next slope fits:
-        if (powerlimitsUpper.length == 0 || chargingPowers[1] <= powerlimitsUpper[i]) {
+        if (powerlimitsUpper.length === 0 || chargingPowers[1] <= powerlimitsUpper[i]) {
             const slope: number = (prices[i] * chargingPowers[1] + beta * Math.pow(chargingPowers[1] - desired[i], 2)
                                 - (prices[i] * chargingPowers[0] + beta * Math.pow(chargingPowers[0] - desired[i], 2))
                                 ) / (chargingPowers[1] - chargingPowers[0]);
@@ -104,7 +105,7 @@ function discreteBufferPlanningSmart(desired: number[], chargeRequired: number, 
         slopes.pop();
 
         if (j < chargingPowers.length - 1) {
-            if (powerlimitsUpper.length == 0 || chargingPowers[j+1] <= powerlimitsUpper[i]) {
+            if (powerlimitsUpper.length === 0 || chargingPowers[j+1] <= powerlimitsUpper[i]) {
                 // Add new entry to replace
                 const slope: number = (prices[i] * chargingPowers[j+1] + beta * Math.pow(chargingPowers[j+1] - desired[i], 2)
                                     - (prices[i] * chargingPowers[j] + beta * Math.pow(chargingPowers[j]  - desired[i], 2) )
@@ -124,19 +125,25 @@ function discreteBufferPlanningSmart(desired: number[], chargeRequired: number, 
 /**
  * Retrieves all data needed and runs {@link #discreteBufferPlanningFast()} or {@link #discreteBufferPlanningSmart()}.
  */
-export function planEV(chargeRequired: number, endTime: [number, number], mode: ChargingMode): number[] {
-    const desired: number[] = [0,0,0,0,0,0,0,0,0]; // Fill in or retrieve from back-end
+export function planEV(chargeRequired: number, endTime: [number, number], mode: ChargingMode): ChargingData[] {
+    const desired: number[] = getSolarPower();
     const chargingPowers: number[] = CHARGING_POWERS; // Retrieve from back-end
 
     const now: Date = new Date();
     const startInterval: number = Math.round((now.getHours() * 60  + now.getMinutes()) / INTERVAL_LENGTH);
     const endInterval : number = Math.round((endTime[0] * 60  + endTime[1]) / INTERVAL_LENGTH);
 
+    let result: number[];
+
     switch (mode) {
         case ChargingMode.Fast:
-            return discreteBufferPlanningFast(desired.slice(startInterval, endInterval), chargeRequired, chargingPowers);
+            result = discreteBufferPlanningFast(desired.slice(startInterval, endInterval), chargeRequired, chargingPowers);
+            break;
         case ChargingMode.Smart:
-            return discreteBufferPlanningSmart(desired.slice(startInterval, endInterval), chargeRequired, chargingPowers);
+            result = discreteBufferPlanningSmart(desired.slice(startInterval, endInterval), chargeRequired, chargingPowers);
+            break;
         default: throw Error("ChargingMode not supported");
     }
+
+    return zipData(getIntervals().slice(startInterval, endInterval), desired.slice(startInterval, endInterval), result);
 }
