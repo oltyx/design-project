@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import { Container, Row, Col} from 'reactstrap';
 
 import '../widgets/TimeSelector';
@@ -22,9 +22,9 @@ const DEFAULT_MODE: ChargingMode = ChargingMode.Smart;
 export default function Schedule() {
     const history = useHistory();
 
-    function handleClick() {
+    const handleClick = useCallback(() => {
         history.push("/session");
-    }
+    }, [history])
 
     const [hour , setHour] = useState<number>(DEFAULT_TIME.hour);
     const [minutes, setMinutes] = useState<number>(DEFAULT_TIME.minutes);
