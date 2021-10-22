@@ -91,7 +91,8 @@ function discreteBufferPlanningSmart(desired: number[], chargeRequired: number, 
     }
 
     while (remainingCharge > 0.001 && slopes.length > 0) {
-        slopes.sort();
+        // sort ascending instead of descending
+        slopes.sort((m, n) => m[0] - n[0]);
 
         const i = slopes[0][1][0];
         const j = slopes[0][1][1];
@@ -102,7 +103,8 @@ function discreteBufferPlanningSmart(desired: number[], chargeRequired: number, 
         result[i] += sigma;
         remainingCharge -= sigma;
 
-        slopes.pop();
+        // delete first element
+        slopes.splice(0,1);
 
         if (j < chargingPowers.length - 1) {
             if (powerlimitsUpper.length === 0 || chargingPowers[j+1] <= powerlimitsUpper[i]) {

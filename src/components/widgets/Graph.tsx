@@ -8,7 +8,7 @@ import {
     CartesianGrid,
     Tooltip,
     Legend,
-    Area
+    Area, ResponsiveContainer
 } from "recharts";
 import '../../assets/profile-steering/ProfileSteering';
 import {ChargingData} from "../../data/models/ChargingData";
@@ -39,9 +39,8 @@ export default function Graph({chargeRequired, endHr, endMin, mode, setPrice, se
     }, deps)
 
     return(<div>
-    <ComposedChart
-        width={500}
-        height={400}
+    <ResponsiveContainer aspect={500/400}>
+        <ComposedChart
         data={data}
         margin={{
             top: 20,
@@ -78,5 +77,6 @@ export default function Graph({chargeRequired, endHr, endMin, mode, setPrice, se
             fill="url(#colorCharge)"
         />
         <Bar dataKey="charge" barSize={500/data.length} fill="url(#colorPv)" />
-    </ComposedChart></div>);
+    </ComposedChart>
+    </ResponsiveContainer></div>);
 }
