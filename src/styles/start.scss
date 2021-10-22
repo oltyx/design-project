@@ -15,7 +15,6 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-   
 
     .carStyle {
       width: 100%;
@@ -30,15 +29,27 @@
     justify-content: flex-end;
     align-items: center;
     flex-direction: column;
-    
   }
-}
 
-.responsiveTitle {
-  font-size: 5vh;
-}
+  .startRow4 {
+    display: flex;
+    height:fit-content;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
 
-.responsiveSubtitle {
-  margin-bottom: 2rem;
-  font-size: 2.5vh;
+    .col {
+      width: auto;
+    }
+  }
+
+  .responsiveTitle {
+    font-size: 5vh;
+  }
+
+  .responsiveSubtitle {
+    font-size: 2.5vh;
+    text-align: center;
+  }
 }
