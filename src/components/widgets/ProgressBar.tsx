@@ -18,7 +18,7 @@ export default function ProgressBar({style, ...props}: ProgressBarProps) {
         <Container className="progressBarContainer">
             <Row className="w-100 progressBarRow">
                 <Col className="barCol">
-                    <Progress barStyle={iconStyle} value={44}/>
+                    <Progress barStyle={iconStyle} className={"progressBar"} value={44}/>
                 </Col>
                  <Col className={"percentageCol"}>
                     <div>44%</div>
