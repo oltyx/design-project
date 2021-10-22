@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Label} from 'reactstrap';
 
@@ -12,22 +12,25 @@ import '../../styles/chargingSession.scss';
 // Page for the charging session as it goes on ("Session Page" on Figma)
 export default function ChargingSession() {
 
-    const[sessionTitle, setSessionTitle] = useState("Departure at ");
-    const[button, setButton] = useState("Stop");
-    const[time, setTime] = useState("13 : 15");
-    var today = new Date();
+    const [sessionTitle, setSessionTitle] = useState("Departure at ");
+    const [button, setButton] = useState("Stop");
+    const [time, setTime] = useState("13 : 15");
+    const [style, setStyle] = useState("linear-gradient(to bottom, #9AE09A 0%, #44BE44 100%)")
 
-    let history = useHistory();
+    const today = new Date();
 
-    function handleClick() {
+    const history = useHistory();
+
+    const handleClick = useCallback(() => {
         if (button==="Stop") {
             setTime(today.getHours() + ' : ' + today.getMinutes());
             setSessionTitle("Aborted at ");
             setButton("Finish");
+            setStyle("linear-gradient(to bottom, #F07878 0%, #9D1616 100%)")
         } else {
             history.push("/feedback");
         }
-    };
+    }, [history, style, sessionTitle, button, time]);
 
     return(
     <Container className="chargingSession">
@@ -44,9 +47,9 @@ export default function ChargingSession() {
                 />
             </Col>
         </Row>
-        <Row>
+        <Row className={"w-100"}>
             <Col>
-                <ProgressBar/>
+                <ProgressBar style={style}/>
             </Col>
         </Row>
         <Row>

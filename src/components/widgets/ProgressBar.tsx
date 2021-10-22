@@ -4,18 +4,23 @@ import { Progress, Container, Row, Col } from 'reactstrap';
 
 import '../../styles/lightMode.scss';
 import '../../styles/chargingSession.scss';
-// Progress bar for the charging
-export default function ProgressBar() {
 
-    const iconStyle = { backgroundColor: "red" }
+
+interface ProgressBarProps {
+    style: string,
+}
+// Progress bar for the charging
+export default function ProgressBar({style, ...props}: ProgressBarProps) {
+
+    const iconStyle = { backgroundImage: style, width: "100%", borderColor: "black" }
 
     return(
         <Container className="progressBarContainer">
-            <Row className="w-100">
-                <Col className="progressBar">
+            <Row className="w-100 progressBarRow">
+                <Col className="barCol">
                     <Progress barStyle={iconStyle} value={44}/>
                 </Col>
-                 <Col>
+                 <Col className={"percentageCol"}>
                     <div>44%</div>
                 </Col> 
             </Row>

@@ -9,7 +9,7 @@ import { GlobalButton } from '../styled/Button';
 // Landing page
 export default function Start() {
     
-  let history = useHistory();
+  const history = useHistory();
 
   function handleClick() {
     history.push("/schedule");

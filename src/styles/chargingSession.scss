@@ -28,7 +28,29 @@
         flex-direction: column;
         align-items: center;
         column-gap: 10px;
-        margin-top: 1rem;
+
+        .progressBarRow {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            
+            .percentageCol {
+                display: flex;
+                justify-content: end;
+                padding: 0;
+                margin: 0;
+                max-width: 25%;
+            }
+
+            .barCol {
+                padding: 0;
+                margin: 0;
+                min-width: 75%;
+            }
+
+        }
+
+        
     }
 
     .statsContainer {
@@ -71,9 +93,9 @@
     margin-bottom: 1rem;
 }
 
-.progressBar {
-    background-color: $slider_color;
-}
+// .progressBar {
+//     background-color: $slider_color;
+// }
 
 //  .progressBar .progress-bar{
 //      background-color: $slider_color;
