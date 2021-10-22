@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { Container, Row, Col} from 'reactstrap';
 
 import '../widgets/TimeSelector';
 import '../widgets/EnergySelector';
@@ -11,6 +12,7 @@ import {ChargingMode} from "../../data/models/ChargingMode";
 import {GlobalButton} from "../styled/Button";
 import {useHistory} from "react-router-dom";
 import {getEmissions, getPrice} from "../../assets/profile-steering/PriceEmissions";
+import '../../styles/schedule.scss';
 
 const DEFAULT_TIME = {hour: 17, minutes: 30};
 const DEFAULT_CHARGE: number = 0;
@@ -31,16 +33,37 @@ export default function Schedule() {
     const [price, setPrice] = useState<number>(0);
     const [emissions, setEmissions] = useState<number>(0);
 
-    return(<body>
-        <div>Price: €{price.toFixed(2)}    Emissions: {emissions.toFixed(0)}g CO2</div>
-        Select Departure Time
-        <TimeSelector hour={hour} setHour={setHour} minutes={minutes} setMinutes={setMinutes} />
-        Select Energy Consumption
-        <EnergySelector energy={energy} setEnergy={setEnergy}/>
-        Select Charging Mode
-        <ModeSelector mode={mode} setMode={setMode}/>
-        Charging Schedule
-        <Graph chargeRequired={energy} endHr={hour} endMin={minutes} mode={mode} setPrice={setPrice} setEmissions={setEmissions}/>
-        <GlobalButton text={"Go"} onClick={handleClick}/>
-    </body>)
-}
+    return(
+        <Container className="schedule">
+            <Row>
+                <Col>
+                    Select Departure Time
+                    <TimeSelector hour={hour} setHour={setHour} minutes={minutes} setMinutes={setMinutes} />
+                </Col>
+            </Row>
+            <Row className="energyRow">
+                <Col>
+                    Select Energy Consumption
+                    <EnergySelector energy={energy} setEnergy={setEnergy}/>
+                </Col>
+            </Row>
+            <Row className="modeRow">
+                <Col>
+                    Select Charging Mode
+                    <ModeSelector mode={mode} setMode={setMode}/>
+                </Col>
+            </Row>
+            <Row className="graphRow">
+                <Col>
+                    Charging Schedule
+                    <Graph chargeRequired={energy} endHr={hour} endMin={minutes} mode={mode} setPrice={setPrice} setEmissions={setEmissions}/>
+                </Col>
+            </Row>
+            <Row className="goButtonRow">
+                <Col>
+                    <GlobalButton text={"Go"} onClick={handleClick}/>
+                </Col>
+            </Row>
+        </Container>
+    );
+};
