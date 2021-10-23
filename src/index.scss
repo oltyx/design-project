@@ -15,10 +15,11 @@ code {
 }
 html, body, #app, #app>div, #root, .App {
   height: 100vh;
-  max-height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   min-width: 100vw;
-  // overflow: hidden;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 * {

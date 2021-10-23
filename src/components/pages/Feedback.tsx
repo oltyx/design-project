@@ -64,9 +64,6 @@ export default function Feedback(props: FeedbackProps) {
                                 <Rating></Rating>
                                 <Comments/>
                             </FormGroup>
-                            {/* <FormGroup>
-                                <Comments/>
-                            </FormGroup> */}
                             <GlobalButton text={"Submit"} onClick={handleClick}/>
                     </Form>
                 </FormProvider>
