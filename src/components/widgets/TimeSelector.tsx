@@ -1,5 +1,5 @@
 import React, {MutableRefObject, useCallback, useEffect, useRef} from 'react';
-import { Input } from 'reactstrap';
+import { Col, Container, Input, Row } from 'reactstrap';
 
 import '../../styles/timeSelector.scss';
 
@@ -65,30 +65,27 @@ export default function TimeSelector({ hour, setHour, minutes, setMinutes, ...pr
 
     return (
 
-        <div className="time-picker">
-            <div className="hour">
-                
-                {/* <div ref={hrUpRef} className="hr-up"/> */}
+        <Container className="time-picker">
+            <Row className="hour">
+                <Col>
                     <Input disabled
-                        //    ref={hourInputRef}
-                           type="number"
-                           className="hr"
-                           value={hour}/>
-                {/* <div ref={hrDownRef} className="hr-down"/> */}
-            </div>
-
-            <div className="separator">:</div>
-
-            <div className="minute">
-                {/* <div ref={minUpRef} className="min-up"/> */}
+                        type="number"
+                        className="hr"
+                        value={hour}/>
+                </Col>
+                <Col>
+                <div className="separator">:</div>
+                </Col>
+                <Col>
+                <div className="minute">
                     <Input disabled
-                        //    ref={minutesInputRef}
                            type="number"
                            className="min"
                            value={minutes}/>
-                {/* <div ref={minDownRef} className="min-down"/> */}
-            </div>
-        </div>
+                           </div>
+                </Col>            
+            </Row>
+        </Container>
 
     );
 }

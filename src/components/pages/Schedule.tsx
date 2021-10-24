@@ -34,7 +34,7 @@ export default function Schedule() {
     const [emissions, setEmissions] = useState<number>(0);
 
     return(
-        <Container className="schedule">
+        <Container className="schedule" fluid={true}>
             <Row>
                 <Col>
                     Select Departure Time

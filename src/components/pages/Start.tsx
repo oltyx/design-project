@@ -18,14 +18,14 @@ export default function Start({name, ...props}:StartProps) {
 
     return(
         <Container className={"startPage"} fluid={true}>
-            <Row >
+            <Row style={{marginTop: "2rem"}}>
                 <Col>
                     <h1 className={"responsiveTitle"}>
                         Hello, {name}!
                     </h1>
                 </Col>
             </Row>
-            <Row className={"carRow"}>
+            <Row className={"carRow"} style={{alignContent: "center", width: "100%", height: "100%"}}>
                 <Col>
                     <img className={"carStyle"}
                          src={EvCar}

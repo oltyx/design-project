@@ -1,16 +1,21 @@
 @import "lightMode.scss";
 
 .schedule {
-    min-height: 100%;
+    position: fixed; 
+    overflow-y: scroll;
+    top: 0; 
+    right: 0; 
+    bottom: 0; 
+    left: 0; 
+    // min-height: 100%;
     // max-height: 100%;
     width: 100%;
     // min-width: 100%;
     display: flex;
-    align-items: center;
+    // align-items: center;
     background: $global_background_color;
     flex-direction: column;
-    justify-content: center;
-    overflow-y: scroll;
+    // justify-content: center;
 
     .energyRow {
         width: 100%;

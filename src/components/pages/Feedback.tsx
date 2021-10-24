@@ -55,7 +55,7 @@ export default function Feedback(props: FeedbackProps) {
                     <Button className="exitButton" onClick={handleClick}><BsX style={{height:"5vh", width: "5vh"}}/></Button>
                 </Col>
             </Row>
-            <Row className={"h-100 rowrow"}>
+            <Row style={{alignItems: "center", height: "100%"}}>
                 <Col>
                     <FormProvider {...form}>
                     <Form className={"feedbackForm"} onSubmit={form.handleSubmit(onSubmit)}>                            
