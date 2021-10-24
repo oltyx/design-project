@@ -34,12 +34,12 @@ export default function ChargingSession() {
 
     return(
     <Container className="chargingSession">
-        <Row>
+        <Row style={{marginTop: "2rem"}}>
             <Col>
-                <Label className="chargingTitle">{sessionTitle} {time}</Label>
+                <h1 className="chargingTitle">{sessionTitle} {time}</h1>
             </Col>
         </Row>
-        <Row className={"carRow"}>
+        <Row className={"carRow"} style={{alignContent: "center", width: "100%"}}>
             <Col>
                 <img className={"carStyle"}
                     src={EvCar}

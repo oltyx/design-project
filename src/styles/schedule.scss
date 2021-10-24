@@ -18,7 +18,7 @@
     // justify-content: center;
 
     .energyRow {
-        width: 100%;
+        // width: 100%;
         margin-top: 1rem;
     
     }
@@ -34,34 +34,33 @@
 
     .energySelector {
         width: 100%;
-        border-radius: 0.5rem;
-        border: $global_border_color;
+        border-radius: $global_border_radius;
+        border: $global_border_color !important;
         background: $card_color;
         font-family: $family-font;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        box-shadow: $global_shadow;
 
-       .energyBar {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            margin-top: 1rem;
-
-           
-       }
+    //    .energyBar {
+    //         width: 100%;
+    //         display: flex;
+    //         justify-content: center;
+    //         align-items: center;
+    //         flex-direction: column;
+    //         margin-top: 1rem;
+    //   }
        
-       .conversionText {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            margin-bottom: 1rem;
+    //    .conversionText {
+    //         display: flex;
+    //         justify-content: center;
+    //         align-items: center;
+    //         flex-direction: column;
+    //         margin-bottom: 1rem;
 
-       }
+    //    }
     }
     .slider {
         background-color: $slider-color;
@@ -76,30 +75,51 @@
         //flex-direction: column;
 
         .fastCol {
-            width: 100%;
-            padding: 0%;
+            padding-right: 0;
         }
 
         .solarCol {
-            width: 100%;
-            padding: 0%;
+            padding-left: 0;
         }
 
         .selected {
             width: 100%;
             height: 100%;
-            background-color: $green_button_color;
+            background: $green_button_color;
+            box-shadow: $global_shadow !important;
+            border-color: $global_border_color !important;
+            .modeText {
+                color: white;
+                font-size: 2vh; 
+             }
+             
+             .modeIcon {
+                color: white;
+                font-size: 5vh; 
+             }
         }
 
         .deselected {
             width: 100%;
             height: 100%;
-            background-color: $card-color;
+            background: $card-color;
+            box-shadow: $global_shadow !important;
+            border-color: $global_border_color !important;
+            .modeText {
+               color: $global_text_color;
+               font-size: 2vh; 
+            }
+
+            .modeIcon {
+                color: $global_text_color;
+                font-size: 5vh; 
+             }
+            
         }
     }
 
     .goButtonRow {
         text-align: center;
-        margin-bottom: 2rem;
+        // margin-bottom: 2rem;
     }
 }

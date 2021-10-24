@@ -13,21 +13,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
     background: $global_background_color;
 
-    .carRow {
-        display: flex;
-        height: 100%;
-        width: 100%;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
+    // .carRow {
+    //     display: flex;
+    //     height: 100%;
+    //     width: 100%;
+    //     justify-content: center;
+    //     align-items: center;
+    //     flex-direction: column;
        
-        .carStyle {
-          width: 100%;
-          height: 100%;
-        }
-    }
+    //     .carStyle {
+    //       width: 100%;
+    //       height: 100%;
+    //     }
+    // }
    
     .progressBarContainer {
         display: flex;
@@ -79,24 +80,24 @@
     }
 }
 
-.chargingTitle {
-    font-size: 4vh;
-    margin-top: 4rem;
-    margin-bottom: 1rem;
-}
+// .chargingTitle {
+//     font-size: 4vh;
+//     margin-top: 4rem;
+//     margin-bottom: 1rem;
+// }
 
 .table {
     font-size: 1.8vh;        
 }
 
-.statsTitle {
-    font-size: 2.5vh;
-    margin-top: 1.5rem;
-}
+// .statsTitle {
+//     font-size: 2.5vh;
+//     margin-top: 1.5rem;
+// }
 
-.finishTime {
-    font-size: 4.5vh;
-}
+// .finishTime {
+//     font-size: 4.5vh;
+// }
 
 .buttonRow {
     margin-bottom: 1rem;

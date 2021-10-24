@@ -12,7 +12,7 @@ interface Energy {energy: number, setEnergy: (newValue: number) => void};
 export default function EnergySelector({energy, setEnergy}:Energy) {
     return(
         <Container className="energySelector">
-            <Row className="energyBar">
+            <Row className="energyBar" style={{width: "100%"}}>
                 <Col>
                     <Slider className="slider" defaultValue={energy} step={500} min={0} max={100000} onChange={
                         (event: Event, newValue: number | number[]) => {
@@ -21,7 +21,7 @@ export default function EnergySelector({energy, setEnergy}:Energy) {
                     }/>
                 </Col>
             </Row>
-            <Row className="conversionText">
+            <Row className="conversionText" style={{marginBottom: "1rem"}}>
                 <Col>
                     {energy / 1000} kWh = {Math.round(WhToKm(energy))} km
                 </Col>

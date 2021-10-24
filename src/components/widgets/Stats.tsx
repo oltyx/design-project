@@ -9,12 +9,12 @@ export default function Stats() {
     <Container className="statsContainer">
         <Row>
             <Col>
-                <Label className="statsTitle">Predicted finish time</Label>
+                <h1 className={"statsTitle"} style={{fontSize: "2.5vh"}} >Predicted finish time</h1>
             </Col>
         </Row> 
         <Row>
             <Col>
-                <Label className="finishTime">12 : 50</Label>
+                <h1 className="finishTime" style={{fontSize: "4.5vh"}}>12 : 50</h1>
             </Col>
         </Row>    
         <Row>
@@ -22,16 +22,24 @@ export default function Stats() {
                 <Table className="table">
                     <tbody>
                     <tr>
-                        <td>kWh charged . . . . . . . .</td>
-                        <td>13.2 out of 30</td>
+                        <td style={{fontSize: "1.5vh"}}>kWh charged . . . . . . . .</td>
+                        <td style={{fontSize: "1.5vh"}}>13.2 out of 30</td>
                     </tr>
                     <tr>
-                        <td>km charged . . . . . . . . .</td>
-                        <td>22 out of 50</td>
+                        <td style={{fontSize: "1.5vh"}}>km charged . . . . . . . . .</td>
+                        <td style={{fontSize: "1.5vh"}}>22 out of 50</td>
                     </tr>
                     <tr>
-                        <td>Mode . . . . . . . . . . . . . . .</td>
-                        <td>Solar power</td>
+                        <td style={{fontSize: "1.5vh"}}>Mode . . . . . . . . . . . . . . .</td>
+                        <td style={{fontSize: "1.5vh"}}>Solar power</td>
+                    </tr>
+                    <tr>
+                        <td style={{fontSize: "1.5vh"}}>Price . . . . . . . .</td>
+                        <td style={{fontSize: "1.5vh"}}>4.20 euros</td>
+                    </tr>
+                    <tr>
+                        <td style={{fontSize: "1.5vh"}}>CO2 emmisions . . . . . . . . .</td>
+                        <td style={{fontSize: "1.5vh"}}>57</td>
                     </tr>
                     </tbody>
                 </Table>
