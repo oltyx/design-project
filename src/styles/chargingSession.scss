@@ -52,10 +52,8 @@
                 background-color: #c9cccf;
             }
         }
-
-        
     }
-
+    
     .statsContainer {
         width: 100%;
         height: auto;
@@ -69,7 +67,6 @@
         align-items: center;
         flex-direction: column;
         margin-bottom:4rem;
-        
     }
 }
 
@@ -96,14 +93,10 @@
     margin-bottom: 1rem;
 }
 
-// .progressBar {
-//     background-color: $slider_color;
-// }
+.cancelButton{
+    background: $cancel_button_color;
+}
 
-//  .progressBar .progress-bar{
-//      background-color: $slider_color;
-//  }
-
-//  .progress-bar{
-//     background-color: $slider_color;
-// }
+.yesButton {
+    background: $green_button_color;
+}
