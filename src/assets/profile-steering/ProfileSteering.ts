@@ -127,7 +127,7 @@ function discreteBufferPlanningSmart(desired: number[], chargeRequired: number, 
 /**
  * Retrieves all data needed and runs {@link #discreteBufferPlanningFast()} or {@link #discreteBufferPlanningSmart()}.
  */
-export function planEV(chargeRequired: number, endTime: [number, number], mode: ChargingMode): ChargingData[] {
+export function planEV(chargeRequired: number, endTime: [number, number], mode: ChargingMode|null): ChargingData[] {
     const desired: number[] = getSolarPower();
     const chargingPowers: number[] = CHARGING_POWERS; // Retrieve from back-end
 
@@ -143,6 +143,9 @@ export function planEV(chargeRequired: number, endTime: [number, number], mode: 
             break;
         case ChargingMode.Smart:
             result = discreteBufferPlanningSmart(desired.slice(startInterval, endInterval), chargeRequired, chargingPowers);
+            break;
+        case null:
+            result = new Array<number>(endInterval - startInterval).fill(0);
             break;
         default: throw Error("ChargingMode not supported");
     }
