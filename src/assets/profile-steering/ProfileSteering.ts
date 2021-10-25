@@ -145,7 +145,7 @@ export function planEV(chargeRequired: number, endTime: [number, number], mode: 
             result = discreteBufferPlanningSmart(desired.slice(startInterval, endInterval), chargeRequired, chargingPowers);
             break;
         case null:
-            result = new Array<number>(endInterval - startInterval).fill(0);
+            result = new Array<number>(Math.max(0, endInterval - startInterval)).fill(0);
             break;
         default: throw Error("ChargingMode not supported");
     }
