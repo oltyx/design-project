@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import { useHistory } from "react-router-dom";
-import { Container, Row, Col, Label, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Container, Row, Col, Label, Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 
 import EvCar from '../../assets/ev_car.svg';
 import { GlobalButton } from '../styled/Button';
@@ -71,12 +71,12 @@ export default function ChargingSession() {
             </Row>
             <Row> 
                 <Col >
-                    <Modal className="popUp" isOpen={modal}  >
-                        <ModalHeader >Confirmation</ModalHeader>
-                        <ModalBody>
+                    <Modal isOpen={modal}>
+                        <ModalHeader style={{background: "rgba(255, 255, 255, 0.5)"}}>Confirmation</ModalHeader>
+                        <ModalBody style={{background: "rgba(255, 255, 255, 0.5)"}}>
                             Are you sure you want to abort the charging session?
                         </ModalBody>
-                        <ModalFooter>
+                        <ModalFooter style={{background: "rgba(255, 255, 255, 0.5)"}}>
                             <Button className="yesButton" onClick={handleYes}>Yes</Button>
                             <Button className="cancelButton" onClick={handleCancel}>Cancel</Button>
                         </ModalFooter>
