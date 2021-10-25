@@ -16,7 +16,7 @@ import '../../styles/schedule.scss';
 
 const DEFAULT_TIME = {hour: 17, minutes: 30};
 const DEFAULT_CHARGE: number = 0;
-const DEFAULT_MODE: ChargingMode = ChargingMode.Smart;
+const DEFAULT_MODE: ChargingMode | null = null;
 
 // Scheduling page
 export default function Schedule() {
@@ -29,7 +29,7 @@ export default function Schedule() {
     const [hour , setHour] = useState<number>(DEFAULT_TIME.hour);
     const [minutes, setMinutes] = useState<number>(DEFAULT_TIME.minutes);
     const [energy, setEnergy] = useState<number>(DEFAULT_CHARGE);
-    const [mode, setMode] = useState<ChargingMode>(DEFAULT_MODE);
+    const [mode, setMode] = useState<ChargingMode | null>(DEFAULT_MODE);
     const [price, setPrice] = useState<number>(0);
     const [emissions, setEmissions] = useState<number>(0);
 
