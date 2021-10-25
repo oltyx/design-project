@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Input } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 
 import '../../styles/feedback.scss';
 import TextField from '../styled/TextField';
 import { Checkbox } from '../styled/Checkbox';
 
 
-export default function Comments() {
+interface CommentsProps {
+    submitted: boolean,
+}
+
+export default function Comments({submitted, ...props}: CommentsProps) {
     const [canCheck, setCanCheck] = useState(true);
 
     return(

@@ -1,7 +1,6 @@
 import React, {useEffect, useMemo} from 'react';
 import {
     ComposedChart,
-    Line,
     Bar,
     XAxis,
     YAxis,
@@ -26,17 +25,16 @@ interface Settings  {chargeRequired: number
 
 // Graph with result from ProfileSteering.ts, plus price and CO2 emissions
 export default function Graph({chargeRequired, endHr, endMin, mode, setPrice, setEmissions}: Settings) {
-    const deps = [chargeRequired, endHr, endMin, mode];
 
     // Put a template for the elements here, result of planning algo should go in charge
     const data: ChargingData[] = useMemo<ChargingData[]>(() => {
         return planEV(chargeRequired, [endHr, endMin], mode)
-    }, deps);
+    }, [chargeRequired, endHr, endMin, mode]);
 
     useEffect(() => {
         setPrice(getPrice(data));
         setEmissions(getEmissions(data));
-    }, deps)
+    }, [chargeRequired, endHr, endMin, mode, data])
 
     return(<div>
     <ResponsiveContainer aspect={500/400}>

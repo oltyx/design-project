@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
-import { useHistory, withRouter  } from "react-router-dom";
-import { Button, Col, Container, Row } from 'reactstrap';
+import { useHistory } from "react-router-dom";
+import { Col, Container, Row } from 'reactstrap';
 import EvCar from '../../assets/ev_car.svg';
 import '../../styles/lightMode.scss';
 import '../../styles/start.scss';

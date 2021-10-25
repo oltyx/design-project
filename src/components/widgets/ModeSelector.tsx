@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import {ChargingMode} from "../../data/models/ChargingMode";
 import {Button} from "reactstrap";

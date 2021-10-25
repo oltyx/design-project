@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
-import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
-import { Alert, Container, Row, Col, Button, Form, FormGroup, ButtonGroup, Input, Label } from 'reactstrap';
+import { SubmitHandler, FormProvider, useFormContext, UseFormReturn, FieldValues } from "react-hook-form";
+import { Alert, Container, Row, Col, Button, Form, FormGroup } from 'reactstrap';
 import { BsX } from 'react-icons/bs';
 
 import '../../styles/feedback.scss';
@@ -12,24 +12,18 @@ import Rating from '../widgets/Rating';
 import Comments from '../widgets/Comments';
 import { GlobalButton } from '../styled/Button';
 import { useHistory } from 'react-router';
+import {Inputs} from '../pages/Schedule';
 
-
-type Inputs = {
-    rating: number,
-    comment: string,
-    optional: string,
-  };
 
 interface FeedbackProps {
     user?: {
         name?: string,
         surname?: string,
     }
+    form: UseFormReturn<FieldValues, object>,
 }
 
-
-export default function Feedback(props: FeedbackProps) {
-    const form = useForm<Inputs>();
+export default function Feedback({form, ...props}: FeedbackProps) {
 
     const [submitted, setSubmitted] = useState(false);
     const onSubmit: SubmitHandler<Inputs> = data => {
@@ -52,25 +46,23 @@ export default function Feedback(props: FeedbackProps) {
             : null}
             <Row className={"w-100"}>
                 <Col className="p-0">
-                    <Button className="exitButton" onClick={handleClick}><BsX style={{height:"5vh", width: "5vh"}}/></Button>
+                    <Button className="exitButton" onClick={handleClick}><BsX style={{height: "5vh", width: "5vh"}}/></Button>
                 </Col>
             </Row>
-            <Row style={{alignItems: "center", height: "100%"}}>
-                <Col>
+            <Row className={"h-100"}>
+                <Col style={{alignSelf: "center"}}>
                     <FormProvider {...form}>
-                    <Form className={"feedbackForm"} onSubmit={form.handleSubmit(onSubmit)}>                            
-                            <FormGroup className={"centerFlexbox"}>
-                                <h1 className={"responsiveText"}>Hey {props.user?.name}, please rate us!</h1>
-                                <Rating></Rating>
-                                <Comments/>
-                            </FormGroup>
-                            <GlobalButton text={"Submit"} onClick={handleClick}/>
-                    </Form>
-                </FormProvider>
+                        <Form className={"feedbackForm"} onSubmit={form.handleSubmit(onSubmit)}>                            
+                                <FormGroup className={"centerFlexbox"}>
+                                    <h1 className={"responsiveText"}>Hey {props.user?.name}, please rate us!</h1>
+                                    <Rating submitted={submitted}></Rating>
+                                    <Comments submitted={submitted}/>
+                                </FormGroup>
+                                <GlobalButton text={"Submit"} onClick={handleClick}/>
+                        </Form>
+                    </FormProvider>
                 </Col>
             </Row>
-        </Container>
-        
-       
+        </Container> 
     );
 }

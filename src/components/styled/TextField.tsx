@@ -1,10 +1,9 @@
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { Container, Row, Col, Input, Label } from 'reactstrap';
+import { Input, Label } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import '../../styles/lightMode.scss';
-
 
 interface TextFieldProps {
     name: string,

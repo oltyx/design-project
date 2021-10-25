@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import { Container, Row, Col} from 'reactstrap';
+import { Container, Row, Col, Form, FormGroup} from 'reactstrap';
 
 import '../widgets/TimeSelector';
 import '../widgets/EnergySelector';
@@ -13,13 +13,35 @@ import {GlobalButton} from "../styled/Button";
 import {useHistory} from "react-router-dom";
 import {getEmissions, getPrice} from "../../assets/profile-steering/PriceEmissions";
 import '../../styles/schedule.scss';
+import { FieldValues, FormProvider, UseFormReturn } from 'react-hook-form';
+
+
+export type Inputs = {
+    arrival: Date,
+    departure: Date,
+    finished: Date,
+    isAborted: boolean,
+    mode: string,
+    price: number,
+    desiredEnergy: number,
+    actualEnergy: number,
+    rating: number,
+    comment: string,
+    optional: string,
+  };
+
+interface ScheduleProps {
+    form: UseFormReturn<FieldValues, object>,
+}
 
 const DEFAULT_TIME = {hour: 17, minutes: 30};
 const DEFAULT_CHARGE: number = 0;
 const DEFAULT_MODE: ChargingMode = ChargingMode.Smart;
 
+
+
 // Scheduling page
-export default function Schedule() {
+export default function Schedule({form, ...props}: ScheduleProps) {
     const history = useHistory();
 
     const handleClick = useCallback(() => {
@@ -37,31 +59,29 @@ export default function Schedule() {
         <Container className="schedule" fluid={true}>
             <Row>
                 <Col>
-                    Select Departure Time
-                    <TimeSelector hour={hour} setHour={setHour} minutes={minutes} setMinutes={setMinutes} />
-                </Col>
-            </Row>
-            <Row className="energyRow">
-                <Col>
-                    Select Energy Consumption
-                    <EnergySelector energy={energy} setEnergy={setEnergy}/>
-                </Col>
-            </Row>
-            <Row className="modeRow">
-                <Col>
-                    Select Charging Mode
-                    <ModeSelector mode={mode} setMode={setMode}/>
-                </Col>
-            </Row>
-            <Row className="graphRow">
-                <Col>
-                    Charging Schedule
-                    <Graph chargeRequired={energy} endHr={hour} endMin={minutes} mode={mode} setPrice={setPrice} setEmissions={setEmissions}/>
-                </Col>
-            </Row>
-            <Row className="goButtonRow">
-                <Col>
-                    <GlobalButton text={"Go"} onClick={handleClick}/>
+                    <FormProvider {...form}>
+                        <Form>                            
+                                <FormGroup>
+                                    Select Departure Time
+                                    <TimeSelector hour={hour} setHour={setHour} minutes={minutes} setMinutes={setMinutes} />
+                                </FormGroup>
+                                <FormGroup>
+                                    Select Energy Consumption
+                                    <EnergySelector energy={energy} setEnergy={setEnergy}/>
+                                </FormGroup>
+                                <FormGroup>
+                                    Select Charging Mode
+                                    <ModeSelector mode={mode} setMode={setMode}/>
+                                </FormGroup>
+                                <FormGroup>
+                                    Charging Schedule
+                                    <Graph chargeRequired={energy} endHr={hour} endMin={minutes} mode={mode} setPrice={setPrice} setEmissions={setEmissions}/>
+                                </FormGroup>
+                                <FormGroup style={{textAlign: "center"}}>
+                                    <GlobalButton text={"Go"} onClick={handleClick}/>
+                                </FormGroup>
+                        </Form>
+                    </FormProvider>
                 </Col>
             </Row>
         </Container>

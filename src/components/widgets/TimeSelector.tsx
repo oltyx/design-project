@@ -1,4 +1,5 @@
-import React, {MutableRefObject, useCallback, useEffect, useRef} from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { Col, Container, Input, Row } from 'reactstrap';
 
 import '../../styles/timeSelector.scss';
@@ -11,6 +12,11 @@ export interface TimeSelectorProps {
 }
 
 export default function TimeSelector({ hour, setHour, minutes, setMinutes, ...props}: TimeSelectorProps) {
+    const context = useFormContext();
+
+    useEffect(() => {
+        context.setValue("departure", hour.toString() + minutes.toString());
+    }, [context, hour, minutes])
 
     // const hrUpRef = useRef() as MutableRefObject<HTMLDivElement>;
     // const hrDownRef = useRef() as MutableRefObject<HTMLDivElement>;
@@ -19,21 +25,21 @@ export default function TimeSelector({ hour, setHour, minutes, setMinutes, ...pr
     // const hourInputRef = useRef() as MutableRefObject<HTMLInputElement>;
     // const minutesInputRef = useRef() as MutableRefObject<HTMLInputElement>;
 
-    const hourUp = useCallback(() => {
-        setHour((((hour + 1) % 24) + 24) % 24);
-    }, [hour, setHour]);
+    // const hourUp = useCallback(() => {
+    //     setHour((((hour + 1) % 24) + 24) % 24);
+    // }, [hour, setHour]);
 
-    const hourDown = useCallback(() => {
-      setHour((((hour - 1) % 24) + 24) % 24);
-    }, [hour, setHour]);
+    // const hourDown = useCallback(() => {
+    //   setHour((((hour - 1) % 24) + 24) % 24);
+    // }, [hour, setHour]);
 
-    const minutesUp = useCallback(() => {
-      setMinutes((((minutes + 15) % 60) + 60) % 60);
-    }, [minutes, setMinutes]);
+    // const minutesUp = useCallback(() => {
+    //   setMinutes((((minutes + 15) % 60) + 60) % 60);
+    // }, [minutes, setMinutes]);
 
-    const minutesDown = useCallback(() => {
-        setMinutes((((minutes - 15) % 60) + 60) % 60);
-    }, [minutes, setMinutes]);
+    // const minutesDown = useCallback(() => {
+    //     setMinutes((((minutes - 15) % 60) + 60) % 60);
+    // }, [minutes, setMinutes]);
 
     // useEffect(() => {
     //     hrUpRef.current.addEventListener('click', hourUp);
@@ -64,7 +70,6 @@ export default function TimeSelector({ hour, setHour, minutes, setMinutes, ...pr
     }, []);
 
     return (
-
         <Container className="time-picker">
             <Row className="hour">
                 <Col>

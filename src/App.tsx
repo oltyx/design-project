@@ -7,8 +7,10 @@ import Feedback from './components/pages/Feedback';
 import Start from './components/pages/Start';
 import ChargingSession from './components/pages/ChargingSession';
 import Schedule from './components/pages/Schedule';
+import { useForm } from 'react-hook-form';
 
 export default function App() {
+  const form = useForm();
 
   return (
     <Router>
@@ -20,10 +22,10 @@ export default function App() {
             <ChargingSession />
           </Route>
           <Route path="/schedule">
-            <Schedule />
+            <Schedule form={form} />
           </Route>
           <Route path="/feedback">
-            <Feedback />
+            <Feedback form={form} />
           </Route>
         </Switch>
     </Router>

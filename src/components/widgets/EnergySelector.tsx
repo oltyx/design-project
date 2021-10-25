@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Slider from '@mui/material/Slider';
 import { Container, Row, Col } from 'reactstrap';
 
 import '../../assets/profile-steering/Conversion';
-import {WhToKm} from "../../assets/profile-steering/Conversion";
+import { WhToKm } from "../../assets/profile-steering/Conversion";
 import '../../styles/schedule.scss';
+import { useFormContext } from 'react-hook-form';
 
 interface Energy {energy: number, setEnergy: (newValue: number) => void};
 

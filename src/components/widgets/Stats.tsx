@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Container, Row, Col, Label } from 'reactstrap'
+import { Table, Container, Row, Col } from 'reactstrap'
 
 import '../../styles/chargingSession.scss';
 
@@ -19,7 +19,7 @@ export default function Stats() {
         </Row>    
         <Row>
             <Col>
-                <Table className="table">
+                <Table>
                     <tbody>
                     <tr>
                         <td style={{fontSize: "1.5vh"}}>kWh charged . . . . . . . .</td>
