@@ -21,9 +21,11 @@ interface FeedbackProps {
         surname?: string,
     }
     sessionId?: number,
+    [x: string]: any
 }
 
 export default function Feedback({...props}: FeedbackProps) {
+    const history = useHistory();
     const initialValues = {
         sessionId: props.sessionId,
         rating: null,
@@ -35,16 +37,15 @@ export default function Feedback({...props}: FeedbackProps) {
     });
 
     const [submitted, setSubmitted] = useState(false);
-    const onSubmit: SubmitHandler<Inputs> = data => {
+    const onSubmit: SubmitHandler<Inputs> = useCallback((data) => {
         console.log(data);
-    }
-
-    const history = useHistory();
+        setSubmitted(true)
+        setTimeout(() => {history.push("/")}, 3000);
+    },[history])
 
     const handleClick = useCallback(() => {
-        setSubmitted(true)
-        setTimeout(() => {history.push("/")}, 2000);
-    }, [history, submitted]);
+        setTimeout(() => {history.push("/")}, 3000);
+    }, [history]);
 
     return (
         <Container className="feedback p-0">
@@ -64,10 +65,10 @@ export default function Feedback({...props}: FeedbackProps) {
                         <Form className={"feedbackForm"} onSubmit={form.handleSubmit(onSubmit)}>                            
                                 <FormGroup className={"centerFlexbox"}>
                                     <h1 className={"responsiveText"}>Hey {props.user?.name}, please rate us!</h1>
-                                    <Rating submitted={submitted}></Rating>
+                                    <Rating></Rating>
                                     <Comments submitted={submitted}/>
                                 </FormGroup>
-                                <GlobalButton text={"Submit"} onClick={handleClick}/>
+                                <GlobalButton text={"Submit"} type={"submit"}/>
                         </Form>
                     </FormProvider>
                 </Col>

@@ -57,6 +57,24 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+.radioboxStyle{
+    border: $feedback_border_color !important;
+    border-radius: $global_border_radius !important;
+    margin-right: 0.5rem;
+    height: 2.5vh !important;
+    width: 2.5vh !important;
+}
+
+.radioboxStyle:checked {
+    background-color: $feedback_vote !important;
+    
+}
+
+.radioboxStyle:focus {
+    box-shadow: none !important;
+}
+
+
 .checkboxStyle {
     border: $feedback_border_color !important;
     margin-right: 0.5rem;

@@ -7,7 +7,7 @@ import Feedback from './components/pages/Feedback';
 import Start from './components/pages/Start';
 import ChargingSession from './components/pages/ChargingSession';
 import Schedule from './components/pages/Schedule';
-import { useForm } from 'react-hook-form';
+
 
 export default function App() {
   return (

@@ -8,6 +8,7 @@ import '../../styles/lightMode.scss';
 interface TextFieldProps {
     name: string,
     className?: string,
+    [x: string]: any
 }
 
 

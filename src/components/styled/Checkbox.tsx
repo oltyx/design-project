@@ -13,16 +13,10 @@ interface CheckboxProps {
     className?: string,
     style?: any,
     disabled?: boolean,
-    onChange?: () => void,
+    [x: string]: any
 }
 
-export const Checkbox= ({name, text, className, style, disabled, ...props}: CheckboxProps) => {
-    // const checkBoxStyle = {
-    //     border: "1px solid #166016",
-    //     marginRight: "0.5rem",
-    //     height: "2.5vh",
-    //     width: "2.5vh",
-    // }
+export const Checkbox=({name, text, className, style, disabled, ...props}: CheckboxProps) => {
     const context = useFormContext();
     return(
         <Controller

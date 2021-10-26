@@ -7,18 +7,16 @@ import { useFormContext } from 'react-hook-form';
 
 
 interface RatingProps {
-    submitted: boolean;
+    [x: string]: any,
 }
 
-export default function Rating({submitted, ...props}: RatingProps) {
+export default function Rating({...props}: RatingProps) {
     const [rating, setRating] = useState(0);
     const context = useFormContext();
 
     useEffect(() => {
-        if (submitted) {
             context.setValue('rating', rating)
-        }   
-    }, [rating, submitted, context])
+    }, [rating, context])
     
     return(
         <Container>
