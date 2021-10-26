@@ -6,7 +6,7 @@ import {MdOfflineBolt, MdWbSunny} from "react-icons/all";
 import { Container, Row, Col } from 'reactstrap';
 import '../../styles/schedule.scss';
 
-interface Mode {mode: ChargingMode, setMode: (newValue: ChargingMode) => void};
+interface Mode {mode: ChargingMode | null, setMode: (newValue: ChargingMode | null) => void};
 
 // Selector for Fast mode or Smart mode
 export default function ModeSelector({mode, setMode}: Mode) {

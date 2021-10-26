@@ -18,7 +18,7 @@ import {getEmissions, getPrice} from "../../assets/profile-steering/PriceEmissio
 interface Settings  {chargeRequired: number
                     , endHr: number
                     , endMin: number
-                    , mode: ChargingMode
+                    , mode: ChargingMode | null
                     , setPrice: (newValue: number) => void
                     , setEmissions: (newValue: number) => void
                     }
