@@ -11,7 +11,6 @@ import Graph from '../widgets/Graph';
 import {ChargingMode} from "../../data/models/ChargingMode";
 import {GlobalButton} from "../styled/Button";
 import {useHistory} from "react-router-dom";
-import {getEmissions, getPrice} from "../../assets/profile-steering/PriceEmissions";
 import '../../styles/schedule.scss';
 
 const DEFAULT_TIME = {hour: 17, minutes: 30};
@@ -35,6 +34,7 @@ export default function Schedule() {
 
     return(
         <Container className="schedule">
+            <Row><Col>Price: €{price}</Col><Col>Emissions: {emissions}g CO2</Col></Row>
             <Row>
                 <Col>
                     Select Departure Time
