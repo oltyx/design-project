@@ -13,7 +13,7 @@ import {GlobalButton} from "../styled/Button";
 import {useHistory} from "react-router-dom";
 import {getEmissions, getPrice} from "../../assets/profile-steering/PriceEmissions";
 import '../../styles/schedule.scss';
-import { FieldValues, FormProvider, UseFormReturn } from 'react-hook-form';
+import { FieldValues, FormProvider, useForm, UseFormReturn } from 'react-hook-form';
 
 
 export type Inputs = {
@@ -31,7 +31,6 @@ export type Inputs = {
   };
 
 interface ScheduleProps {
-    form: UseFormReturn<FieldValues, object>,
 }
 
 const DEFAULT_TIME = {hour: 17, minutes: 30};
@@ -41,8 +40,9 @@ const DEFAULT_MODE: ChargingMode = ChargingMode.Smart;
 
 
 // Scheduling page
-export default function Schedule({form, ...props}: ScheduleProps) {
+export default function Schedule({...props}: ScheduleProps) {
     const history = useHistory();
+    const form = useForm();
 
     const handleClick = useCallback(() => {
         history.push("/session");
@@ -61,25 +61,25 @@ export default function Schedule({form, ...props}: ScheduleProps) {
                 <Col>
                     <FormProvider {...form}>
                         <Form>                            
-                                <FormGroup>
-                                    Select Departure Time
-                                    <TimeSelector hour={hour} setHour={setHour} minutes={minutes} setMinutes={setMinutes} />
-                                </FormGroup>
-                                <FormGroup>
-                                    Select Energy Consumption
-                                    <EnergySelector energy={energy} setEnergy={setEnergy}/>
-                                </FormGroup>
-                                <FormGroup>
-                                    Select Charging Mode
-                                    <ModeSelector mode={mode} setMode={setMode}/>
-                                </FormGroup>
-                                <FormGroup>
-                                    Charging Schedule
-                                    <Graph chargeRequired={energy} endHr={hour} endMin={minutes} mode={mode} setPrice={setPrice} setEmissions={setEmissions}/>
-                                </FormGroup>
-                                <FormGroup style={{textAlign: "center"}}>
-                                    <GlobalButton text={"Go"} onClick={handleClick}/>
-                                </FormGroup>
+                            <FormGroup>
+                                Select Departure Time
+                                <TimeSelector hour={hour} setHour={setHour} minutes={minutes} setMinutes={setMinutes} />
+                            </FormGroup>
+                            <FormGroup>
+                                Select Energy Consumption
+                                <EnergySelector energy={energy} setEnergy={setEnergy}/>
+                            </FormGroup>
+                            <FormGroup>
+                                Select Charging Mode
+                                <ModeSelector mode={mode} setMode={setMode}/>
+                            </FormGroup>
+                            <FormGroup>
+                                Charging Schedule
+                                <Graph chargeRequired={energy} endHr={hour} endMin={minutes} mode={mode} setPrice={setPrice} setEmissions={setEmissions}/>
+                            </FormGroup>
+                            <FormGroup style={{textAlign: "center"}}>
+                                <GlobalButton text={"Go"} onClick={handleClick}/>
+                            </FormGroup>
                         </Form>
                     </FormProvider>
                 </Col>

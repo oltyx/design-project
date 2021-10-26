@@ -12,9 +12,11 @@ interface CheckboxProps {
     text?: string,
     className?: string,
     style?: any,
+    disabled?: boolean,
+    onChange?: () => void,
 }
 
-export const Checkbox= ({name, text, className, style, ...props}: CheckboxProps) => {
+export const Checkbox= ({name, text, className, style, disabled, ...props}: CheckboxProps) => {
     // const checkBoxStyle = {
     //     border: "1px solid #166016",
     //     marginRight: "0.5rem",
@@ -37,6 +39,7 @@ export const Checkbox= ({name, text, className, style, ...props}: CheckboxProps)
                     name={name} 
                     value={value}
                     style={style}
+                    disabled={disabled}
                     {...props} 
                     checked={value}/>{text}
             </Label>

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { SubmitHandler, FormProvider, useFormContext, UseFormReturn, FieldValues } from "react-hook-form";
+import { SubmitHandler, FormProvider, useFormContext, UseFormReturn, FieldValues, useForm } from "react-hook-form";
 import { Alert, Container, Row, Col, Button, Form, FormGroup } from 'reactstrap';
 import { BsX } from 'react-icons/bs';
 
@@ -20,10 +20,19 @@ interface FeedbackProps {
         name?: string,
         surname?: string,
     }
-    form: UseFormReturn<FieldValues, object>,
+    sessionId?: number,
 }
 
-export default function Feedback({form, ...props}: FeedbackProps) {
+export default function Feedback({...props}: FeedbackProps) {
+    const initialValues = {
+        sessionId: props.sessionId,
+        rating: null,
+        suggestedComment: '',
+        openComment: '',
+    }
+    const form = useForm({
+        defaultValues: {...initialValues},
+    });
 
     const [submitted, setSubmitted] = useState(false);
     const onSubmit: SubmitHandler<Inputs> = data => {

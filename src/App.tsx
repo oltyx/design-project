@@ -10,8 +10,6 @@ import Schedule from './components/pages/Schedule';
 import { useForm } from 'react-hook-form';
 
 export default function App() {
-  const form = useForm();
-
   return (
     <Router>
         <Switch>
@@ -22,10 +20,10 @@ export default function App() {
             <ChargingSession />
           </Route>
           <Route path="/schedule">
-            <Schedule form={form} />
+            <Schedule/>
           </Route>
           <Route path="/feedback">
-            <Feedback form={form} />
+            <Feedback/>
           </Route>
         </Switch>
     </Router>
