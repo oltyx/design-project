@@ -13,7 +13,6 @@ import Graph from '../widgets/Graph';
 import {ChargingMode} from "../../data/models/ChargingMode";
 import {GlobalButton} from "../styled/Button";
 import {useHistory} from "react-router-dom";
-import {getEmissions, getPrice} from "../../assets/profile-steering/PriceEmissions";
 import '../../styles/schedule.scss';
 import StepIcon from '../styled/StepIcon';
 
