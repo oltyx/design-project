@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button } from 'reactstrap';
+import { Controller, useFormContext } from 'react-hook-form';
+import { Button, Input } from 'reactstrap';
 
 import '../../styles/lightMode.scss';
 
@@ -12,6 +13,16 @@ interface GlobalButtonProps {
     onClick?: React.MouseEventHandler<HTMLButtonElement>,
     [x: string]: any
 }
+
+interface ModeButton {
+    name: string,
+    text?: string,
+    className?: string,
+    style?: any,
+    disabled?: boolean,
+    [x: string]: any
+}
+
 
 
 export const GlobalButton = ({ text, onClick, className, type, ...props}: GlobalButtonProps) => {

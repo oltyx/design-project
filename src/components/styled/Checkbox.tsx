@@ -27,7 +27,7 @@ export const Checkbox=({name, text, className, style, disabled, ...props}: Check
                 <Input
                     className={`${className} checkboxStyle`}
                     type={"checkbox"} 
-                    ref={ref}
+                    innerRef={ref}
                     onChange={onChange} 
                     onBlur={onBlur}
                     name={name} 

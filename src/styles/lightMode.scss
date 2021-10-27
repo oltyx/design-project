@@ -48,8 +48,6 @@ h1, h2, h3, h4, h5, h6 {
     height: 7vh;
     width: 12vh;
     margin-bottom: 1rem;
-    // margin-top: 100%;
-
 
     .globalButtonText {
         font-size: 2vh;
@@ -107,4 +105,17 @@ h1, h2, h3, h4, h5, h6 {
     border: $feedback_border_color;
     box-shadow: none;
     font-family: $family-font;
+}
+
+.numberCircle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: $green_button_color;
+    border: $global_border_color;
+    color: white;
+    text-align: center;
 }

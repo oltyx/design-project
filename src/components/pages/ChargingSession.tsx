@@ -68,8 +68,8 @@ export default function ChargingSession() {
                     <GlobalButton text={button} onClick={handleClick}/>
                 </Col>
             </Row>
-            <Row> 
-                <Col >
+            {/* <Row> 
+                <Col > */}
                     <Modal isOpen={modal}>
                         <ModalHeader style={{background: "rgba(255, 255, 255, 0.5)"}}>Confirmation</ModalHeader>
                         <ModalBody style={{background: "rgba(255, 255, 255, 0.5)"}}>
@@ -80,8 +80,8 @@ export default function ChargingSession() {
                             <Button className="cancelButton" onClick={handleCancel}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
-                </Col>
-            </Row>
+                {/* </Col>
+            </Row> */}
         </Container>
     );
 };

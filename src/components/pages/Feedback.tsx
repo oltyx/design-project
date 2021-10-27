@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { SubmitHandler, FormProvider, useFormContext, UseFormReturn, FieldValues, useForm } from "react-hook-form";
 import { Alert, Container, Row, Col, Button, Form, FormGroup } from 'reactstrap';
 import { BsX } from 'react-icons/bs';
@@ -12,7 +12,6 @@ import Rating from '../widgets/Rating';
 import Comments from '../widgets/Comments';
 import { GlobalButton } from '../styled/Button';
 import { useHistory } from 'react-router';
-import {Inputs} from '../pages/Schedule';
 
 
 interface FeedbackProps {
@@ -22,6 +21,13 @@ interface FeedbackProps {
     }
     sessionId?: number,
     [x: string]: any
+}
+
+type FeedbackInput = {
+    sessionId: number,
+    rating: number,
+    suggestedComment: string,
+    openComment: string,
 }
 
 export default function Feedback({...props}: FeedbackProps) {
@@ -36,27 +42,31 @@ export default function Feedback({...props}: FeedbackProps) {
         defaultValues: {...initialValues},
     });
 
-    const [submitted, setSubmitted] = useState(false);
-    const onSubmit: SubmitHandler<Inputs> = useCallback((data) => {
+    const [alertText, setAlertText] = useState<string>("Please rate us next time! Your feedback is very important for us :)")
+
+    const onSubmit: SubmitHandler<FeedbackInput> = useCallback((data) => {
         console.log(data);
-        setSubmitted(true)
         setTimeout(() => {history.push("/")}, 3000);
     },[history])
 
-    const handleClick = useCallback(() => {
+    const quit = useCallback(() => {
         setTimeout(() => {history.push("/")}, 3000);
     }, [history]);
 
+    const hasFeedback = form.formState.isDirty || form.formState.touchedFields !== {};
+
+    useEffect(() => {
+        if (hasFeedback) {
+            setAlertText("Thank you for our feedback!")
+        }
+    }, [form, alertText, hasFeedback])
+
     return (
         <Container className="feedback p-0">
-            {submitted ?
-            <Row><Col>
-            <Alert color="success"> Thank you for your feedback!</Alert>
-            </Col></Row>    
-            : null}
+            <Alert className={hasFeedback ? "feedbackAlert" : "feedbackAlertBad"} isOpen={form.formState.isSubmitted} color={hasFeedback ? "success" : "danger"}>{alertText}</Alert>
             <Row className={"w-100"}>
                 <Col className="p-0">
-                    <Button className="exitButton" onClick={handleClick}><BsX style={{height: "5vh", width: "5vh"}}/></Button>
+                    <Button className="exitButton" onClick={quit}><BsX style={{height: "5vh", width: "5vh"}}/></Button>
                 </Col>
             </Row>
             <Row className={"h-100"}>
@@ -65,8 +75,8 @@ export default function Feedback({...props}: FeedbackProps) {
                         <Form className={"feedbackForm"} onSubmit={form.handleSubmit(onSubmit)}>                            
                                 <FormGroup className={"centerFlexbox"}>
                                     <h1 className={"responsiveText"}>Hey {props.user?.name}, please rate us!</h1>
-                                    <Rating></Rating>
-                                    <Comments submitted={submitted}/>
+                                    <Rating/>
+                                    <Comments/>
                                 </FormGroup>
                                 <GlobalButton text={"Submit"} type={"submit"}/>
                         </Form>

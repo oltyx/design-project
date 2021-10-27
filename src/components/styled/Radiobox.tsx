@@ -21,7 +21,7 @@ export const Radiobox=({text, className, style, disabled, ...props}: RadioboxPro
             <Input
                 className={`${className} radioboxStyle`}
                 type={"radio"} 
-                ref={props.ref}
+                innerRef={props.ref}
                 onChange={props.onChange} 
                 onBlur={props.onBlur}
                 name={props.name} 

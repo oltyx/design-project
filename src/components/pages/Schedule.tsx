@@ -1,5 +1,7 @@
-import React, {useCallback, useState} from 'react';
-import { Container, Row, Col, Form, FormGroup} from 'reactstrap';
+import React, {useCallback, useEffect, useState} from 'react';
+import { Container, Row, Col, Form, FormGroup, Alert, Navbar, Nav, NavItem} from 'reactstrap';
+import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+import { FieldValues, FormProvider, SubmitHandler, useForm, UseFormReturn } from 'react-hook-form';
 
 import '../widgets/TimeSelector';
 import '../widgets/EnergySelector';
@@ -13,72 +15,106 @@ import {GlobalButton} from "../styled/Button";
 import {useHistory} from "react-router-dom";
 import {getEmissions, getPrice} from "../../assets/profile-steering/PriceEmissions";
 import '../../styles/schedule.scss';
-import { FieldValues, FormProvider, useForm, UseFormReturn } from 'react-hook-form';
+import StepIcon from '../styled/StepIcon';
 
 
-export type Inputs = {
+
+type ScheduleInput = {
     arrival: Date,
     departure: Date,
     finished: Date,
     isAborted: boolean,
-    mode: string,
+    mode: ChargingMode | null ,
     price: number,
     desiredEnergy: number,
     actualEnergy: number,
-    rating: number,
-    comment: string,
-    optional: string,
   };
 
 interface ScheduleProps {
 }
 
 const DEFAULT_TIME = {hour: 17, minutes: 30};
-const DEFAULT_CHARGE: number = 0;
+//const DEFAULT_CHARGE: number = 0;
 const DEFAULT_MODE: ChargingMode | null = null;
-
-
 
 // Scheduling page
 export default function Schedule({...props}: ScheduleProps) {
     const history = useHistory();
-    const form = useForm();
-
-    const handleClick = useCallback(() => {
-        history.push("/session");
-    }, [history])
+    const initialValues = {
+        arrival: new Date(),
+        departure: new Date(),
+        finished: new Date(),
+        isAborted: false,
+        mode: DEFAULT_MODE,
+        price: 0,
+        desiredEnergy: 0,
+        actualEnergy: 0,
+    }
+    const form = useForm({
+        defaultValues: {...initialValues},
+    });
 
     const [hour , setHour] = useState<number>(DEFAULT_TIME.hour);
     const [minutes, setMinutes] = useState<number>(DEFAULT_TIME.minutes);
-    const [energy, setEnergy] = useState<number>(DEFAULT_CHARGE);
     const [mode, setMode] = useState<ChargingMode | null>(DEFAULT_MODE);
     const [price, setPrice] = useState<number>(0);
     const [emissions, setEmissions] = useState<number>(0);
+    const [alert, setAlert] = useState<boolean>(false);
+
+    console.log("valid: ", form.formState.isValid, alert)
+
+    const onSubmit: SubmitHandler<ScheduleInput> = useCallback((data) => {
+        if (form.formState.isValid && mode != null) {
+            console.log(data);
+            history.push("/session"); 
+        } else {
+            setAlert(true);
+            setTimeout(()=>{setAlert(false)},2000);
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+              });
+            console.log(form.formState.errors);
+        }
+    }, [history, form, mode])
 
     return(
-        <Container className="schedule" fluid={true}>
-            <Row>
+        <Container className="schedule">
+            <Navbar className={"navbarSchedule"} light sticky={"top"}>
+                <Nav style={{width: "100%"}} navbar>
+                    <NavItem>
+                        <Container>
+                            <Row>
+                                <Col style={{paddingLeft: "2rem"}}><h4 style={{fontSize: "2vh"}}>Price: €{price}</h4></Col>
+                                <Col style={{textAlign: "center"}}><h4 style={{fontSize: "2vh"}}>CO2 Emissions: {emissions}g </h4></Col>
+                            </Row>
+                        </Container>
+                    </NavItem>
+                </Nav>
+            </Navbar>
+            <Alert className={"scheduleAlert"} isOpen={alert} color="danger"> Energy and mode are required</Alert>
+            <Row style={{marginRight: "1rem", marginLeft: "1rem"}}>
                 <Col>
                     <FormProvider {...form}>
-                        <Form>                            
-                            <FormGroup>
-                                Select Departure Time
+                        <Form onSubmit={form.handleSubmit(onSubmit)}>                            
+                            <FormGroup style={{marginTop: "1rem"}}>
+                                <StepIcon step={"1"} text={"Select Departure Time"}></StepIcon>
                                 <TimeSelector hour={hour} setHour={setHour} minutes={minutes} setMinutes={setMinutes} />
                             </FormGroup>
-                            <FormGroup>
-                                Select Energy Consumption
-                                <EnergySelector energy={energy} setEnergy={setEnergy}/>
+                            <FormGroup style={{marginTop: "1rem"}}>
+                                <StepIcon step={"2"} text={"Select Energy Consumption"}></StepIcon>
+                                <EnergySelector/>
                             </FormGroup>
-                            <FormGroup>
-                                Select Charging Mode
+                            <FormGroup style={{marginTop: "1rem"}}>
+                                <StepIcon step={"3"} text={"Select Charging Mode"}></StepIcon>
                                 <ModeSelector mode={mode} setMode={setMode}/>
                             </FormGroup>
-                            <FormGroup>
-                                Charging Schedule
-                                <Graph chargeRequired={energy} endHr={hour} endMin={minutes} mode={mode} setPrice={setPrice} setEmissions={setEmissions}/>
+                            <FormGroup style={{marginTop: "1rem"}}>
+                                <StepIcon step={"4"} text={"Checkout the schedule!"}></StepIcon>
+                                <Graph endHr={hour} endMin={minutes} mode={mode} setPrice={setPrice} setEmissions={setEmissions}/>
                             </FormGroup>
                             <FormGroup style={{textAlign: "center"}}>
-                                <GlobalButton text={"Go"} onClick={handleClick}/>
+                                <GlobalButton text={"Go"} type={"submit"}/>
                             </FormGroup>
                         </Form>
                     </FormProvider>

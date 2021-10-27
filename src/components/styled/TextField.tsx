@@ -23,7 +23,7 @@ export default function TextField({name, className,...props}: TextFieldProps) {
                 <Input
                     className={`${className} textFieldStyle`}
                     type={"text"} 
-                    ref={ref}
+                    innerRef={ref}
                     onChange={onChange} 
                     onBlur={onBlur}
                     name={name} 

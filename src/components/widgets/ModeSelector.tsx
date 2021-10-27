@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import {ChargingMode} from "../../data/models/ChargingMode";
 import {Button} from "reactstrap";
 import {MdOfflineBolt, MdWbSunny} from "react-icons/all";
 import { Container, Row, Col } from 'reactstrap';
 import '../../styles/schedule.scss';
+import { useFormContext } from 'react-hook-form';
 
 interface Mode {mode: ChargingMode | null, setMode: (newValue: ChargingMode | null) => void};
 
 // Selector for Fast mode or Smart mode
 export default function ModeSelector({mode, setMode}: Mode) {
+    const context = useFormContext();
+
+    useEffect(() => {
+        context.setValue("mode", mode)
+    }, [mode, context]) 
 
     // Set a class based on being selected or deselected
     const fast: string = mode === ChargingMode.Fast? "selected" : "deselected";

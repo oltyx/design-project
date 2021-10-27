@@ -8,11 +8,10 @@ import { useFormContext } from 'react-hook-form';
 
 
 interface CommentsProps {
-    submitted?: boolean,
     [x: string]: any,
 }
 
-export default function Comments({submitted, ...props}: CommentsProps) {
+export default function Comments({...props}: CommentsProps) {
     const context = useFormContext();
     const list = [
         "I love it!",
