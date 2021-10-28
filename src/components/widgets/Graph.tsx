@@ -31,6 +31,11 @@ export default function Graph({endHr, endMin, mode, setPrice, setEmissions}: Set
     // Put a template for the elements here, result of planning algo should go in charge
     const data: ChargingData[] = useMemo<ChargingData[]>(() => {
         return planEV(energy, [endHr, endMin], mode)
+            .map(({name: name, pv: pv, charge: charge}) => {
+                // Convert W to kW
+                return {name: name, pv: Math.round(pv / 1000), charge: Math.round(charge / 1000)
+                }
+            });
     }, [energy, endHr, endMin, mode]);
 
     useEffect(() => {

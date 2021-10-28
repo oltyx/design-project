@@ -6,9 +6,10 @@ import { WhToKm } from "../../assets/profile-steering/Conversion";
 import '../../styles/schedule.scss';
 import { useFormContext } from 'react-hook-form';
 import StyledSlider from '../styled/StyledSlider';
+import {MdAutorenew} from "react-icons/all";
 
 
-interface Energy {energy?: number, setEnergy?: (newValue: number) => void};
+interface Energy {energy?: number, setEnergy?: (newValue: number) => void}
 
 // Slider for km and kWh, with conversion from Conversion.ts
 export default function EnergySelector({...props}: Energy) {
@@ -33,7 +34,7 @@ export default function EnergySelector({...props}: Energy) {
             </Row>
             <Row className="conversionText" style={{marginBottom: "1rem"}}>
                 <Col>
-                    {energy} kWh = {Math.round(WhToKm(energy))} km
+                    {energy/1000} kWh <MdAutorenew/> {Math.round(WhToKm(energy))} km
                 </Col>
             </Row>
 

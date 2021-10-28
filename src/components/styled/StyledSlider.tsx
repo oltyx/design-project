@@ -36,6 +36,6 @@ export default function StyledSlider({name, className, energy, step, min, max, .
                 onBlur={onBlur}
                 value={value} />
         )}
-        ></Controller>
+        />
     );
 }

@@ -84,8 +84,8 @@ export default function Schedule({...props}: ScheduleProps) {
                     <NavItem>
                         <Container>
                             <Row>
-                                <Col style={{paddingLeft: "2rem"}}><h4 style={{fontSize: "2vh"}}>Price: €{price}</h4></Col>
-                                <Col style={{textAlign: "center"}}><h4 style={{fontSize: "2vh"}}>CO2 Emissions: {emissions}g </h4></Col>
+                                <Col style={{paddingLeft: "2rem"}}><h4 style={{fontSize: "2vh"}}>Price: €{price.toFixed(2)}</h4></Col>
+                                <Col style={{textAlign: "center"}}><h4 style={{fontSize: "2vh"}}>CO2 Emissions: {emissions.toFixed(1)}g </h4></Col>
                             </Row>
                         </Container>
                     </NavItem>
@@ -97,19 +97,19 @@ export default function Schedule({...props}: ScheduleProps) {
                     <FormProvider {...form}>
                         <Form onSubmit={form.handleSubmit(onSubmit)}>                            
                             <FormGroup style={{marginTop: "1rem"}}>
-                                <StepIcon step={"1"} text={"Select Departure Time"}></StepIcon>
+                                <StepIcon step={"1"} text={"Select Departure Time"}/>
                                 <TimeSelector hour={hour} setHour={setHour} minutes={minutes} setMinutes={setMinutes} />
                             </FormGroup>
                             <FormGroup style={{marginTop: "1rem"}}>
-                                <StepIcon step={"2"} text={"Select Energy Consumption"}></StepIcon>
+                                <StepIcon step={"2"} text={"Select Energy Consumption"}/>
                                 <EnergySelector/>
                             </FormGroup>
                             <FormGroup style={{marginTop: "1rem"}}>
-                                <StepIcon step={"3"} text={"Select Charging Mode"}></StepIcon>
+                                <StepIcon step={"3"} text={"Select Charging Mode"}/>
                                 <ModeSelector mode={mode} setMode={setMode}/>
                             </FormGroup>
                             <FormGroup style={{marginTop: "1rem"}}>
-                                <StepIcon step={"4"} text={"Checkout the schedule!"}></StepIcon>
+                                <StepIcon step={"4"} text={"Checkout the schedule!"}/>
                                 <Graph endHr={hour} endMin={minutes} mode={mode} setPrice={setPrice} setEmissions={setEmissions}/>
                             </FormGroup>
                             <FormGroup style={{textAlign: "center"}}>
