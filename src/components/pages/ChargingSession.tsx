@@ -8,13 +8,19 @@ import Stats from '../widgets/Stats';
 import ProgressBar from '../widgets/ProgressBar';
 import '../../styles/chargingSession.scss';
 
-      
+interface ChargingSessionProps {
+    hour: number,
+    setHour: (hour: number) => void,
+    minutes: number,
+    setMinutes: (hour: number) => void
+}
+
 // Page for the charging session as it goes on ("Session Page" on Figma)
-export default function ChargingSession() {
+export default function ChargingSession({ hour, setHour, minutes, setMinutes}: ChargingSessionProps) {
     const [modal, setModal] = useState(false);
     const handleYes = () => {
         setModal(!modal);
-        setTime(today.getHours() + ' : ' + today.getMinutes());
+        setTime(hour + ' : ' + minutes);
         setSessionTitle("Aborted at ");
         setButton("Finish");
         setStyle("linear-gradient(to bottom, #F07878 0%, #9D1616 100%)");
@@ -23,7 +29,7 @@ export default function ChargingSession() {
 
     const [sessionTitle, setSessionTitle] = useState("Departure at ");
     const [button, setButton] = useState("Stop");
-    const [time, setTime] = useState("13 : 15");
+    const [time, setTime] = useState(hour + " : " + minutes);
     const [style, setStyle] = useState("linear-gradient(to bottom, #9AE09A 0%, #44BE44 100%)");
 
     const today = new Date();
