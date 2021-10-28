@@ -1,7 +1,6 @@
 import React, {useEffect, useMemo} from 'react';
 import {
     ComposedChart,
-    Line,
     Bar,
     XAxis,
     YAxis,
@@ -15,9 +14,9 @@ import {ChargingData} from "../../data/models/ChargingData";
 import {planEV} from "../../assets/profile-steering/ProfileSteering";
 import {ChargingMode} from "../../data/models/ChargingMode";
 import {getEmissions, getPrice} from "../../assets/profile-steering/PriceEmissions";
+import { useFormContext } from 'react-hook-form';
 
-interface Settings  {chargeRequired: number
-                    , endHr: number
+interface Settings  { endHr: number
                     , endMin: number
                     , mode: ChargingMode | null
                     , setPrice: (newValue: number) => void
@@ -25,18 +24,24 @@ interface Settings  {chargeRequired: number
                     }
 
 // Graph with result from ProfileSteering.ts, plus price and CO2 emissions
-export default function Graph({chargeRequired, endHr, endMin, mode, setPrice, setEmissions}: Settings) {
-    const deps = [chargeRequired, endHr, endMin, mode];
+export default function Graph({endHr, endMin, mode, setPrice, setEmissions}: Settings) {
+    const context = useFormContext();
+    const energy = context.getValues("desiredEnergy");
 
     // Put a template for the elements here, result of planning algo should go in charge
     const data: ChargingData[] = useMemo<ChargingData[]>(() => {
-        return planEV(chargeRequired, [endHr, endMin], mode)
-    }, deps);
+        return planEV(energy, [endHr, endMin], mode)
+            .map(({name: name, pv: pv, charge: charge}) => {
+                // Convert W to kW
+                return {name: name, pv: Math.round(pv / 1000), charge: Math.round(charge / 1000)
+                }
+            });
+    }, [energy, endHr, endMin, mode]);
 
     useEffect(() => {
         setPrice(getPrice(data));
         setEmissions(getEmissions(data));
-    }, deps)
+    }, [energy, endHr, endMin, mode, data])
 
     return(<div>
     <ResponsiveContainer aspect={500/400}>

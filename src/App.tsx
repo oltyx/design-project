@@ -8,8 +8,8 @@ import Start from './components/pages/Start';
 import ChargingSession from './components/pages/ChargingSession';
 import Schedule from './components/pages/Schedule';
 
-export default function App() {
 
+export default function App() {
   return (
     <Router>
         <Switch>
@@ -20,10 +20,10 @@ export default function App() {
             <ChargingSession />
           </Route>
           <Route path="/schedule">
-            <Schedule />
+            <Schedule/>
           </Route>
           <Route path="/feedback">
-            <Feedback />
+            <Feedback/>
           </Route>
         </Switch>
     </Router>

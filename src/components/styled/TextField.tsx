@@ -1,14 +1,14 @@
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { Container, Row, Col, Input, Label } from 'reactstrap';
+import { Input, Label } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import '../../styles/lightMode.scss';
 
-
 interface TextFieldProps {
     name: string,
     className?: string,
+    [x: string]: any
 }
 
 
@@ -23,7 +23,7 @@ export default function TextField({name, className,...props}: TextFieldProps) {
                 <Input
                     className={`${className} textFieldStyle`}
                     type={"text"} 
-                    ref={ref}
+                    innerRef={ref}
                     onChange={onChange} 
                     onBlur={onBlur}
                     name={name} 

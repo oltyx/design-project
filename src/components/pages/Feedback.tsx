@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from 'react';
-import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
-import { Alert, Container, Row, Col, Button, Form, FormGroup, ButtonGroup, Input, Label } from 'reactstrap';
+import React, { useCallback, useEffect, useState } from 'react';
+import { SubmitHandler, FormProvider, useFormContext, UseFormReturn, FieldValues, useForm } from "react-hook-form";
+import { Alert, Container, Row, Col, Button, Form, FormGroup } from 'reactstrap';
 import { BsX } from 'react-icons/bs';
 
 import '../../styles/feedback.scss';
@@ -14,66 +14,75 @@ import { GlobalButton } from '../styled/Button';
 import { useHistory } from 'react-router';
 
 
-type Inputs = {
-    rating: number,
-    comment: string,
-    optional: string,
-  };
-
 interface FeedbackProps {
     user?: {
         name?: string,
         surname?: string,
     }
+    sessionId?: number,
+    [x: string]: any
 }
 
+type FeedbackInput = {
+    sessionId: number,
+    rating: number,
+    suggestedComment: string,
+    openComment: string,
+}
 
-export default function Feedback(props: FeedbackProps) {
-    const form = useForm<Inputs>();
-
-    const [submitted, setSubmitted] = useState(false);
-    const onSubmit: SubmitHandler<Inputs> = data => {
-        console.log(data);
-    }
-
+export default function Feedback({...props}: FeedbackProps) {
     const history = useHistory();
+    const initialValues = {
+        sessionId: props.sessionId,
+        rating: null,
+        suggestedComment: '',
+        openComment: '',
+    }
+    const form = useForm({
+        defaultValues: {...initialValues},
+    });
 
-    const handleClick = useCallback(() => {
-        setSubmitted(true)
-        setTimeout(() => {history.push("/")}, 2000);
-    }, [history, submitted]);
+    const [alertText, setAlertText] = useState<string>("Please rate us next time! Your feedback is very important for us :)")
+
+    const onSubmit: SubmitHandler<FeedbackInput> = useCallback((data) => {
+        console.log(data);
+        setTimeout(() => {history.push("/")}, 3000);
+    },[history])
+
+    const quit = useCallback(() => {
+        setTimeout(() => {history.push("/")}, 3000);
+    }, [history]);
+
+    const hasFeedback = form.formState.isDirty || form.formState.touchedFields !== {};
+
+    useEffect(() => {
+        if (hasFeedback) {
+            setAlertText("Thank you for our feedback!")
+        }
+    }, [form, alertText, hasFeedback])
 
     return (
         <Container className="feedback p-0">
-            {submitted ?
-            <Row><Col>
-            <Alert color="success"> Thank you for your feedback!</Alert>
-            </Col></Row>    
-            : null}
+            <Alert className={hasFeedback ? "feedbackAlert" : "feedbackAlertBad"} isOpen={form.formState.isSubmitted} color={hasFeedback ? "success" : "danger"}>{alertText}</Alert>
             <Row className={"w-100"}>
                 <Col className="p-0">
-                    <Button className="exitButton" onClick={handleClick}><BsX style={{height:"5vh", width: "5vh"}}/></Button>
+                    <Button className="exitButton" onClick={quit}><BsX style={{height: "5vh", width: "5vh"}}/></Button>
                 </Col>
             </Row>
-            <Row className={"h-100 rowrow"}>
-                <Col>
+            <Row className={"h-100"}>
+                <Col style={{alignSelf: "center"}}>
                     <FormProvider {...form}>
-                    <Form className={"feedbackForm"} onSubmit={form.handleSubmit(onSubmit)}>                            
-                            <FormGroup className={"centerFlexbox"}>
-                                <h1 className={"responsiveText"}>Hey {props.user?.name}, please rate us!</h1>
-                                <Rating></Rating>
-                                <Comments/>
-                            </FormGroup>
-                            {/* <FormGroup>
-                                <Comments/>
-                            </FormGroup> */}
-                            <GlobalButton text={"Submit"} onClick={handleClick}/>
-                    </Form>
-                </FormProvider>
+                        <Form className={"feedbackForm"} onSubmit={form.handleSubmit(onSubmit)}>                            
+                                <FormGroup className={"centerFlexbox"}>
+                                    <h1 className={"responsiveText"}>Hey {props.user?.name}, please rate us!</h1>
+                                    <Rating/>
+                                    <Comments/>
+                                </FormGroup>
+                                <GlobalButton text={"Submit"} type={"submit"}/>
+                        </Form>
+                    </FormProvider>
                 </Col>
             </Row>
-        </Container>
-        
-       
+        </Container> 
     );
 }

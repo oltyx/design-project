@@ -12,15 +12,11 @@ interface CheckboxProps {
     text?: string,
     className?: string,
     style?: any,
+    disabled?: boolean,
+    [x: string]: any
 }
 
-export const Checkbox= ({name, text, className, style, ...props}: CheckboxProps) => {
-    // const checkBoxStyle = {
-    //     border: "1px solid #166016",
-    //     marginRight: "0.5rem",
-    //     height: "2.5vh",
-    //     width: "2.5vh",
-    // }
+export const Checkbox=({name, text, className, style, disabled, ...props}: CheckboxProps) => {
     const context = useFormContext();
     return(
         <Controller
@@ -31,12 +27,13 @@ export const Checkbox= ({name, text, className, style, ...props}: CheckboxProps)
                 <Input
                     className={`${className} checkboxStyle`}
                     type={"checkbox"} 
-                    ref={ref}
+                    innerRef={ref}
                     onChange={onChange} 
                     onBlur={onBlur}
                     name={name} 
                     value={value}
                     style={style}
+                    disabled={disabled}
                     {...props} 
                     checked={value}/>{text}
             </Label>

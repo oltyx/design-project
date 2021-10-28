@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
-import { useHistory, withRouter  } from "react-router-dom";
-import { Button, Col, Container, Row } from 'reactstrap';
+import { useHistory } from "react-router-dom";
+import { Col, Container, Row } from 'reactstrap';
 import EvCar from '../../assets/ev_car.svg';
 import '../../styles/lightMode.scss';
 import '../../styles/start.scss';
@@ -18,14 +18,14 @@ export default function Start({name, ...props}:StartProps) {
 
     return(
         <Container className={"startPage"} fluid={true}>
-            <Row >
+            <Row style={{marginTop: "2rem"}}>
                 <Col>
                     <h1 className={"responsiveTitle"}>
                         Hello, {name}!
                     </h1>
                 </Col>
             </Row>
-            <Row className={"carRow"}>
+            <Row className={"carRow"} style={{alignContent: "center", width: "100%", height: "100%"}}>
                 <Col>
                     <img className={"carStyle"}
                          src={EvCar}

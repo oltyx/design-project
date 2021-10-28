@@ -11,7 +11,6 @@ import '../../styles/chargingSession.scss';
       
 // Page for the charging session as it goes on ("Session Page" on Figma)
 export default function ChargingSession() {
-
     const [modal, setModal] = useState(false);
     const handleYes = () => {
         setModal(!modal);
@@ -37,16 +36,16 @@ export default function ChargingSession() {
         } else {
             history.push("/feedback");
         }
-    }, [history, style, sessionTitle, button, time]);
+    }, [history, button, today]);
 
     return(
         <Container className="chargingSession">
-            <Row>
+            <Row style={{marginTop: "2rem"}}>
                 <Col>
-                    <Label className="chargingTitle">{sessionTitle} {time}</Label>
+                    <h1 className="chargingTitle">{sessionTitle} {time}</h1>
                 </Col>
             </Row>
-            <Row className={"carRow"}>
+            <Row style={{alignContent: "center", width: "100%"}}>
                 <Col>
                     <img className={"carStyle"}
                         src={EvCar}
@@ -64,13 +63,13 @@ export default function ChargingSession() {
                     <Stats/>
                 </Col>
             </Row>
-            <Row className="buttonRow"> 
+            <Row style={{marginBottom: "1rem"}}> 
                 <Col>
                     <GlobalButton text={button} onClick={handleClick}/>
                 </Col>
             </Row>
-            <Row> 
-                <Col >
+            {/* <Row> 
+                <Col > */}
                     <Modal isOpen={modal}>
                         <ModalHeader style={{background: "rgba(255, 255, 255, 0.5)"}}>Confirmation</ModalHeader>
                         <ModalBody style={{background: "rgba(255, 255, 255, 0.5)"}}>
@@ -81,8 +80,8 @@ export default function ChargingSession() {
                             <Button className="cancelButton" onClick={handleCancel}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
-                </Col>
-            </Row>
+                {/* </Col>
+            </Row> */}
         </Container>
     );
 };
