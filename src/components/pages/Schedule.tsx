@@ -32,8 +32,6 @@ type ScheduleInput = {
 interface ScheduleProps {
 }
 
-const DEFAULT_TIME = {hour: 17, minutes: 30};
-//const DEFAULT_CHARGE: number = 0;
 const DEFAULT_MODE: ChargingMode | null = null;
 
 // Scheduling page
@@ -53,8 +51,6 @@ export default function Schedule({...props}: ScheduleProps) {
         defaultValues: {...initialValues},
     });
 
-    const [hour , setHour] = useState<number>(DEFAULT_TIME.hour);
-    const [minutes, setMinutes] = useState<number>(DEFAULT_TIME.minutes);
     const [mode, setMode] = useState<ChargingMode | null>(DEFAULT_MODE);
     const [price, setPrice] = useState<number>(0);
     const [emissions, setEmissions] = useState<number>(0);
@@ -98,7 +94,7 @@ export default function Schedule({...props}: ScheduleProps) {
                         <Form onSubmit={form.handleSubmit(onSubmit)}>                            
                             <FormGroup style={{marginTop: "1rem"}}>
                                 <StepIcon step={"1"} text={"Select Departure Time"}/>
-                                <TimeSelector hour={hour} setHour={setHour} minutes={minutes} setMinutes={setMinutes} />
+                                <TimeSelector/>
                             </FormGroup>
                             <FormGroup style={{marginTop: "1rem"}}>
                                 <StepIcon step={"2"} text={"Select Energy Consumption"}/>
@@ -110,7 +106,7 @@ export default function Schedule({...props}: ScheduleProps) {
                             </FormGroup>
                             <FormGroup style={{marginTop: "1rem"}}>
                                 <StepIcon step={"4"} text={"Checkout the schedule!"}/>
-                                <Graph endHr={hour} endMin={minutes} mode={mode} setPrice={setPrice} setEmissions={setEmissions}/>
+                                <Graph mode={mode} setPrice={setPrice} setEmissions={setEmissions}/>
                             </FormGroup>
                             <FormGroup style={{textAlign: "center"}}>
                                 <GlobalButton text={"Go"} type={"submit"}/>

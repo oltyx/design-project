@@ -1,15 +1,18 @@
-import React, {MutableRefObject, useEffect, useRef} from 'react';
+import React, {MutableRefObject, useEffect, useRef, useState} from 'react';
+import { useFormContext } from 'react-hook-form';
 
 import '../../styles/timeSelector.scss';
 
 export interface TimeSelectorProps {
-    hour: number,
-    setHour: (hour: number) => void,
-    minutes: number,
-    setMinutes: (hour: number) => void
+
 }
 
-const TimeSelector: React.FC<TimeSelectorProps> = ({ hour, setHour, minutes, setMinutes}) => {
+const DEFAULT_TIME = {hour: 17, minutes: 30};
+
+export default function TimeSelector({ ...props}: TimeSelectorProps) {
+    const context = useFormContext();
+    const [hour , setHour] = useState<number>(DEFAULT_TIME.hour);
+    const [minutes, setMinutes] = useState<number>(DEFAULT_TIME.minutes);
 
     const hrUpRef = useRef() as MutableRefObject<HTMLDivElement>;
     const hrDownRef = useRef() as MutableRefObject<HTMLDivElement>;
@@ -68,8 +71,13 @@ const TimeSelector: React.FC<TimeSelectorProps> = ({ hour, setHour, minutes, set
         return time.toString();
     };
 
-    return (
+    useEffect(() => {
+        const date = new Date();
+        const departure: string = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}T${hour.toString()}:${minutes.toString()}:00`;
+        context.setValue("departure", new Date(departure));
+    }, [context.setValue, hour, minutes])
 
+    return (
         <div className="time-picker">
             <div className="hour">
                 <div ref={hrUpRef} className="hr-up"/>
@@ -96,5 +104,3 @@ const TimeSelector: React.FC<TimeSelectorProps> = ({ hour, setHour, minutes, set
 
     );
 }
-
-export default TimeSelector;

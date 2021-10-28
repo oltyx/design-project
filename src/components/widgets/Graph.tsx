@@ -16,17 +16,18 @@ import {ChargingMode} from "../../data/models/ChargingMode";
 import {getEmissions, getPrice} from "../../assets/profile-steering/PriceEmissions";
 import { useFormContext } from 'react-hook-form';
 
-interface Settings  { endHr: number
-                    , endMin: number
-                    , mode: ChargingMode | null
-                    , setPrice: (newValue: number) => void
-                    , setEmissions: (newValue: number) => void
-                    }
+interface Settings  {
+    mode: ChargingMode | null,
+    setPrice: (newValue: number) => void, 
+    setEmissions: (newValue: number) => void
+}
 
 // Graph with result from ProfileSteering.ts, plus price and CO2 emissions
-export default function Graph({endHr, endMin, mode, setPrice, setEmissions}: Settings) {
+export default function Graph({ mode, setPrice, setEmissions}: Settings) {
     const context = useFormContext();
     const energy = context.getValues("desiredEnergy");
+    const endHr: number = context.getValues("departure").getHours();
+    const endMin: number = context.getValues("departure").getMinutes();
 
     // Put a template for the elements here, result of planning algo should go in charge
     const data: ChargingData[] = useMemo<ChargingData[]>(() => {
