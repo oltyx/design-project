@@ -2,9 +2,13 @@ import React from 'react';
 import { Table, Container, Row, Col } from 'reactstrap'
 
 import '../../styles/chargingSession.scss';
+import {ChargingMode} from "../../data/models/ChargingMode";
 
+interface StatsProps {
+    mode: ChargingMode | null
+}
 // Charging stats table
-export default function Stats() {
+export default function Stats({ mode }: StatsProps) {
     return(
     <Container className="statsContainer">
         <Row>
@@ -31,7 +35,7 @@ export default function Stats() {
                     </tr>
                     <tr>
                         <td style={{fontSize: "1.5vh"}}>Mode . . . . . . . . . . . . . . .</td>
-                        <td style={{fontSize: "1.5vh"}}>Solar power</td>
+                        <td style={{fontSize: "1.5vh"}}>{mode}</td>
                     </tr>
                     <tr>
                         <td style={{fontSize: "1.5vh"}}>Price . . . . . . . .</td>

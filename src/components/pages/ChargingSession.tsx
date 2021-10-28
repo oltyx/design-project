@@ -7,8 +7,10 @@ import { GlobalButton } from '../styled/Button';
 import Stats from '../widgets/Stats';
 import ProgressBar from '../widgets/ProgressBar';
 import '../../styles/chargingSession.scss';
+import {ChargingMode} from "../../data/models/ChargingMode";
 
 interface ChargingSessionProps {
+    mode: ChargingMode | null
     hour: number,
     setHour: (hour: number) => void,
     minutes: number,
@@ -16,7 +18,7 @@ interface ChargingSessionProps {
 }
 
 // Page for the charging session as it goes on ("Session Page" on Figma)
-export default function ChargingSession({ hour, setHour, minutes, setMinutes}: ChargingSessionProps) {
+export default function ChargingSession({ mode, hour, setHour, minutes, setMinutes}: ChargingSessionProps) {
     const [modal, setModal] = useState(false);
     const handleYes = () => {
         setModal(!modal);
@@ -66,7 +68,7 @@ export default function ChargingSession({ hour, setHour, minutes, setMinutes}: C
             </Row>
             <Row>
                 <Col>
-                    <Stats/>
+                    <Stats mode={mode}/>
                 </Col>
             </Row>
             <Row style={{marginBottom: "1rem"}}> 

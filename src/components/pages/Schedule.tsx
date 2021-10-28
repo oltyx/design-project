@@ -30,6 +30,8 @@ type ScheduleInput = {
   };
 
 interface ScheduleProps {
+    mode: ChargingMode | null,
+    setMode: (mode: ChargingMode | null) => void,
     hour: number,
     setHour: (hour: number) => void,
     minutes: number,
@@ -41,7 +43,7 @@ interface ScheduleProps {
 const DEFAULT_MODE: ChargingMode | null = null;
 
 // Scheduling page
-export default function Schedule({hour, setHour, minutes, setMinutes, ...props}: ScheduleProps) {
+export default function Schedule({mode, setMode, hour, setHour, minutes, setMinutes, ...props}: ScheduleProps) {
     const history = useHistory();
     const initialValues = {
         arrival: new Date(),
@@ -57,7 +59,7 @@ export default function Schedule({hour, setHour, minutes, setMinutes, ...props}:
         defaultValues: {...initialValues},
     });
 
-    const [mode, setMode] = useState<ChargingMode | null>(DEFAULT_MODE);
+
     const [price, setPrice] = useState<number>(0);
     const [emissions, setEmissions] = useState<number>(0);
     const [alert, setAlert] = useState<boolean>(false);
