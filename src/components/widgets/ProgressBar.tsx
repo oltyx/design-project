@@ -8,9 +8,10 @@ import '../../styles/chargingSession.scss';
 
 interface ProgressBarProps {
     style: string,
+    value: number
 }
 // Progress bar for the charging
-export default function ProgressBar({style, ...props}: ProgressBarProps) {
+export default function ProgressBar({value, style, ...props}: ProgressBarProps) {
 
     const iconStyle = { backgroundImage: style, width: "100%", borderColor: "black" }
 
@@ -18,10 +19,10 @@ export default function ProgressBar({style, ...props}: ProgressBarProps) {
         <Container className="progressBarContainer">
             <Row className="w-100 progressBarRow">
                 <Col className="barCol">
-                    <Progress barStyle={iconStyle} className={"progressBar"} value={44}/>
+                    <Progress barStyle={iconStyle} className={"progressBar"} value={value}/>
                 </Col>
                  <Col className={"percentageCol"}>
-                    <div>44%</div>
+                    <div>{value}%</div>
                 </Col> 
             </Row>
         </Container>

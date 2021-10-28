@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Label, Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 
@@ -8,6 +8,7 @@ import Stats from '../widgets/Stats';
 import ProgressBar from '../widgets/ProgressBar';
 import '../../styles/chargingSession.scss';
 import {ChargingMode} from "../../data/models/ChargingMode";
+import useProgress from "../../hooks/useProgress.js";
 
 interface ChargingSessionProps {
     mode: ChargingMode | null
@@ -33,6 +34,7 @@ export default function ChargingSession({ mode, hour, setHour, minutes, setMinut
     const [button, setButton] = useState("Stop");
     const [time, setTime] = useState(hour + " : " + minutes);
     const [style, setStyle] = useState("linear-gradient(to bottom, #9AE09A 0%, #44BE44 100%)");
+    const [progress, getProgress] = useProgress();
 
     const today = new Date();
 
@@ -45,6 +47,20 @@ export default function ChargingSession({ mode, hour, setHour, minutes, setMinut
             history.push("/feedback");
         }
     }, [history, button, today]);
+
+
+    // const [alerts, setAlerts] = useState([])
+
+    useEffect(() => {
+        // @ts-ignore
+        getProgress();
+        const interval = setInterval(() =>
+            //@ts-ignore
+            getProgress(), 700)
+        return () => {
+            clearInterval(interval);
+        }
+    }, [])
 
     return(
         <Container className="chargingSession">
@@ -63,7 +79,10 @@ export default function ChargingSession({ mode, hour, setHour, minutes, setMinut
             </Row>
             <Row className={"w-100"}>
                 <Col>
-                    <ProgressBar style={style}/>
+                    <ProgressBar
+                        //@ts-ignore
+                        value={progress}
+                        style={style}/>
                 </Col>
             </Row>
             <Row>
