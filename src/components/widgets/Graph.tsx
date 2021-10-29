@@ -42,7 +42,7 @@ export default function Graph({ mode, setPrice, setEmissions}: Settings) {
     useEffect(() => {
         setPrice(getPrice(data));
         setEmissions(getEmissions(data));
-    }, [energy, endHr, endMin, mode, data])
+    }, [energy, endHr, endMin, mode, data, setEmissions, setPrice])
 
     return(<div>
     <ResponsiveContainer aspect={500/400}>

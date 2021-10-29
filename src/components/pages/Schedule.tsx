@@ -81,7 +81,7 @@ export default function Schedule({...props}: ScheduleProps) {
                         <Container>
                             <Row>
                                 <Col style={{paddingLeft: "2rem"}}><h4 style={{fontSize: "2vh"}}>Price: €{price.toFixed(2)}</h4></Col>
-                                <Col style={{textAlign: "center"}}><h4 style={{fontSize: "2vh"}}>CO2 Emissions: {emissions.toFixed(1)}g </h4></Col>
+                                <Col style={{textAlign: "center"}}><h4 style={{fontSize: "2vh"}}>CO2: {emissions.toFixed(1)}g </h4></Col>
                             </Row>
                         </Container>
                     </NavItem>

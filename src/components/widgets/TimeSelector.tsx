@@ -1,4 +1,4 @@
-import React, {MutableRefObject, useEffect, useRef, useState} from 'react';
+import React, {MutableRefObject, useCallback, useEffect, useRef, useState} from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import '../../styles/timeSelector.scss';
@@ -13,6 +13,7 @@ export default function TimeSelector({ ...props}: TimeSelectorProps) {
     const context = useFormContext();
     const [hour , setHour] = useState<number>(DEFAULT_TIME.hour);
     const [minutes, setMinutes] = useState<number>(DEFAULT_TIME.minutes);
+    console.log(hour, minutes)
 
     const hrUpRef = useRef() as MutableRefObject<HTMLDivElement>;
     const hrDownRef = useRef() as MutableRefObject<HTMLDivElement>;
@@ -21,21 +22,21 @@ export default function TimeSelector({ ...props}: TimeSelectorProps) {
     const hourInputRef = useRef() as MutableRefObject<HTMLInputElement>;
     const minutesInputRef = useRef() as MutableRefObject<HTMLInputElement>;
 
-    const hourUp = () => {
+    const hourUp = useCallback(() => {
         setHour((((hour + 1) % 24) + 24) % 24);
-    };
+    }, [hour, setHour]);
 
-    const hourDown = () => {
+    const hourDown = useCallback(() => {
         setHour((((hour - 1) % 24) + 24) % 24);
-    };
+    }, [hour, setHour]);
 
-    const minutesUp = () => {
+    const minutesUp = useCallback(() => {
         setMinutes((((minutes + 15) % 60) + 60) % 60);
-    };
+    }, [minutes, setMinutes]);
 
-    const minutesDown = () => {
+    const minutesDown = useCallback(() => {
         setMinutes((((minutes - 15) % 60) + 60) % 60);
-    };
+    }, [minutes, setMinutes]);
 
     useEffect(() => {
         let hrUpRefCurrent = hrUpRef.current;
@@ -54,28 +55,28 @@ export default function TimeSelector({ ...props}: TimeSelectorProps) {
             minUpRefCurrent.removeEventListener('click', minutesUp);
             minDownRefCurrent.removeEventListener('click', minutesDown);
         };
-    });
+    }, [hrUpRef, hrDownRef, minUpRef, minDownRef, hourUp, hourDown, minutesDown, minutesUp]);
 
-    useEffect(() => {
-        hourInputRef.current.value = formatTime(hour);
-    },[hour])
-
-    useEffect(() => {
-        minutesInputRef.current.value = formatTime(minutes)
-    }, [minutes])
-
-    const formatTime = (time: number): string => {
+    const formatTime = useCallback((time: number): string => {
         if(time < 10){
             return '0' + time.toString();
         }
         return time.toString();
-    };
+    }, []);
+
+    useEffect(() => {
+        hourInputRef.current.value = formatTime(hour);
+    },[hourInputRef, hour, formatTime])
+
+    useEffect(() => {
+        minutesInputRef.current.value = formatTime(minutes);
+    }, [minutesInputRef, minutes, formatTime])
 
     useEffect(() => {
         const date = new Date();
         const departure: string = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}T${hour.toString()}:${minutes.toString()}:00`;
         context.setValue("departure", new Date(departure));
-    }, [context.setValue, hour, minutes])
+    }, [context, hour, minutes])
 
     return (
         <div className="time-picker">
