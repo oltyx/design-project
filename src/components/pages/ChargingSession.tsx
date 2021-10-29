@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Label, Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 
@@ -7,14 +7,23 @@ import { GlobalButton } from '../styled/Button';
 import Stats from '../widgets/Stats';
 import ProgressBar from '../widgets/ProgressBar';
 import '../../styles/chargingSession.scss';
+import {ChargingMode} from "../../data/models/ChargingMode";
+import useProgress from "../../hooks/useProgress.js";
 
-      
+interface ChargingSessionProps {
+    mode: ChargingMode | null
+    hour: number,
+    setHour: (hour: number) => void,
+    minutes: number,
+    setMinutes: (hour: number) => void
+}
+
 // Page for the charging session as it goes on ("Session Page" on Figma)
-export default function ChargingSession() {
+export default function ChargingSession({ mode, hour, setHour, minutes, setMinutes}: ChargingSessionProps) {
     const [modal, setModal] = useState(false);
     const handleYes = () => {
         setModal(!modal);
-        setTime(today.getHours() + ' : ' + today.getMinutes());
+        setTime(hour + ' : ' + minutes);
         setSessionTitle("Aborted at ");
         setButton("Finish");
         setStyle("linear-gradient(to bottom, #F07878 0%, #9D1616 100%)");
@@ -23,8 +32,9 @@ export default function ChargingSession() {
 
     const [sessionTitle, setSessionTitle] = useState("Departure at ");
     const [button, setButton] = useState("Stop");
-    const [time, setTime] = useState("13 : 15");
+    const [time, setTime] = useState(hour + " : " + minutes);
     const [style, setStyle] = useState("linear-gradient(to bottom, #9AE09A 0%, #44BE44 100%)");
+    const [progress, getProgress] = useProgress();
 
     const today = new Date();
 
@@ -37,6 +47,20 @@ export default function ChargingSession() {
             history.push("/feedback");
         }
     }, [history, button, today]);
+
+
+    // const [alerts, setAlerts] = useState([])
+
+    useEffect(() => {
+        // @ts-ignore
+        getProgress();
+        const interval = setInterval(() =>
+            //@ts-ignore
+            getProgress(), 700)
+        return () => {
+            clearInterval(interval);
+        }
+    }, [])
 
     return(
         <Container className="chargingSession">
@@ -55,12 +79,15 @@ export default function ChargingSession() {
             </Row>
             <Row className={"w-100"}>
                 <Col>
-                    <ProgressBar style={style}/>
+                    <ProgressBar
+                        //@ts-ignore
+                        value={progress}
+                        style={style}/>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <Stats/>
+                    <Stats mode={mode}/>
                 </Col>
             </Row>
             <Row style={{marginBottom: "1rem"}}> 

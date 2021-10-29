@@ -2,6 +2,6 @@
  * Charging modes, currently Fast Charging and Smart Charging.
  */
 export enum ChargingMode {
-    Fast,
-    Smart
+    Fast = "Fast Charging",
+    Smart = "Solar Power"
 }
