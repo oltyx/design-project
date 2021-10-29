@@ -1,26 +1,35 @@
 import React, {MutableRefObject, useCallback, useEffect, useRef, useState} from 'react';
 import { useFormContext } from 'react-hook-form';
+import { Alert } from 'reactstrap';
 
 import '../../styles/timeSelector.scss';
 
 export interface TimeSelectorProps {
-
+    alert: boolean,
+    setAlert: React.Dispatch<React.SetStateAction<boolean>>,
+    hour: number,
+    minutes: number,
+    setHour: React.Dispatch<React.SetStateAction<number>>,
+    setMinutes: React.Dispatch<React.SetStateAction<number>>,
 }
 
-const DEFAULT_TIME = {hour: 17, minutes: 30};
-
-export default function TimeSelector({ ...props}: TimeSelectorProps) {
-    const context = useFormContext();
-    const [hour , setHour] = useState<number>(DEFAULT_TIME.hour);
-    const [minutes, setMinutes] = useState<number>(DEFAULT_TIME.minutes);
-    console.log(hour, minutes)
-
+export default function TimeSelector({ alert, setAlert, hour, setHour, minutes, setMinutes, ...props}: TimeSelectorProps) {
     const hrUpRef = useRef() as MutableRefObject<HTMLDivElement>;
     const hrDownRef = useRef() as MutableRefObject<HTMLDivElement>;
     const minUpRef = useRef() as MutableRefObject<HTMLDivElement>;
     const minDownRef = useRef() as MutableRefObject<HTMLDivElement>;
     const hourInputRef = useRef() as MutableRefObject<HTMLInputElement>;
     const minutesInputRef = useRef() as MutableRefObject<HTMLInputElement>;
+
+    useEffect(() => {
+        const now = new Date();
+        if (hour < now.getHours() || (hour === now.getHours() && minutes < now.getMinutes())) {
+            setAlert(true);
+        } else {
+            setAlert(false);
+        }
+    }, [alert, setAlert, hour, minutes])
+
 
     const hourUp = useCallback(() => {
         setHour((((hour + 1) % 24) + 24) % 24);
@@ -72,14 +81,10 @@ export default function TimeSelector({ ...props}: TimeSelectorProps) {
         minutesInputRef.current.value = formatTime(minutes);
     }, [minutesInputRef, minutes, formatTime])
 
-    useEffect(() => {
-        const date = new Date();
-        const departure: string = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}T${hour.toString()}:${minutes.toString()}:00`;
-        context.setValue("departure", new Date(departure));
-    }, [context, hour, minutes])
-
     return (
+        
         <div className="time-picker">
+            <Alert className={"scheduleAlert"} isOpen={alert} color="danger"> <h4> Departure time should be later than now </h4> </Alert>
             <div className="hour">
                 <div ref={hrUpRef} className="hr-up"/>
                 <input disabled

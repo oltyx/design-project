@@ -42,10 +42,10 @@ export default function Feedback({...props}: FeedbackProps) {
         defaultValues: {...initialValues},
     });
 
-    const [alertText, setAlertText] = useState<string>("Please rate us next time! Your feedback is very important for us :)")
+    //const [alertText, setAlertText] = useState<string>("Please rate us next time! Your feedback is very important for us :)")
 
     const onSubmit: SubmitHandler<FeedbackInput> = useCallback((data) => {
-        console.log(data);
+        // console.log(data);
         setTimeout(() => {history.push("/")}, 3000);
     },[history])
 
@@ -53,17 +53,17 @@ export default function Feedback({...props}: FeedbackProps) {
         setTimeout(() => {history.push("/")}, 3000);
     }, [history]);
 
-    const hasFeedback = form.formState.isDirty || form.formState.touchedFields !== {};
+    // const hasFeedback = form.formState.isDirty || form.formState.touchedFields !== {};
 
-    useEffect(() => {
-        if (hasFeedback) {
-            setAlertText("Thank you for our feedback!")
-        }
-    }, [form, alertText, hasFeedback])
+    // useEffect(() => {
+    //     if (hasFeedback) {
+    //         setAlertText("Thank you for our feedback!")
+    //     }
+    // }, [form, alertText, hasFeedback])
 
     return (
         <Container className="feedback p-0">
-            <Alert className={hasFeedback ? "feedbackAlert" : "feedbackAlertBad"} isOpen={form.formState.isSubmitted} color={hasFeedback ? "success" : "danger"}>{alertText}</Alert>
+            <Alert className={"feedbackAlert"} isOpen={form.formState.isSubmitted} color={"success"}>Thank you for our feedback!</Alert>
             <Row className={"w-100"}>
                 <Col className="p-0">
                     <Button className="exitButton" onClick={quit}><BsX style={{height: "5vh", width: "5vh"}}/></Button>

@@ -32,53 +32,53 @@ type ScheduleInput = {
 interface ScheduleProps {
     mode: ChargingMode | null,
     setMode: (mode: ChargingMode | null) => void,
-    hour: number,
-    setHour: (hour: number) => void,
-    minutes: number,
-    setMinutes: (hour: number) => void
+    form: UseFormReturn<{
+        arrival: Date;
+        departure: Date;
+        finished: Date;
+        isAborted: boolean;
+        mode: ChargingMode | null;
+        price: number;
+        desiredEnergy: number;
+        actualEnergy: number;
+    }, object>,
+    // hour: number,
+    // setHour: (hour: number) => void,
+    // minutes: number,
+    // setMinutes: (hour: number) => void
 }
 
-
-//const DEFAULT_CHARGE: number = 0;
-const DEFAULT_MODE: ChargingMode | null = null;
+const DEFAULT_TIME = {hour: 17, minutes: 30};
 
 // Scheduling page
-export default function Schedule({mode, setMode, hour, setHour, minutes, setMinutes, ...props}: ScheduleProps) {
+export default function Schedule({mode, setMode, form, ...props}: ScheduleProps) {
     const history = useHistory();
-    const initialValues = {
-        arrival: new Date(),
-        departure: new Date(),
-        finished: new Date(),
-        isAborted: false,
-        mode: DEFAULT_MODE,
-        price: 0,
-        desiredEnergy: 0,
-        actualEnergy: 0,
-    }
-    const form = useForm({
-        defaultValues: {...initialValues},
-    });
 
     const [price, setPrice] = useState<number>(0);
     const [emissions, setEmissions] = useState<number>(0);
     const [alert, setAlert] = useState<boolean>(false);
-
-    console.log("valid: ", form.formState.isValid, alert)
+    const [timeAlert, setTimeAlert] = useState<boolean>(false);
+    const [hour , setHour] = useState<number>(DEFAULT_TIME.hour);
+    const [minutes, setMinutes] = useState<number>(DEFAULT_TIME.minutes);
+    console.log(hour, minutes)
 
     const onSubmit: SubmitHandler<ScheduleInput> = useCallback((data) => {
-        if (form.formState.isValid && mode != null) {
+        if (form.formState.isValid && mode != null && !timeAlert) {
             console.log(data);
             history.push("/session"); 
-        } else {
+        } else if (!form.formState.isValid || mode === null) {
             setAlert(true);
             setTimeout(()=>{setAlert(false)},2000);
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-              });
+        } else {
             console.log(form.formState.errors);
         }
-    }, [history, form, mode])
+    }, [history, form, mode, timeAlert])
+
+    useEffect(() => {
+        const date = new Date();
+        const departure: string = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}T${hour.toString()}:${minutes.toString()}:00`;
+        form.setValue("departure", new Date(departure));
+    }, [form, hour, minutes])
 
     return(
         <Container className="schedule">
@@ -101,7 +101,13 @@ export default function Schedule({mode, setMode, hour, setHour, minutes, setMinu
                         <Form onSubmit={form.handleSubmit(onSubmit)}>                            
                             <FormGroup style={{marginTop: "1rem"}}>
                                 <StepIcon step={"1"} text={"Select Departure Time"}/>
-                                <TimeSelector/>
+                                <TimeSelector 
+                                    alert={timeAlert} 
+                                    setAlert={setTimeAlert} 
+                                    hour={hour} 
+                                    minutes={minutes}
+                                    setMinutes={setMinutes}
+                                    setHour={setHour}/>
                             </FormGroup>
                             <FormGroup style={{marginTop: "1rem"}}>
                                 <StepIcon step={"2"} text={"Select Energy Consumption"}/>
@@ -113,7 +119,12 @@ export default function Schedule({mode, setMode, hour, setHour, minutes, setMinu
                             </FormGroup>
                             <FormGroup style={{marginTop: "1rem"}}>
                                 <StepIcon step={"4"} text={"Checkout the schedule!"}/>
-                                <Graph mode={mode} setPrice={setPrice} setEmissions={setEmissions}/>
+                                <Graph 
+                                    mode={mode} 
+                                    setPrice={setPrice} 
+                                    setEmissions={setEmissions}
+                                    endHr={hour} 
+                                    endMin={minutes}/>
                             </FormGroup>
                             <FormGroup style={{textAlign: "center"}}>
                                 <GlobalButton text={"Go"} type={"submit"}/>

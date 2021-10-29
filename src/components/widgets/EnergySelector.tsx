@@ -15,8 +15,7 @@ interface Energy {energy?: number, setEnergy?: (newValue: number) => void}
 export default function EnergySelector({...props}: Energy) {
     
     const context = useFormContext();
-    const energy = context.watch("desiredEnergy")
-    console.log(energy)
+    const energy = context.watch("desiredEnergy");
 
     return(
         <Container className="energySelector">

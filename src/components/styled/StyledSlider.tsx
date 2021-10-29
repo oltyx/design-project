@@ -22,7 +22,7 @@ export default function StyledSlider({name, className, energy, step, min, max, .
         control={context.control}
         name={name}
         defaultValue={energy}
-        rules={{ required: true }}
+        rules={{ required: true, minLength: {value: 0.5, message: "Energy should be higher"} }}
         render={({ field: { onChange, onBlur, value, ref } }) => (
             <Slider
                 className={className} 

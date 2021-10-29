@@ -9,18 +9,38 @@ import ProgressBar from '../widgets/ProgressBar';
 import '../../styles/chargingSession.scss';
 import {ChargingMode} from "../../data/models/ChargingMode";
 import useProgress from "../../hooks/useProgress.js";
+import { UseFormReturn } from 'react-hook-form';
 
 interface ChargingSessionProps {
-    mode: ChargingMode | null
-    hour: number,
-    setHour: (hour: number) => void,
-    minutes: number,
-    setMinutes: (hour: number) => void
+    mode: ChargingMode | null,
+    form: UseFormReturn<{
+        arrival: Date;
+        departure: Date;
+        finished: Date;
+        isAborted: boolean;
+        mode: ChargingMode | null;
+        price: number;
+        desiredEnergy: number;
+        actualEnergy: number;
+    }, object>,
+    // hour: number,
+    // setHour: (hour: number) => void,
+    // minutes: number,
+    // setMinutes: (hour: number) => void
 }
 
 // Page for the charging session as it goes on ("Session Page" on Figma)
-export default function ChargingSession({ mode, hour, setHour, minutes, setMinutes}: ChargingSessionProps) {
+export default function ChargingSession({ mode, form, ...props}: ChargingSessionProps) {
+    const hour = form.getValues("departure").getHours();
+    const minutes = form.getValues("departure").getMinutes();
+
     const [modal, setModal] = useState(false);
+    const [sessionTitle, setSessionTitle] = useState("Departure at ");
+    const [button, setButton] = useState("Stop");
+    const [time, setTime] = useState(hour + " : " + minutes);
+    const [style, setStyle] = useState("linear-gradient(to bottom, #9AE09A 0%, #44BE44 100%)");
+    const [progress, getProgress] = useProgress();
+
     const handleYes = () => {
         setModal(!modal);
         setTime(hour + ' : ' + minutes);
@@ -29,12 +49,6 @@ export default function ChargingSession({ mode, hour, setHour, minutes, setMinut
         setStyle("linear-gradient(to bottom, #F07878 0%, #9D1616 100%)");
     }
     const handleCancel = () => setModal(!modal);
-
-    const [sessionTitle, setSessionTitle] = useState("Departure at ");
-    const [button, setButton] = useState("Stop");
-    const [time, setTime] = useState(hour + " : " + minutes);
-    const [style, setStyle] = useState("linear-gradient(to bottom, #9AE09A 0%, #44BE44 100%)");
-    const [progress, getProgress] = useProgress();
 
     const today = new Date();
 
@@ -61,6 +75,18 @@ export default function ChargingSession({ mode, hour, setHour, minutes, setMinut
             clearInterval(interval);
         }
     }, [])
+
+    const yesButtonStyle = {
+        backgroundImage: "linear-gradient(to bottom, #7ACD7A 0%, #337433 100%)",
+        border: "none",
+        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+    }
+
+    const cancelButtonStyle = {
+        backgroundImage: "linear-gradient(#F07878 0%, #9D1616 100%)",
+        border: "none",
+        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+    }
 
     return(
         <Container className="chargingSession">
@@ -95,20 +121,16 @@ export default function ChargingSession({ mode, hour, setHour, minutes, setMinut
                     <GlobalButton text={button} onClick={handleClick}/>
                 </Col>
             </Row>
-            {/* <Row> 
-                <Col > */}
-                    <Modal isOpen={modal}>
-                        <ModalHeader style={{background: "rgba(255, 255, 255, 0.5)"}}>Confirmation</ModalHeader>
-                        <ModalBody style={{background: "rgba(255, 255, 255, 0.5)"}}>
-                            Are you sure you want to abort the charging session?
-                        </ModalBody>
-                        <ModalFooter style={{background: "rgba(255, 255, 255, 0.5)"}}>
-                            <Button className="yesButton" onClick={handleYes}>Yes</Button>
-                            <Button className="cancelButton" onClick={handleCancel}>Cancel</Button>
-                        </ModalFooter>
-                    </Modal>
-                {/* </Col>
-            </Row> */}
+                <Modal isOpen={modal}>
+                    <ModalHeader style={{background: "rgba(255, 255, 255, 0.5)"}}>Confirmation</ModalHeader>
+                    <ModalBody style={{background: "rgba(255, 255, 255, 0.5)"}}>
+                        Are you sure you want to abort the charging session?
+                    </ModalBody>
+                    <ModalFooter style={{background: "rgba(255, 255, 255, 0.5)"}}>
+                        <Button onClick={handleYes} style={yesButtonStyle}>Yes</Button>
+                        <Button onClick={handleCancel} style={cancelButtonStyle}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
         </Container>
     );
 };
