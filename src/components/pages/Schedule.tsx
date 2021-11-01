@@ -1,7 +1,10 @@
-import React, {useCallback, useEffect, useState} from 'react';
+/**
+ * @module
+ * Schedule page, allows the user to set their preferences for the charging session.
+ */
+import React, {useCallback, useState} from 'react';
 import { Container, Row, Col, Form, FormGroup, Alert, Navbar, Nav, NavItem} from 'reactstrap';
-import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-import { FieldValues, FormProvider, SubmitHandler, useForm, UseFormReturn } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm} from 'react-hook-form';
 
 import '../widgets/TimeSelector';
 import '../widgets/EnergySelector';
@@ -16,8 +19,9 @@ import {useHistory} from "react-router-dom";
 import '../../styles/schedule.scss';
 import StepIcon from '../styled/StepIcon';
 
-
-
+/**
+ * TODO add docs
+ */
 type ScheduleInput = {
     arrival: Date,
     departure: Date,
@@ -29,6 +33,9 @@ type ScheduleInput = {
     actualEnergy: number,
   };
 
+/**
+ * TODO add docs
+ */
 interface ScheduleProps {
     mode: ChargingMode | null,
     setMode: (mode: ChargingMode | null) => void,
@@ -38,19 +45,27 @@ interface ScheduleProps {
     setMinutes: (hour: number) => void
 }
 
-
-//const DEFAULT_CHARGE: number = 0;
-const DEFAULT_MODE: ChargingMode | null = null;
-
-// Scheduling page
+/**
+ * Constructs the page.
+ * @param mode          Current charging mode
+ * @param setMode       Setter for the mode field
+ * @param hour          Current hour part of the departure time
+ * @param setHour       Setter for the hour field
+ * @param minutes       Current minutes part of the departure time
+ * @param setMinutes    Setter for the minutes field
+ * @param props         Any other properties, currently not used
+ */
 export default function Schedule({mode, setMode, hour, setHour, minutes, setMinutes, ...props}: ScheduleProps) {
     const history = useHistory();
+    /**
+     * Default values of the selectors.
+     */
     const initialValues = {
         arrival: new Date(),
         departure: new Date(),
         finished: new Date(),
         isAborted: false,
-        mode: DEFAULT_MODE,
+        mode: null,
         price: 0,
         desiredEnergy: 0,
         actualEnergy: 0,
@@ -66,6 +81,7 @@ export default function Schedule({mode, setMode, hour, setHour, minutes, setMinu
 
     console.log("valid: ", form.formState.isValid, alert)
 
+    // Actions when submitting the form
     const onSubmit: SubmitHandler<ScheduleInput> = useCallback((data) => {
         if (form.formState.isValid && mode != null) {
             console.log(data);
@@ -76,11 +92,12 @@ export default function Schedule({mode, setMode, hour, setHour, minutes, setMinu
             window.scrollTo({
                 top: 0,
                 behavior: "smooth"
-              });
+            });
             console.log(form.formState.errors);
         }
     }, [history, form, mode])
 
+    // Resulting page
     return(
         <Container className="schedule">
             <Navbar className={"navbarSchedule"} light sticky={"top"}>

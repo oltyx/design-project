@@ -1,4 +1,8 @@
-import React, { useCallback } from 'react';
+/**
+ * @module
+ * Used for selecting the required energy with a slider.
+ */
+import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 
 import '../../assets/profile-steering/Conversion';
@@ -8,7 +12,10 @@ import { useFormContext } from 'react-hook-form';
 import StyledSlider from '../styled/StyledSlider';
 import {MdAutorenew} from "react-icons/all";
 
-
+/**
+ * @field energy    The current state of the Selector.
+ * @field setEnergy Setter for energy.
+ */
 interface Energy {energy?: number, setEnergy?: (newValue: number) => void}
 
 // Slider for km and kWh, with conversion from Conversion.ts
@@ -18,6 +25,7 @@ export default function EnergySelector({...props}: Energy) {
     const energy = context.watch("desiredEnergy")
     console.log(energy)
 
+    // The component body
     return(
         <Container className="energySelector">
             <Row className="energyBar" style={{width: "100%"}}>

@@ -1,3 +1,7 @@
+/**
+ * @module
+ * Evaluates the price and CO2 emissions of a planned charging session.
+ */
 import {ChargingData} from "../../data/models/ChargingData";
 
 /**
@@ -24,6 +28,10 @@ const PRICE_GRID : number = 0.24;
  */
 const PRICE_SOLAR : number = 0.12;
 
+/**
+ * Computes the price of a charging session.
+ * @param data the data of the charging session.
+ */
 export function getPrice(data: ChargingData[]): number {
     let res: number = 0;
     for (let i = 0; i < data.length; i++) {
@@ -34,6 +42,10 @@ export function getPrice(data: ChargingData[]): number {
     return res;
 }
 
+/**
+ * Computes the CO2 emissions of a charging session.
+ * @param data the data of the charging session.
+ */
 export function getEmissions(data: ChargingData[]): number {
     let res: number = 0;
     for (let i = 0; i < data.length; i++) {
