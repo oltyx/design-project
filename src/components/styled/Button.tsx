@@ -1,10 +1,7 @@
 import React from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import { Button, Input } from 'reactstrap';
+import { Button } from 'reactstrap';
 
 import '../../styles/lightMode.scss';
-
-// Checkbox feedback element, consisting of the box and associated text
 
 
 interface GlobalButtonProps {
@@ -25,8 +22,8 @@ interface ModeButton {
 
 
 
-export const GlobalButton = ({ text, onClick, className, type, ...props}: GlobalButtonProps) => {
+export const GlobalButton = ({ text, onClick, className, type, style, ...props}: GlobalButtonProps) => {
     return(
-        <Button className={`${className} globalButton`} type={type} onClick={onClick}><h1 className={"globalButtonText"} {...props}>{text}</h1></Button>
+        <Button className={`${className} globalButton`} type={type} style={style} onClick={onClick}><h1 className={"globalButtonText"} {...props}>{text}</h1></Button>
     );
 }

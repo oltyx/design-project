@@ -1,17 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { SubmitHandler, FormProvider, useFormContext, UseFormReturn, FieldValues, useForm } from "react-hook-form";
+import { SubmitHandler, FormProvider, useForm } from "react-hook-form";
 import { Alert, Container, Row, Col, Button, Form, FormGroup } from 'reactstrap';
 import { BsX } from 'react-icons/bs';
+import { useHistory } from 'react-router';
 
 import '../../styles/feedback.scss';
 import '../../styles/lightMode.scss';
 import '../styled/Checkbox';
-import '../widgets/Rating';
+import '../widgets/CustomRating';
 import '../styled/TextField';
-import Rating from '../widgets/Rating';
+import CustomRating from '../widgets/CustomRating';
 import Comments from '../widgets/Comments';
 import { GlobalButton } from '../styled/Button';
-import { useHistory } from 'react-router';
+import TextField from '../styled/TextField';
 
 
 interface FeedbackProps {
@@ -34,12 +35,20 @@ export default function Feedback({...props}: FeedbackProps) {
     const history = useHistory();
     const initialValues = {
         sessionId: props.sessionId,
-        rating: null,
+        rating: 0,
         suggestedComment: '',
         openComment: '',
     }
+    const values = [
+        "I love it!",
+        "Easy to use",
+        "Annoying",
+        "Too much graphics"
+    ]
+
     const form = useForm({
-        defaultValues: {...initialValues},
+        defaultValues: { ...initialValues },
+        mode: "onBlur",
     });
 
     const [alertText, setAlertText] = useState<string>("Please rate us next time! Your feedback is very important for us :)")
@@ -53,7 +62,7 @@ export default function Feedback({...props}: FeedbackProps) {
         setTimeout(() => {history.push("/")}, 3000);
     }, [history]);
 
-    const hasFeedback = form.formState.isDirty || form.formState.touchedFields !== {};
+    const hasFeedback = form.formState.isDirty && Object.keys(form.formState.touchedFields).length !== 0;
 
     useEffect(() => {
         if (hasFeedback) {
@@ -66,19 +75,24 @@ export default function Feedback({...props}: FeedbackProps) {
             <Alert className={hasFeedback ? "feedbackAlert" : "feedbackAlertBad"} isOpen={form.formState.isSubmitted} color={hasFeedback ? "success" : "danger"}>{alertText}</Alert>
             <Row className={"w-100"}>
                 <Col className="p-0">
-                    <Button className="exitButton" onClick={quit}><BsX style={{height: "5vh", width: "5vh"}}/></Button>
+                    <Button className="exitButton" onClick={quit}><BsX style={{height: "8vh", width: "8vh"}}/></Button>
                 </Col>
             </Row>
             <Row className={"h-100"}>
-                <Col style={{alignSelf: "center"}}>
+                <Col style={{alignSelf: "center", height: "100%"}}>
                     <FormProvider {...form}>
-                        <Form className={"feedbackForm"} onSubmit={form.handleSubmit(onSubmit)}>                            
-                                <FormGroup className={"centerFlexbox"}>
-                                    <h1 className={"responsiveText"}>Hey {props.user?.name}, please rate us!</h1>
-                                    <Rating/>
-                                    <Comments/>
-                                </FormGroup>
-                                <GlobalButton text={"Submit"} type={"submit"}/>
+                        <Form className={"feedbackForm"} onSubmit={form.handleSubmit(onSubmit)}>
+                            <h1 className={"responsiveText"}>Hey {props.user?.name}, please rate us!</h1>                            
+                            <FormGroup>   
+                                <CustomRating name={"rating"}/>
+                            </FormGroup>
+                            <FormGroup style={{marginTop: "3rem", marginBottom: "3rem"}}>
+                                <Comments name={"suggestedComment"} values={values}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <TextField name={"openComment"}/>
+                            </FormGroup>
+                            <GlobalButton text={"Submit"} type={"submit"} style={{marginTop: "auto"}}/> 
                         </Form>
                     </FormProvider>
                 </Col>
