@@ -11,13 +11,14 @@ interface RatingProps {
 }
 
 export default function CustomRating({...props}: RatingProps) {
+    /**
+     * Form context passed via {@link https://react-hook-form.com/api/useformcontext | Form Provider}.
+     */
     const context = useFormContext();
 
-    const ratingStyles = {
-        width: "2vh",
-        height: "2vh"
-    }
-    
+    /**
+     * Controlled Rating component.
+     */
     return(
         <Controller
         control={context.control}

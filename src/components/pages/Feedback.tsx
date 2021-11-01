@@ -16,48 +16,103 @@ import TextField from '../styled/TextField';
 
 
 interface FeedbackProps {
+    /**
+     * Detailes of the current User.
+     */
     user?: {
         name?: string,
         surname?: string,
     }
+    /**
+     * Current Charging Session ID.
+     */
     sessionId?: number,
+    /**
+     * Any other props passing to the Feedback component.
+     */
     [x: string]: any
 }
 
+    /**
+     * Types for the react-hook-form form.
+     * 
+     * @remarks
+     * See {@link https://react-hook-form.com/| react-hook-form documentation} for more details.
+     */
 type FeedbackInput = {
+    /**
+     * Unique ID of the current charging session.
+     */
     sessionId: number,
+    /**
+     * Rating must be between 1 to 5 if rated; 0 by default.
+     */
     rating: number,
+    /**
+     * Four comments are suggested, only one needs to be chosen.
+     */
     suggestedComment: string,
+    /**
+     * Any additional comments/remarks that the User may have.
+     */
     openComment: string,
 }
 
+/**
+ * Feedback component of the web application.
+ * @param user          current User details
+ * @param sessionId     current session ID
+ */
 export default function Feedback({...props}: FeedbackProps) {
     const history = useHistory();
+
+    /**
+     * Default values for the feedback form.
+     */
     const initialValues = {
         sessionId: props.sessionId,
         rating: 0,
         suggestedComment: '',
         openComment: '',
     }
-    const values = [
+
+    /**
+     * List of Suggested Comments.
+     */
+    const commentValues = [
         "I love it!",
         "Easy to use",
         "Annoying",
         "Too much graphics"
     ]
 
+    /**
+     * React-hook-form.
+     * @param defaultValues     initial value for each of the fields to be submited; ensures proper form validation
+     * @param mode              onBlur runs form validation whenever the input loses focus.
+     */
     const form = useForm({
         defaultValues: { ...initialValues },
         mode: "onBlur",
     });
 
+    /**
+     * State of the Alert text: 
+     *  case 1 - User submits feedback; 
+     *  case 2 - User does not submit feedback
+     */
     const [alertText, setAlertText] = useState<string>("Please rate us next time! Your feedback is very important for us :)")
 
+    /**
+     * Submits the Feedback Form. Automatically transfers the User to {@link src\components\pages\Start.tsx | Start page} after timeout.
+     */
     const onSubmit: SubmitHandler<FeedbackInput> = useCallback((data) => {
-        console.log(data);
         setTimeout(() => {history.push("/")}, 3000);
     },[history])
 
+    /**
+     * Exits the Feedback Form without submission. Automatically transfers the User to {@link src\components\pages\Start.tsx | Start page} after timeout.
+     */
     const quit = useCallback(() => {
         setTimeout(() => {history.push("/")}, 3000);
     }, [history]);
@@ -70,6 +125,13 @@ export default function Feedback({...props}: FeedbackProps) {
         }
     }, [form, alertText, hasFeedback])
 
+    /**
+     * Constructed using {@link https://react-hook-form.com/api/useformcontext | Form Provider} to pass form context to nested components.
+     * Returns Feedback Form with the following widgets:
+     *  1. {@link src\components\widgets\CustomRating.tsx | "5-bolt" Rating }
+     *  2. {@link src\components\widgets\Comments.tsx | Suggested Comments }
+     *  3. {@link src\components\styled\TextField.tsx | Text Field for remarks}
+     */
     return (
         <Container className="feedback p-0">
             <Alert className={hasFeedback ? "feedbackAlert" : "feedbackAlertBad"} isOpen={form.formState.isSubmitted} color={hasFeedback ? "success" : "danger"}>{alertText}</Alert>
@@ -87,7 +149,7 @@ export default function Feedback({...props}: FeedbackProps) {
                                 <CustomRating name={"rating"}/>
                             </FormGroup>
                             <FormGroup style={{marginTop: "3rem", marginBottom: "3rem"}}>
-                                <Comments name={"suggestedComment"} values={values}/>
+                                <Comments name={"suggestedComment"} values={commentValues}/>
                             </FormGroup>
                             <FormGroup>
                                 <TextField name={"openComment"}/>

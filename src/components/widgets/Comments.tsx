@@ -11,7 +11,6 @@ interface CommentsProps {
 
 export default function Comments({...props}: CommentsProps) {
     const context = useFormContext();
-    console.log(context.getValues("suggestedComment"))
 
     return(
             <Controller
