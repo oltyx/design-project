@@ -1,7 +1,18 @@
+/**
+ * @module
+ * Selector for departure time.
+ */
 import React, {MutableRefObject, useEffect, useRef} from 'react';
 
 import '../../styles/timeSelector.scss';
 
+/**
+ * State of the component.
+ * @field hour          Hour part of the time selector
+ * @field setHour       Setter for hour
+ * @field minutes       Minute part of the time selector
+ * @field setMinutes    Setter for minutes
+ */
 export interface TimeSelectorProps {
     hour: number,
     setHour: (hour: number) => void,
@@ -68,8 +79,8 @@ const TimeSelector: React.FC<TimeSelectorProps> = ({ hour, setHour, minutes, set
         return time.toString();
     };
 
+    // Body of the component
     return (
-
         <div className="time-picker">
             <div className="hour">
                 <div ref={hrUpRef} className="hr-up"/>

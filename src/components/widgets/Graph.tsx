@@ -1,3 +1,7 @@
+/**
+ * @module
+ * Graph which is displayed on the schedule page.
+ */
 import React, {useEffect, useMemo} from 'react';
 import {
     ComposedChart,
@@ -16,12 +20,20 @@ import {ChargingMode} from "../../data/models/ChargingMode";
 import {getEmissions, getPrice} from "../../assets/profile-steering/PriceEmissions";
 import { useFormContext } from 'react-hook-form';
 
-interface Settings  { endHr: number
-                    , endMin: number
-                    , mode: ChargingMode | null
-                    , setPrice: (newValue: number) => void
-                    , setEmissions: (newValue: number) => void
-                    }
+/**
+ * Settings that the graph has to plan with.
+ * @field endHr         Hour part of departure time
+ * @field endMin        Minute part of departure time
+ * @field mode          Charging mode, or null if not selected
+ * @field setPrice      Setter for the price on the containing page
+ * @field setEmissions  Setter for the emissions on the containing page
+ */
+interface Settings { endHr: number
+                   , endMin: number
+                   , mode: ChargingMode | null
+                   , setPrice: (newValue: number) => void
+                   , setEmissions: (newValue: number) => void
+                   }
 
 // Graph with result from ProfileSteering.ts, plus price and CO2 emissions
 export default function Graph({endHr, endMin, mode, setPrice, setEmissions}: Settings) {
@@ -38,11 +50,13 @@ export default function Graph({endHr, endMin, mode, setPrice, setEmissions}: Set
             });
     }, [energy, endHr, endMin, mode]);
 
+    // Perform these action every time one of the dependencies changes
     useEffect(() => {
         setPrice(getPrice(data));
         setEmissions(getEmissions(data));
     }, [energy, endHr, endMin, mode, data])
 
+    // Body of the component
     return(<div>
     <ResponsiveContainer aspect={500/400}>
         <ComposedChart

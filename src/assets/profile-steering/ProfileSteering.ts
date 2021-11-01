@@ -1,3 +1,7 @@
+/**
+ * @module
+ * Plans the charging sessions based on the provided data to the functions.
+ */
 import {ChargingMode} from "../../data/models/ChargingMode";
 import {getSolarPower, ChargingData, zipData, getIntervals} from "../../data/models/ChargingData";
 
@@ -16,7 +20,7 @@ const CHARGING_POWERS : number[] = [0, 1000, 2000, 3000, 4000, 5000, 6000, 7000]
 // ---- END CONSTANTS ----
 
 /**
- *
+ * Computes the profile that finishes charging the fastest with the requirements set.
  * @param desired           The desired profile from the EMS, mainly for the intervals.
  * @param chargeRequired    The amount of charge the EV driver requires, in Wτ (τ = INTERVAL_LENGTH).
  * @param chargingPowers    The possible power levels the EV can be charged at, in W. Should be increasing.
@@ -126,6 +130,10 @@ function discreteBufferPlanningSmart(desired: number[], chargeRequired: number, 
 
 /**
  * Retrieves all data needed and runs {@link #discreteBufferPlanningFast()} or {@link #discreteBufferPlanningSmart()}.
+ * @param chargeRequired The amount of charge the EV driver requires, in Wτ (τ = INTERVAL_LENGTH).
+ * @param endTime Hours and minutes of the departure time.
+ * @param mode The charging mode (Fast or Smart), or null if not selected.
+ * @returns The profile computed by the according algorithm.
  */
 export function planEV(chargeRequired: number, endTime: [number, number], mode: ChargingMode|null): ChargingData[] {
     const desired: number[] = getSolarPower();
