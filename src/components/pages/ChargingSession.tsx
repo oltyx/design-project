@@ -23,10 +23,7 @@ export default function ChargingSession({ mode, hour, setHour, minutes, setMinut
     const [modal, setModal] = useState(false);
     const handleYes = () => {
         setModal(!modal);
-        setTime(hour + ' : ' + minutes);
-        setSessionTitle("Aborted at ");
-        setButton("Finish");
-        setStyle("linear-gradient(to bottom, #F07878 0%, #9D1616 100%)");
+        history.push("/feedback");
     }
     const handleCancel = () => setModal(!modal);
 
@@ -35,16 +32,17 @@ export default function ChargingSession({ mode, hour, setHour, minutes, setMinut
     const [time, setTime] = useState(hour + " : " + minutes);
     const [style, setStyle] = useState("linear-gradient(to bottom, #9AE09A 0%, #44BE44 100%)");
     const [progress, getProgress] = useProgress();
+    const [finished, setFinished] = useState(false);
 
     const today = new Date();
 
     const history = useHistory();
 
     const handleClick = useCallback(() => {
-        if (button==="Stop") {
-            setModal(true);
-        } else {
+        if (finished) {
             history.push("/feedback");
+        }  else {
+            setModal(!modal);
         }
     }, [history, button, today]);
 
@@ -56,11 +54,20 @@ export default function ChargingSession({ mode, hour, setHour, minutes, setMinut
         getProgress();
         const interval = setInterval(() =>
             //@ts-ignore
-            getProgress(), 700)
+            getProgress(), 250)
         return () => {
             clearInterval(interval);
         }
     }, [])
+
+    useEffect(() => {
+        if(progress === 100){
+            setFinished(true);
+            setTime("");
+            setSessionTitle("Charging it's done!");
+            setButton("Finish");
+        }
+    }, [progress])
 
     return(
         <Container className="chargingSession">
