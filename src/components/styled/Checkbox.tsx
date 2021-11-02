@@ -5,7 +5,7 @@ import { Input, Label } from 'reactstrap';
 
 import '../../styles/lightMode.scss';
 
-// Checkbox feedback element, consisting of the box and associated text
+// unused
 
 interface CheckboxProps {
     name: string,

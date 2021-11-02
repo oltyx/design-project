@@ -5,31 +5,41 @@ import { Input, Label } from 'reactstrap';
 
 import '../../styles/lightMode.scss';
 
-// Checkbox feedback element, consisting of the box and associated text
+//unused
 
 interface RadioboxProps {
     text?: string,
     className?: string,
     style?: any,
     disabled?: boolean,
+    name: string,
+    id: string,
     [x: string]: any
 }
 
-export const Radiobox=({text, className, style, disabled, ...props}: RadioboxProps) => {
+export const Radiobox=({text, className, style, disabled, name, id, ...props}: RadioboxProps) => {
+    const context = useFormContext();
+
     return(
-        <Label check className={"responsiveText"}>
+        <Controller
+        control={context.control}
+        name={name}
+        render={({ field: { onChange, onBlur, value, ref } }) => (
+        <Label className={"responsiveText"} for={id}>
             <Input
                 className={`${className} radioboxStyle`}
-                type={"radio"} 
-                innerRef={props.ref}
-                onChange={props.onChange} 
-                onBlur={props.onBlur}
-                name={props.name} 
-                value={props.value}
+                type={"radio"}
+                id={id} 
+                innerRef={ref}
+                onChange={onChange} 
+                onBlur={onBlur}
+                name={name} 
+                value={value}
                 style={style}
                 disabled={disabled}
                 {...props} 
-                checked={props.checked}/>{text}
+                checked={value}/>{text}
         </Label>
-    );
+    )} />
+    )
 }

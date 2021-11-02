@@ -79,8 +79,6 @@ export default function Schedule({mode, setMode, hour, setHour, minutes, setMinu
     const [emissions, setEmissions] = useState<number>(0);
     const [alert, setAlert] = useState<boolean>(false);
 
-    console.log("valid: ", form.formState.isValid, alert)
-
     // Actions when submitting the form
     const onSubmit: SubmitHandler<ScheduleInput> = useCallback((data) => {
         if (form.formState.isValid && mode != null) {
