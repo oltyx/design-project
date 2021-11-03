@@ -9,17 +9,20 @@ import ProgressBar from '../widgets/ProgressBar';
 import '../../styles/chargingSession.scss';
 import {ChargingMode} from "../../data/models/ChargingMode";
 import useProgress from "../../hooks/useProgress.js";
+import * as Types from "../../App";
 
 interface ChargingSessionProps {
-    mode: ChargingMode | null
-    hour: number,
-    setHour: (hour: number) => void,
-    minutes: number,
-    setMinutes: (hour: number) => void
+    // mode: ChargingMode | null
+    // hour: number,
+    // setHour: (hour: number) => void,
+    // minutes: number,
+    // setMinutes: (hour: number) => void
+    state: Types.SessionType;
+    setState: React.Dispatch<React.SetStateAction<Types.SessionType>>,
 }
 
 // Page for the charging session as it goes on ("Session Page" on Figma)
-export default function ChargingSession({ mode, hour, setHour, minutes, setMinutes}: ChargingSessionProps) {
+export default function ChargingSession({ state, setState }: ChargingSessionProps) {
     const [modal, setModal] = useState(false);
     const handleYes = () => {
         setModal(!modal);
@@ -29,7 +32,7 @@ export default function ChargingSession({ mode, hour, setHour, minutes, setMinut
 
     const [sessionTitle, setSessionTitle] = useState("Departure at ");
     const [button, setButton] = useState("Stop");
-    const [time, setTime] = useState(hour + " : " + minutes);
+    const [time, setTime] = useState(state.hour + " : " + state.minutes);
     const [style, setStyle] = useState("linear-gradient(to bottom, #9AE09A 0%, #44BE44 100%)");
     const [progress, getProgress] = useProgress();
     const [finished, setFinished] = useState(false);
@@ -94,7 +97,7 @@ export default function ChargingSession({ mode, hour, setHour, minutes, setMinut
             </Row>
             <Row>
                 <Col>
-                    <Stats mode={mode}/>
+                    <Stats mode={state.mode}/>
                 </Col>
             </Row>
             <Row style={{marginBottom: "1rem"}}> 

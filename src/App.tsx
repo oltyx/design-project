@@ -12,11 +12,39 @@ import {ChargingMode} from "./data/models/ChargingMode";
 const DEFAULT_TIME = {hour: 17, minutes: 30};
 const DEFAULT_MODE: ChargingMode | null = null;
 
+export interface SessionType {
+  mode: ChargingMode | null,
+  //setMode: (mode: ChargingMode | null) => void,
+  hour: number,
+  //setHour: (hour: number) => void,
+  minutes: number,
+  price: number,
+  CO2: number,
+  //setMinutes: (hour: number) => void
+}
+
+// interface StateType {
+//   state: SessionType,
+//   setState: React.Dispatch<React.SetStateAction<SessionType>>,
+// }
+
+
+
 export default function App() {
 
-  const [hour , setHour] = useState<number>(DEFAULT_TIME.hour);
-  const [minutes, setMinutes] = useState<number>(DEFAULT_TIME.minutes);
-  const [mode, setMode] = useState<ChargingMode | null>(DEFAULT_MODE);
+  const defaultState: SessionType = {
+    hour: DEFAULT_TIME.hour,
+    minutes: DEFAULT_TIME.minutes,
+    mode: DEFAULT_MODE,
+    price: 0,
+    CO2: 0,
+  }
+
+  const [state, setState] = useState<SessionType>(defaultState);
+
+  // const [hour , setHour] = useState<number>(DEFAULT_TIME.hour);
+  // const [minutes, setMinutes] = useState<number>(DEFAULT_TIME.minutes);
+  // const [mode, setMode] = useState<ChargingMode | null>(DEFAULT_MODE);
 
   return (
     <Router>
@@ -25,19 +53,20 @@ export default function App() {
             <Start />
           </Route>
           <Route path="/session">
-            <ChargingSession mode={mode}
-                             hour={hour}
-                             setHour={setHour}
-                             minutes={minutes}
-                             setMinutes={setMinutes}/>
+            <ChargingSession 
+              state={state}
+              setState={setState}
+              // mode={mode}
+              // hour={hour}
+              // setHour={setHour}
+              // minutes={minutes}
+              // setMinutes={setMinutes}
+              />
           </Route>
           <Route path="/schedule">
-            <Schedule mode={mode}
-                      setMode={setMode}
-                      hour={hour}
-                      setHour={setHour}
-                      minutes={minutes}
-                      setMinutes={setMinutes}/>
+            <Schedule 
+              state={state}
+              setState={setState}/>
           </Route>
           <Route path="/feedback">
             <Feedback/>

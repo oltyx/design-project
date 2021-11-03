@@ -18,6 +18,7 @@ import {GlobalButton} from "../styled/Button";
 import {useHistory} from "react-router-dom";
 import '../../styles/schedule.scss';
 import StepIcon from '../styled/StepIcon';
+import * as Types from "../../App";
 
 /**
  * TODO add docs
@@ -37,12 +38,14 @@ type ScheduleInput = {
  * TODO add docs
  */
 interface ScheduleProps {
-    mode: ChargingMode | null,
-    setMode: (mode: ChargingMode | null) => void,
-    hour: number,
-    setHour: (hour: number) => void,
-    minutes: number,
-    setMinutes: (hour: number) => void
+    // mode: ChargingMode | null,
+    // setMode: (mode: ChargingMode | null) => void,
+    // hour: number,
+    // setHour: (hour: number) => void,
+    // minutes: number,
+    // setMinutes: (hour: number) => void
+    state: Types.SessionType;
+    setState: React.Dispatch<React.SetStateAction<Types.SessionType>>,
 }
 
 /**
@@ -55,7 +58,7 @@ interface ScheduleProps {
  * @param setMinutes    Setter for the minutes field
  * @param props         Any other properties, currently not used
  */
-export default function Schedule({mode, setMode, hour, setHour, minutes, setMinutes, ...props}: ScheduleProps) {
+export default function Schedule({state, setState, ...props}: ScheduleProps) {
     const history = useHistory();
     /**
      * Default values of the selectors.
@@ -75,13 +78,13 @@ export default function Schedule({mode, setMode, hour, setHour, minutes, setMinu
     });
 
 
-    const [price, setPrice] = useState<number>(0);
-    const [emissions, setEmissions] = useState<number>(0);
+    // const [price, setPrice] = useState<number>(0);
+    // const [emissions, setEmissions] = useState<number>(0);
     const [alert, setAlert] = useState<boolean>(false);
 
     // Actions when submitting the form
     const onSubmit: SubmitHandler<ScheduleInput> = useCallback((data) => {
-        if (form.formState.isValid && mode != null) {
+        if (form.formState.isValid && state.mode != null) {
             console.log(data);
             history.push("/session"); 
         } else {
@@ -93,7 +96,7 @@ export default function Schedule({mode, setMode, hour, setHour, minutes, setMinu
             });
             console.log(form.formState.errors);
         }
-    }, [history, form, mode])
+    }, [history, form, state.mode])
 
     // Resulting page
     return(
@@ -103,8 +106,8 @@ export default function Schedule({mode, setMode, hour, setHour, minutes, setMinu
                     <NavItem>
                         <Container>
                             <Row>
-                                <Col style={{paddingLeft: "2rem"}}><h4 style={{fontSize: "2vh"}}>Price: €{price.toFixed(2)}</h4></Col>
-                                <Col style={{textAlign: "center"}}><h4 style={{fontSize: "2vh"}}>CO2 Emissions: {emissions.toFixed(1)}g </h4></Col>
+                                <Col style={{paddingLeft: "2rem"}}><h4 style={{fontSize: "2vh"}}>Price: €{ state.price ? state.price.toFixed(2) : 0}</h4></Col>
+                                <Col style={{textAlign: "center"}}><h4 style={{fontSize: "2vh"}}>CO2: {state.CO2 ? state.CO2.toFixed(1) : 0}g </h4></Col>
                             </Row>
                         </Container>
                     </NavItem>
@@ -117,7 +120,7 @@ export default function Schedule({mode, setMode, hour, setHour, minutes, setMinu
                         <Form onSubmit={form.handleSubmit(onSubmit)}>                            
                             <FormGroup style={{marginTop: "1rem"}}>
                                 <StepIcon step={"1"} text={"Select Departure Time"}/>
-                                <TimeSelector hour={hour} setHour={setHour} minutes={minutes} setMinutes={setMinutes} />
+                                <TimeSelector state={state} setState={setState} />
                             </FormGroup>
                             <FormGroup style={{marginTop: "1rem"}}>
                                 <StepIcon step={"2"} text={"Select Energy Consumption"}/>
@@ -125,11 +128,11 @@ export default function Schedule({mode, setMode, hour, setHour, minutes, setMinu
                             </FormGroup>
                             <FormGroup style={{marginTop: "1rem"}}>
                                 <StepIcon step={"3"} text={"Select Charging Mode"}/>
-                                <ModeSelector mode={mode} setMode={setMode}/>
+                                <ModeSelector state={state} setState={setState} />
                             </FormGroup>
                             <FormGroup style={{marginTop: "1rem"}}>
                                 <StepIcon step={"4"} text={"Checkout the schedule!"}/>
-                                <Graph endHr={hour} endMin={minutes} mode={mode} setPrice={setPrice} setEmissions={setEmissions}/>
+                                <Graph state={state} setState={setState}/>
                             </FormGroup>
                             <FormGroup style={{textAlign: "center"}}>
                                 <GlobalButton text={"Go"} type={"submit"}/>
