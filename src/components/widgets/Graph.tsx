@@ -30,38 +30,33 @@ import * as Types from "../../App";
  * @field setEmissions  Setter for the emissions on the containing page
  */
 interface Settings { 
-    // endHr: number,
-    // endMin: number,
-    // mode: ChargingMode | null, 
-    // setPrice: (newValue: number) => void,
-    // setEmissions: (newValue: number) => void
-    state: Types.SessionType;
-    setState: React.Dispatch<React.SetStateAction<Types.SessionType>>,
+    settings: Types.SessionType;
+    setSettings: React.Dispatch<React.SetStateAction<Types.SessionType>>,
 }
 
 // Graph with result from ProfileSteering.ts, plus price and CO2 emissions
-export default function Graph({state, setState}: Settings) {
+export default function Graph({settings, setSettings}: Settings) {
     const context = useFormContext();
     const energy = context.getValues("desiredEnergy");
 
     // Put a template for the elements here, result of planning algo should go in charge
     const data: ChargingData[] = useMemo<ChargingData[]>(() => {
-        return planEV(energy, [state.hour, state.minutes], state.mode)
+        return planEV(energy, [settings.hour, settings.minutes], settings.mode)
             .map(({name: name, pv: pv, charge: charge}) => {
                 // Convert W to kW
                 return {name: name, pv: Math.round(pv / 1000), charge: Math.round(charge / 1000)
                 }
             });
-    }, [energy, state.hour, state.minutes, state.mode]);
+    }, [energy, settings.hour, settings.minutes, settings.mode]);
 
     // Perform these action every time one of the dependencies changes
     useEffect(() => {
-        setState({
-            ...state,
+        setSettings({
+            ...settings,
             price: getPrice(data),
             CO2: getEmissions(data),
         })
-    }, [energy, state.hour, state.minutes, state.mode, data])
+    }, [energy, settings.hour, settings.minutes, settings.mode, data])
 
     // Body of the component
     return(<div>

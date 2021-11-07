@@ -18,24 +18,22 @@ import * as Types from "../../App";
  * @field setMode   Setter for mode
  */
 interface Mode {
-    // mode: ChargingMode | null, 
-    // setMode: (newValue: ChargingMode | null) => void
-    state: Types.SessionType;
-    setState: React.Dispatch<React.SetStateAction<Types.SessionType>>,
+    settings: Types.SessionType;
+    setSettings: React.Dispatch<React.SetStateAction<Types.SessionType>>,
 }
 
 // Selector for Fast mode or Smart mode
-export default function ModeSelector({state, setState}: Mode) {
+export default function ModeSelector({settings, setSettings}: Mode) {
     const context = useFormContext();
 
     // Perform this action every time one of the dependencies changes
     useEffect(() => {
-        context.setValue("mode", state.mode)
-    }, [state.mode, context]) 
+        context.setValue("mode", settings.mode)
+    }, [settings.mode, context]) 
 
     // Set a CSS class based on being selected or deselected
-    const fast: string = state.mode === ChargingMode.Fast? "selected" : "deselected";
-    const smart: string = state.mode === ChargingMode.Smart? "selected" : "deselected";
+    const fast: string = settings.mode === ChargingMode.Fast? "selected" : "deselected";
+    const smart: string = settings.mode === ChargingMode.Smart? "selected" : "deselected";
 
     // Body of the component
     return(
@@ -44,8 +42,8 @@ export default function ModeSelector({state, setState}: Mode) {
                 <Col className="fastCol">
                     <Button 
                         className={fast} 
-                        onClick={() => setState({
-                            ...state,
+                        onClick={() => setSettings({
+                            ...settings,
                             mode: ChargingMode.Fast,
                         })} 
                         style={{borderTopRightRadius: "0", borderBottomRightRadius: "0"}}>
@@ -56,8 +54,8 @@ export default function ModeSelector({state, setState}: Mode) {
                 <Col className="solarCol" >
                     <Button 
                         className={smart} 
-                        onClick={() => setState({
-                            ...state,
+                        onClick={() => setSettings({
+                            ...settings,
                             mode: ChargingMode.Smart,
                         })}  
                         style={{borderTopLeftRadius: "0", borderBottomLeftRadius: "0"}}>

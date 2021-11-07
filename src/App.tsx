@@ -9,25 +9,17 @@ import ChargingSession from './components/pages/ChargingSession';
 import Schedule from './components/pages/Schedule';
 import {ChargingMode} from "./data/models/ChargingMode";
 
+
 const DEFAULT_TIME = {hour: 17, minutes: 30};
 const DEFAULT_MODE: ChargingMode | null = null;
 
 export interface SessionType {
   mode: ChargingMode | null,
-  //setMode: (mode: ChargingMode | null) => void,
   hour: number,
-  //setHour: (hour: number) => void,
   minutes: number,
   price: number,
   CO2: number,
-  //setMinutes: (hour: number) => void
 }
-
-// interface StateType {
-//   state: SessionType,
-//   setState: React.Dispatch<React.SetStateAction<SessionType>>,
-// }
-
 
 
 export default function App() {
@@ -40,11 +32,7 @@ export default function App() {
     CO2: 0,
   }
 
-  const [state, setState] = useState<SessionType>(defaultState);
-
-  // const [hour , setHour] = useState<number>(DEFAULT_TIME.hour);
-  // const [minutes, setMinutes] = useState<number>(DEFAULT_TIME.minutes);
-  // const [mode, setMode] = useState<ChargingMode | null>(DEFAULT_MODE);
+  const [settings, setSettings] = useState<SessionType>(defaultState);
 
   return (
     <Router>
@@ -54,19 +42,13 @@ export default function App() {
           </Route>
           <Route path="/session">
             <ChargingSession 
-              state={state}
-              setState={setState}
-              // mode={mode}
-              // hour={hour}
-              // setHour={setHour}
-              // minutes={minutes}
-              // setMinutes={setMinutes}
-              />
+              settings={settings}
+              setSettings={setSettings}/>
           </Route>
           <Route path="/schedule">
             <Schedule 
-              state={state}
-              setState={setState}/>
+              settings={settings}
+              setSettings={setSettings}/>
           </Route>
           <Route path="/feedback">
             <Feedback/>

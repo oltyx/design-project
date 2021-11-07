@@ -5,36 +5,33 @@ import '../../assets/profile-steering/Conversion';
 import '../../styles/schedule.scss';
 import { Controller, useFormContext } from 'react-hook-form';
 
+
 interface SliderProps {
     name: string,
-    energy: number,
     step: number,
     min: number,
     max: number,
     [x: string]: any,
 }
 
-export default function StyledSlider({name, className, energy, step, min, max, ...props}: SliderProps) {
+
+export default function StyledSlider({name, className, step, min, max, ...props}: SliderProps) {
     const context = useFormContext();
 
     return(
         <Controller
         control={context.control}
         name={name}
-        defaultValue={energy}
-        rules={{ required: true }}
-        render={({ field: { onChange, onBlur, value, ref } }) => (
-            <Slider
+        defaultValue={0}
+        render={({ field }) => (
+            <Slider {...field}
                 className={className} 
                 name={name} 
-                defaultValue={value} 
+                defaultValue={field.value} 
                 step={step} 
                 min={min} 
                 max={max}
-                ref={ref}
-                onChange={onChange} 
-                onBlur={onBlur}
-                value={value} />
+                value={field.value} />
         )}
         />
     );

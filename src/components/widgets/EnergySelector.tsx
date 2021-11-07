@@ -12,19 +12,19 @@ import { useFormContext } from 'react-hook-form';
 import StyledSlider from '../styled/StyledSlider';
 import {MdAutorenew} from "react-icons/all";
 
-/**
- * @field energy    The current state of the Selector.
- * @field setEnergy Setter for energy.
- */
-interface Energy {energy?: number, setEnergy?: (newValue: number) => void}
+// /**
+//  * @field energy    The current state of the Selector.
+//  * @field setEnergy Setter for energy.
+//  */
+// interface Energy {
+//     energy?: number, 
+//     setEnergy?: (newValue: number) => void
+// }
 
 // Slider for km and kWh, with conversion from Conversion.ts
-export default function EnergySelector({...props}: Energy) {
-    
+export default function EnergySelector() {
     const context = useFormContext();
     const energy = context.watch("desiredEnergy")
-    console.log(energy)
-
     // The component body
     return(
         <Container className="energySelector">
@@ -32,9 +32,7 @@ export default function EnergySelector({...props}: Energy) {
                 <Col>
                     <StyledSlider 
                         name={"desiredEnergy"} 
-                        energy={energy} 
                         className="slider" 
-                        defaultValue={energy} 
                         step={500} 
                         min={0} 
                         max={100000}/>
@@ -45,7 +43,6 @@ export default function EnergySelector({...props}: Energy) {
                     {energy/1000} kWh <MdAutorenew/> {Math.round(WhToKm(energy))} km
                 </Col>
             </Row>
-
         </Container>
     );
 };
