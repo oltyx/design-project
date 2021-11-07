@@ -19,6 +19,7 @@ import {planEV} from "../../assets/profile-steering/ProfileSteering";
 import {ChargingMode} from "../../data/models/ChargingMode";
 import {getEmissions, getPrice} from "../../assets/profile-steering/PriceEmissions";
 import { useFormContext } from 'react-hook-form';
+import * as Types from "../../App";
 
 /**
  * Settings that the graph has to plan with.
@@ -28,33 +29,34 @@ import { useFormContext } from 'react-hook-form';
  * @field setPrice      Setter for the price on the containing page
  * @field setEmissions  Setter for the emissions on the containing page
  */
-interface Settings { endHr: number
-                   , endMin: number
-                   , mode: ChargingMode | null
-                   , setPrice: (newValue: number) => void
-                   , setEmissions: (newValue: number) => void
-                   }
+interface Settings { 
+    settings: Types.SessionType;
+    setSettings: React.Dispatch<React.SetStateAction<Types.SessionType>>,
+}
 
 // Graph with result from ProfileSteering.ts, plus price and CO2 emissions
-export default function Graph({endHr, endMin, mode, setPrice, setEmissions}: Settings) {
+export default function Graph({settings, setSettings}: Settings) {
     const context = useFormContext();
     const energy = context.getValues("desiredEnergy");
 
     // Put a template for the elements here, result of planning algo should go in charge
     const data: ChargingData[] = useMemo<ChargingData[]>(() => {
-        return planEV(energy, [endHr, endMin], mode)
+        return planEV(energy, [settings.hour, settings.minutes], settings.mode)
             .map(({name: name, pv: pv, charge: charge}) => {
                 // Convert W to kW
                 return {name: name, pv: Math.round(pv / 1000), charge: Math.round(charge / 1000)
                 }
             });
-    }, [energy, endHr, endMin, mode]);
+    }, [energy, settings.hour, settings.minutes, settings.mode]);
 
     // Perform these action every time one of the dependencies changes
     useEffect(() => {
-        setPrice(getPrice(data));
-        setEmissions(getEmissions(data));
-    }, [energy, endHr, endMin, mode, data])
+        setSettings({
+            ...settings,
+            price: getPrice(data),
+            CO2: getEmissions(data),
+        })
+    }, [energy, settings.hour, settings.minutes, settings.mode, data])
 
     // Body of the component
     return(<div>

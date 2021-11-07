@@ -1,25 +1,24 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import { useHistory } from "react-router-dom";
-import { Container, Row, Col, Label, Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
+import { Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 
 import EvCar from '../../assets/ev_car.svg';
 import { GlobalButton } from '../styled/Button';
 import Stats from '../widgets/Stats';
 import ProgressBar from '../widgets/ProgressBar';
 import '../../styles/chargingSession.scss';
-import {ChargingMode} from "../../data/models/ChargingMode";
 import useProgress from "../../hooks/useProgress.js";
+import * as Types from "../../App";
+
 
 interface ChargingSessionProps {
-    mode: ChargingMode | null
-    hour: number,
-    setHour: (hour: number) => void,
-    minutes: number,
-    setMinutes: (hour: number) => void
+    settings: Types.SessionType;
+    setSettings: React.Dispatch<React.SetStateAction<Types.SessionType>>,
 }
 
+
 // Page for the charging session as it goes on ("Session Page" on Figma)
-export default function ChargingSession({ mode, hour, setHour, minutes, setMinutes}: ChargingSessionProps) {
+export default function ChargingSession({ settings, setSettings }: ChargingSessionProps) {
     const [modal, setModal] = useState(false);
     const handleYes = () => {
         setModal(!modal);
@@ -27,12 +26,11 @@ export default function ChargingSession({ mode, hour, setHour, minutes, setMinut
     }
     const handleCancel = () => setModal(!modal);
 
-    const [sessionTitle, setSessionTitle] = useState("Departure at ");
-    const [button, setButton] = useState("Stop");
-    const [time, setTime] = useState(hour + " : " + minutes);
-    const [style, setStyle] = useState("linear-gradient(to bottom, #9AE09A 0%, #44BE44 100%)");
-    const [progress, getProgress] = useProgress();
-    const [finished, setFinished] = useState(false);
+    const [sessionTitle, setSessionTitle] = useState<string>("Departure at ");
+    const [button, setButton] = useState<string>("Stop");
+    const [time, setTime] = useState<string>(settings.hour + " : " + settings.minutes);
+    const { progress, getProgress } = useProgress();
+    const [finished, setFinished] = useState<boolean>(false);
 
     const today = new Date();
 
@@ -46,19 +44,14 @@ export default function ChargingSession({ mode, hour, setHour, minutes, setMinut
         }
     }, [history, button, today]);
 
-
-    // const [alerts, setAlerts] = useState([])
-
     useEffect(() => {
-        // @ts-ignore
         getProgress();
         const interval = setInterval(() =>
-            //@ts-ignore
             getProgress(), 250)
         return () => {
             clearInterval(interval);
         }
-    }, [])
+    }, [progress])
 
     useEffect(() => {
         if(progress === 100){
@@ -67,7 +60,7 @@ export default function ChargingSession({ mode, hour, setHour, minutes, setMinut
             setSessionTitle("Charging it's done!");
             setButton("Finish");
         }
-    }, [progress])
+    }, [progress, finished, time, sessionTitle, button])
 
     return(
         <Container className="chargingSession">
@@ -80,21 +73,18 @@ export default function ChargingSession({ mode, hour, setHour, minutes, setMinut
                 <Col>
                     <img className={"carStyle"}
                         src={EvCar}
-                        alt="Generic car"
-                    />
+                        alt="Generic car"/>
                 </Col>
             </Row>
             <Row className={"w-100"}>
                 <Col>
                     <ProgressBar
-                        //@ts-ignore
-                        value={progress}
-                        style={style}/>
+                        value={progress}/>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <Stats mode={mode}/>
+                    <Stats mode={settings.mode}/>
                 </Col>
             </Row>
             <Row style={{marginBottom: "1rem"}}> 
@@ -102,8 +92,6 @@ export default function ChargingSession({ mode, hour, setHour, minutes, setMinut
                     <GlobalButton text={button} onClick={handleClick}/>
                 </Col>
             </Row>
-            {/* <Row> 
-                <Col > */}
                     <Modal isOpen={modal}>
                         <ModalHeader style={{background: "rgba(255, 255, 255, 0.5)"}}>Confirmation</ModalHeader>
                         <ModalBody style={{background: "rgba(255, 255, 255, 0.5)"}}>
@@ -114,8 +102,6 @@ export default function ChargingSession({ mode, hour, setHour, minutes, setMinut
                             <Button className="cancelButton" onClick={handleCancel}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
-                {/* </Col>
-            </Row> */}
         </Container>
     );
 };

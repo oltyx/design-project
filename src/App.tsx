@@ -9,14 +9,30 @@ import ChargingSession from './components/pages/ChargingSession';
 import Schedule from './components/pages/Schedule';
 import {ChargingMode} from "./data/models/ChargingMode";
 
+
 const DEFAULT_TIME = {hour: 17, minutes: 30};
 const DEFAULT_MODE: ChargingMode | null = null;
 
+export interface SessionType {
+  mode: ChargingMode | null,
+  hour: number,
+  minutes: number,
+  price: number,
+  CO2: number,
+}
+
+
 export default function App() {
 
-  const [hour , setHour] = useState<number>(DEFAULT_TIME.hour);
-  const [minutes, setMinutes] = useState<number>(DEFAULT_TIME.minutes);
-  const [mode, setMode] = useState<ChargingMode | null>(DEFAULT_MODE);
+  const defaultState: SessionType = {
+    hour: DEFAULT_TIME.hour,
+    minutes: DEFAULT_TIME.minutes,
+    mode: DEFAULT_MODE,
+    price: 0,
+    CO2: 0,
+  }
+
+  const [settings, setSettings] = useState<SessionType>(defaultState);
 
   return (
     <Router>
@@ -25,19 +41,14 @@ export default function App() {
             <Start />
           </Route>
           <Route path="/session">
-            <ChargingSession mode={mode}
-                             hour={hour}
-                             setHour={setHour}
-                             minutes={minutes}
-                             setMinutes={setMinutes}/>
+            <ChargingSession 
+              settings={settings}
+              setSettings={setSettings}/>
           </Route>
           <Route path="/schedule">
-            <Schedule mode={mode}
-                      setMode={setMode}
-                      hour={hour}
-                      setHour={setHour}
-                      minutes={minutes}
-                      setMinutes={setMinutes}/>
+            <Schedule 
+              settings={settings}
+              setSettings={setSettings}/>
           </Route>
           <Route path="/feedback">
             <Feedback/>

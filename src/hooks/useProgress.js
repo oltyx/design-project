@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import mockApi from '../api/mockApi';
 
-const useProgress = () => {
+export default function useProgress() {
     const [progress, setProgress] = useState(0);
 
     const getProgress = async () => {
@@ -9,7 +9,6 @@ const useProgress = () => {
       setProgress(response.data.progress);
     };
 
-    return [progress, getProgress];
+    return {progress: progress, getProgress: getProgress};
 };
 
-export default useProgress;

@@ -2,9 +2,10 @@
  * @module
  * Selector for departure time.
  */
-import React, {MutableRefObject, useEffect, useRef} from 'react';
+import React, {MutableRefObject, useCallback, useEffect, useRef} from 'react';
 
 import '../../styles/timeSelector.scss';
+import * as Types from "../../App";
 
 /**
  * State of the component.
@@ -14,13 +15,11 @@ import '../../styles/timeSelector.scss';
  * @field setMinutes    Setter for minutes
  */
 export interface TimeSelectorProps {
-    hour: number,
-    setHour: (hour: number) => void,
-    minutes: number,
-    setMinutes: (hour: number) => void
+    settings: Types.SessionType;
+    setSettings: React.Dispatch<React.SetStateAction<Types.SessionType>>,
 }
 
-const TimeSelector: React.FC<TimeSelectorProps> = ({ hour, setHour, minutes, setMinutes}) => {
+const TimeSelector: React.FC<TimeSelectorProps> = ({ settings, setSettings }) => {
 
     const hrUpRef = useRef() as MutableRefObject<HTMLDivElement>;
     const hrDownRef = useRef() as MutableRefObject<HTMLDivElement>;
@@ -29,21 +28,33 @@ const TimeSelector: React.FC<TimeSelectorProps> = ({ hour, setHour, minutes, set
     const hourInputRef = useRef() as MutableRefObject<HTMLInputElement>;
     const minutesInputRef = useRef() as MutableRefObject<HTMLInputElement>;
 
-    const hourUp = () => {
-        setHour((((hour + 1) % 24) + 24) % 24);
-    };
+    const hourUp = useCallback(() => {
+        setSettings({
+            ...settings,
+            hour: ((((settings.hour + 1) % 24) + 24) % 24),
+        })
+    }, [settings, setSettings])
 
-    const hourDown = () => {
-        setHour((((hour - 1) % 24) + 24) % 24);
-    };
+    const hourDown = useCallback(() => {
+        setSettings({
+            ...settings,
+            hour: ((((settings.hour - 1) % 24) + 24) % 24),
+        })
+    }, [settings, setSettings])
 
-    const minutesUp = () => {
-        setMinutes((((minutes + 15) % 60) + 60) % 60);
-    };
+    const minutesUp = useCallback(() => {
+        setSettings({
+            ...settings,
+            minutes: ((((settings.minutes + 15) % 60) + 60) % 60),
+        })
+    }, [settings, setSettings])
 
-    const minutesDown = () => {
-        setMinutes((((minutes - 15) % 60) + 60) % 60);
-    };
+    const minutesDown = useCallback(() => {
+        setSettings({
+            ...settings,
+            minutes: ((((settings.minutes - 15) % 60) + 60) % 60),
+        })
+    }, [settings, setSettings])
 
     useEffect(() => {
         let hrUpRefCurrent = hrUpRef.current;
@@ -65,12 +76,12 @@ const TimeSelector: React.FC<TimeSelectorProps> = ({ hour, setHour, minutes, set
     });
 
     useEffect(() => {
-        hourInputRef.current.value = formatTime(hour);
-    },[hour])
+        hourInputRef.current.value = formatTime(settings.hour);
+    },[settings.hour])
 
     useEffect(() => {
-        minutesInputRef.current.value = formatTime(minutes)
-    }, [minutes])
+        minutesInputRef.current.value = formatTime(settings.minutes)
+    }, [settings.minutes])
 
     const formatTime = (time: number): string => {
         if(time < 10){
@@ -88,7 +99,7 @@ const TimeSelector: React.FC<TimeSelectorProps> = ({ hour, setHour, minutes, set
                        ref={hourInputRef}
                        type="number"
                        className="hr"
-                       value={hour}/>
+                       value={settings.hour}/>
                 <div ref={hrDownRef} className="hr-down"/>
             </div>
 
@@ -100,7 +111,7 @@ const TimeSelector: React.FC<TimeSelectorProps> = ({ hour, setHour, minutes, set
                        ref={minutesInputRef}
                        type="number"
                        className="min"
-                       value={minutes}/>
+                       value={settings.minutes}/>
                 <div ref={minDownRef} className="min-down"/>
             </div>
         </div>

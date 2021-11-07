@@ -7,13 +7,13 @@ import '../../styles/chargingSession.scss';
 
 
 interface ProgressBarProps {
-    style: string,
+    style?: string,
     value: number
 }
 // Progress bar for the charging
-export default function ProgressBar({value, style, ...props}: ProgressBarProps) {
+export default function ProgressBar({value, ...props}: ProgressBarProps) {
 
-    const iconStyle = { backgroundImage: style, width: "100%", borderColor: "black" }
+    const iconStyle = { backgroundImage: "linear-gradient(to bottom, #9AE09A 0%, #44BE44 100%)", width: "100%", borderColor: "black" }
 
     return(
         <Container className="progressBarContainer">
