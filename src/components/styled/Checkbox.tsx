@@ -20,19 +20,19 @@ interface CheckboxProps {
      */
     name: string,
     /**
-     * Type of the
+     * Type of the Checkbox text. Optioanl.
      */
     text?: string,
     /**
-     * 
+     * ClassName. Optional.
      */
     className?: string,
     /**
-     * 
+     * Type of the style object. Optional.
      */
     style?: object,
     /**
-     * 
+     * Type of the disabled (if the button should be disabled/clickable). Optional.
      */
     disabled?: boolean,
     /**
@@ -44,7 +44,7 @@ interface CheckboxProps {
 /**
  * 
  * @param name  - Name of the registered Input. 
- * @returns 
+ * @returns     - Controlled Checkbox Component (via {@link https://react-hook-form.com/api/usecontroller/controller | Controller}).
  */
 export const Checkbox=({name, ...props}: CheckboxProps) => {
     const context = useFormContext();

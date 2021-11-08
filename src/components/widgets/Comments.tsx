@@ -35,7 +35,14 @@ export default function Comments({ values }: CommentsProps) {
                 control={context.control}
                 render={({ field }) => (
                     <RadioGroup {...field}>
-                        <FormControlLabel
+                        {values.map((value, index) => 
+                            <FormControlLabel
+                            key={index}
+                            value={value}
+                            control={<Radio size={"medium"} classes={{root: "radioboxStyle", checked: "radioboxStyle:checked"}} />}
+                            label={value}
+                        />)}
+                        {/* <FormControlLabel
                             value={values[0]}
                             control={<Radio size={"medium"} classes={{root: "radioboxStyle", checked: "radioboxStyle:checked"}} />}
                             label={values[0]}
@@ -54,7 +61,7 @@ export default function Comments({ values }: CommentsProps) {
                             value={values[3]}
                             control={<Radio classes={{root: "radioboxStyle", checked: "radioboxStyle:checked"}} />}
                             label={values[3]}
-                        />
+                        /> */}
                     </RadioGroup>
                 )}
             />

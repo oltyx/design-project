@@ -2,9 +2,9 @@
  * @module
  * Schedule page, allows the user to set their preferences for the charging session.
  */
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import { Container, Row, Col, Form, FormGroup, Alert, Navbar, Nav, NavItem} from 'reactstrap';
-import { FormProvider, SubmitHandler, useForm} from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm, useWatch} from 'react-hook-form';
 
 import '../widgets/TimeSelector';
 import '../widgets/EnergySelector';
@@ -30,6 +30,7 @@ type ScheduleInput = {
     isAborted: boolean,
     mode: ChargingMode | null ,
     price: number,
+    CO2: number,
     desiredEnergy: number,
     actualEnergy: number,
   };
@@ -39,7 +40,7 @@ type ScheduleInput = {
  */
 interface ScheduleProps {
     settings: Types.SessionType;
-    setSettings: React.Dispatch<React.SetStateAction<Types.SessionType>>,
+    setSettings: (values: Types.SessionType) => void,
 }
 
 /**
@@ -47,7 +48,7 @@ interface ScheduleProps {
  * @param settings         Seetings of the charging session: mode, departure time and etc. (defined in App.tsx)
  * @param setSettings      Setter for the state
  */
-export default function Schedule({settings, setSettings, ...props}: ScheduleProps) {
+export default function Schedule({settings, setSettings}: ScheduleProps) {
     const history = useHistory();
     /**
      * Default values of the selectors.
@@ -59,26 +60,42 @@ export default function Schedule({settings, setSettings, ...props}: ScheduleProp
         isAborted: false,
         mode: null,
         price: 0,
+        CO2: 0,
         desiredEnergy: 0,
         actualEnergy: 0,
     }
     const form = useForm({
         defaultValues: {...initialValues},
-        mode: "onBlur",
     });
 
     const [alert, setAlert] = useState<boolean>(false);
+    
+    const price = useWatch({control: form.control, name: "price"});
+    const CO2 = useWatch({control: form.control, name: "CO2"});
+
+    useEffect(() => {
+        const values = {
+            hour: form.getValues("departure").getHours(),
+            minutes: form.getValues("departure").getMinutes(),
+            mode: form.getValues("mode"),
+            price: form.getValues("price"),
+            energy: form.getValues("desiredEnergy"),
+            CO2: form.getValues("CO2"),
+        }
+        setSettings({...values})
+    }, [form]);
 
     // Actions when submitting the form
     const onSubmit: SubmitHandler<ScheduleInput> = useCallback((data) => {
-        if (form.formState.isDirty && Object.keys(form.formState.touchedFields).length !== 0 && settings.mode != null) {
-            console.log(data);
+        if (form.getValues("desiredEnergy") !== 0 && form.getValues("mode") != null) {
+            console.log(data, form);
             history.push("/session"); 
         } else {
+            console.log(form)
             setAlert(true);
             setTimeout(()=>{setAlert(false)},2000);
         }
-    }, [history, form, settings.mode])
+    }, [history, form])
 
     // Resulting page
     return(
@@ -88,8 +105,8 @@ export default function Schedule({settings, setSettings, ...props}: ScheduleProp
                     <NavItem>
                         <Container>
                             <Row>
-                                <Col style={{paddingLeft: "2rem"}}><h4 style={{fontSize: "2vh"}}>Price: €{ settings.price ? settings.price.toFixed(2) : 0}</h4></Col>
-                                <Col style={{textAlign: "center"}}><h4 style={{fontSize: "2vh"}}>CO2: {settings.CO2 ? settings.CO2.toFixed(1) : 0}g </h4></Col>
+                                <Col style={{paddingLeft: "2rem"}}><h4 style={{fontSize: "2vh"}}>Price: €{ price ? price.toFixed(2) : 0}</h4></Col>
+                                <Col style={{textAlign: "center"}}><h4 style={{fontSize: "2vh"}}>CO2: {CO2 ? CO2.toFixed(1) : 0}g </h4></Col>
                             </Row>
                         </Container>
                     </NavItem>
@@ -102,19 +119,19 @@ export default function Schedule({settings, setSettings, ...props}: ScheduleProp
                         <Form onSubmit={form.handleSubmit(onSubmit)}>                            
                             <FormGroup style={{marginTop: "1rem"}}>
                                 <StepIcon step={"1"} text={"Select Departure Time"}/>
-                                <TimeSelector settings={settings} setSettings={setSettings} />
+                                <TimeSelector/>
                             </FormGroup>
                             <FormGroup style={{marginTop: "1rem"}}>
-                                <StepIcon step={"2"} text={"Select Energy Consumption"}/>
+                                <StepIcon step={"2"} text={"Select Desired Energy"}/>
                                 <EnergySelector/>
                             </FormGroup>
                             <FormGroup style={{marginTop: "1rem"}}>
                                 <StepIcon step={"3"} text={"Select Charging Mode"}/>
-                                <ModeSelector settings={settings} setSettings={setSettings} />
+                                <ModeSelector/>
                             </FormGroup>
                             <FormGroup style={{marginTop: "1rem"}}>
                                 <StepIcon step={"4"} text={"Checkout the schedule!"}/>
-                                <Graph settings={settings} setSettings={setSettings}/>
+                                <Graph/>
                             </FormGroup>
                             <FormGroup style={{textAlign: "center"}}>
                                 <GlobalButton text={"Go"} type={"submit"}/>

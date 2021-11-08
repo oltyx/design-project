@@ -2,7 +2,7 @@
  * @module
  * Graph which is displayed on the schedule page.
  */
-import React, {useEffect, useMemo} from 'react';
+import React, {useCallback, useEffect, useMemo} from 'react';
 import {
     ComposedChart,
     Bar,
@@ -16,9 +16,9 @@ import {
 import '../../assets/profile-steering/ProfileSteering';
 import {ChargingData} from "../../data/models/ChargingData";
 import {planEV} from "../../assets/profile-steering/ProfileSteering";
-import {ChargingMode} from "../../data/models/ChargingMode";
+// import {ChargingMode} from "../../data/models/ChargingMode";
 import {getEmissions, getPrice} from "../../assets/profile-steering/PriceEmissions";
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import * as Types from "../../App";
 
 /**
@@ -35,34 +35,59 @@ interface Settings {
 }
 
 // Graph with result from ProfileSteering.ts, plus price and CO2 emissions
-export default function Graph({settings, setSettings}: Settings) {
+export default function Graph() {
     const context = useFormContext();
-    const energy = context.getValues("desiredEnergy");
+
+    // const state = useMemo(() => {
+    //     return{
+    //     energy: context.getValues("desiredEnergy"),
+    //     mode: context.getValues("mode"),
+    //     hour: context.getValues("departure").getHours(),
+    //     minutes: context.getValues("departure").getMinutes(),
+        
+    // }}, [context]);
+    const energy = useWatch({control: context.control, name: "desiredEnergy"});
+    const departure = useWatch({control: context.control, name: "departure"});
+    const mode = useWatch({control: context.control, name: "mode"});
+    const hour = departure.getHours();
+    const minutes = departure.getMinutes();
 
     // Put a template for the elements here, result of planning algo should go in charge
-    const data: ChargingData[] = useMemo<ChargingData[]>(() => {
-        return planEV(energy, [settings.hour, settings.minutes], settings.mode)
-            .map(({name: name, pv: pv, charge: charge}) => {
-                // Convert W to kW
-                return {name: name, pv: Math.round(pv / 1000), charge: Math.round(charge / 1000)
-                }
-            });
-    }, [energy, settings.hour, settings.minutes, settings.mode]);
+    // const data = useCallback((): ChargingData[] => {
+    //     return planEV(energy, [settings.hour, settings.minutes], settings.mode)
+    //         .map(({name,  pv, charge}) => {
+    //             // Convert W to kW
+    //             return {name: name, pv: Math.round(pv / 1000), charge: Math.round(charge / 1000)
+    //             }
+    //         });
+    // }, [energy, settings]);
+
+    const data2 = useMemo<ChargingData[]>(() => 
+        planEV(energy, [hour, minutes], mode).map(({name,  pv, charge}) => {
+                return {
+                    name: name, 
+                    pv: Math.round(pv / 1000), 
+                    charge: Math.round(charge / 1000)
+                };
+            })
+    , [energy, hour, minutes, mode]);
 
     // Perform these action every time one of the dependencies changes
     useEffect(() => {
-        setSettings({
-            ...settings,
-            price: getPrice(data),
-            CO2: getEmissions(data),
-        })
-    }, [energy, settings.hour, settings.minutes, settings.mode, data])
+        // setSettings({
+        //     ...settings,
+        //     price: getPrice(data2),
+        //     CO2: getEmissions(data2),
+        // })
+        context.setValue("price", getPrice(data2));
+        context.setValue("CO2", getEmissions(data2));
+    }, [context, data2])
 
     // Body of the component
     return(<div>
     <ResponsiveContainer aspect={500/400}>
         <ComposedChart
-        data={data}
+        data={data2}
         margin={{
             top: 20,
             right: 80,
@@ -97,7 +122,7 @@ export default function Graph({settings, setSettings}: Settings) {
             fillOpacity={1}
             fill="url(#colorCharge)"
         />
-        <Bar dataKey="charge" barSize={500/data.length} fill="url(#colorPv)" />
+        <Bar dataKey="charge" barSize={500/data2.length} fill="url(#colorPv)" />
     </ComposedChart>
     </ResponsiveContainer></div>);
 }

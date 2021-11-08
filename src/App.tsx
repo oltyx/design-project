@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import './App.scss';
@@ -39,6 +39,7 @@ export interface SessionType {
    * Type of the hour of expected departure time.
    */
   CO2: number,
+  energy: number,
 }
 
 /**
@@ -70,9 +71,22 @@ export default function App() {
      * CO2 are 0 by default.
      */
     CO2: 0,
+    energy: 0,
   }
 
-  const [settings, setSettings] = useState<SessionType>(defaultState);
+  const [settings, setSetting] = useState<SessionType>(defaultState);
+
+  const setSettings = (values: SessionType) => {
+    setSetting({
+      ...settings,
+      hour: values.hour,
+      minutes: values.minutes,
+      mode: values.mode,
+      price: values.price,
+      energy: values.energy,
+      CO2: values.CO2,
+    })
+  };
 
   return (
     <Router>
@@ -82,8 +96,7 @@ export default function App() {
           </Route>
           <Route path="/session">
             <ChargingSession 
-              settings={settings}
-              setSettings={setSettings}/>
+              settings={settings}/>
           </Route>
           <Route path="/schedule">
             <Schedule 

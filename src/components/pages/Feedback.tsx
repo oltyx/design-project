@@ -117,6 +117,7 @@ export default function Feedback({ ...props }: FeedbackProps) {
      */
     const onSubmit: SubmitHandler<FeedbackInput> = useCallback((data) => {
         setTimeout(() => {history.push("/")}, 3000);
+        console.log(data);
     },[history])
 
     /**
@@ -130,7 +131,7 @@ export default function Feedback({ ...props }: FeedbackProps) {
 
     useEffect(() => {
         if (hasFeedback) {
-            setAlertText("Thank you for our feedback!")
+            setAlertText("Thank you for your feedback!")
         }
     }, [form, alertText, hasFeedback])
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ButtonProps } from 'reactstrap';
+import { Button } from 'reactstrap';
 
 import '../../styles/lightMode.scss';
 

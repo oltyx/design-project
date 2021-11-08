@@ -2,7 +2,7 @@
  * @module
  * Selector for the charging mode.
  */
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import {ChargingMode} from "../../data/models/ChargingMode";
 import {Button} from "reactstrap";
@@ -23,17 +23,25 @@ interface Mode {
 }
 
 // Selector for Fast mode or Smart mode
-export default function ModeSelector({settings, setSettings}: Mode) {
+export default function ModeSelector() {
     const context = useFormContext();
+    const [mode, setMode] = useState<ChargingMode | null>(context.getValues("mode"));
 
     // Perform this action every time one of the dependencies changes
     useEffect(() => {
-        context.setValue("mode", settings.mode)
-    }, [settings.mode, context]) 
+        context.setValue("mode", mode)
+    }, [context, mode]) 
 
     // Set a CSS class based on being selected or deselected
-    const fast: string = settings.mode === ChargingMode.Fast? "selected" : "deselected";
-    const smart: string = settings.mode === ChargingMode.Smart? "selected" : "deselected";
+    const fast: string = mode === ChargingMode.Fast? "selected" : "deselected";
+    const smart: string = mode === ChargingMode.Smart? "selected" : "deselected";
+
+    // const setMode = useCallback((mode: ChargingMode | null) => {
+    //     setSettings({
+    //         ...settings,
+    //         mode: mode,
+    //     })
+    // }, [settings.mode, setSettings]);
 
     // Body of the component
     return(
@@ -42,10 +50,7 @@ export default function ModeSelector({settings, setSettings}: Mode) {
                 <Col className="fastCol">
                     <Button 
                         className={fast} 
-                        onClick={() => setSettings({
-                            ...settings,
-                            mode: ChargingMode.Fast,
-                        })} 
+                        onClick={() => setMode(ChargingMode.Fast)} 
                         style={{borderTopRightRadius: "0", borderBottomRightRadius: "0"}}>
                         <MdOfflineBolt className={"modeIcon"}/>
                         <h4 className={"modeText"}>Fast Charging</h4>
@@ -54,10 +59,7 @@ export default function ModeSelector({settings, setSettings}: Mode) {
                 <Col className="solarCol" >
                     <Button 
                         className={smart} 
-                        onClick={() => setSettings({
-                            ...settings,
-                            mode: ChargingMode.Smart,
-                        })}  
+                        onClick={() => setMode(ChargingMode.Smart) }  
                         style={{borderTopLeftRadius: "0", borderBottomLeftRadius: "0"}}>
                         <MdWbSunny className={"modeIcon"}/>
                         <h4 className={"modeText"}>Solar Power</h4>

@@ -40,6 +40,7 @@ export default function CustomRating({ name }: RatingProps) {
         name={name}
         render={({ field }) => (
             <Rating {...field}
+                value={parseInt(field.value)}
                 size={"large"}
                 defaultValue={0}
                 precision={1}

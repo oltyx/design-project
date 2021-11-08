@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Slider from '@mui/material/Slider';
 
 import '../../assets/profile-steering/Conversion';
@@ -36,6 +36,8 @@ interface SliderProps {
  * @param param0 
  * @returns 
  */
+
+
 export default function StyledSlider({ name, className, step, min, max, ...props }: SliderProps) {
     const context = useFormContext();
     return(
@@ -43,18 +45,13 @@ export default function StyledSlider({ name, className, step, min, max, ...props
         control={context.control}
         name={name}
         defaultValue={0}
-        rules={{ required: true }}
-        render={({ field: { onChange, onBlur, value, ref }  }) => (
+        render={({ field }) => (
             <Slider
-                name={name} 
-                defaultValue={value}
-                ref={ref}
-                onChange={onChange}
-                onBlur={onBlur} 
+            {...field}
                 step={step} 
                 min={min} 
                 max={max}
-                value={value} />
+                {...props}/>
         )}
         />
     );
