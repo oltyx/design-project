@@ -15,55 +15,63 @@ import { GlobalButton } from '../styled/Button';
 import TextField from '../styled/TextField';
 
 
+/**
+ * Types for Feedback component props.
+ */
 interface FeedbackProps {
     /**
-     * Detailes of the current User.
+     * Types of details of the current User. Optional.
      */
     user?: {
         name?: string,
         surname?: string,
     }
     /**
-     * Current Charging Session ID.
+     * Type of the current Charging Session ID. Optional.
      */
     sessionId?: number,
     /**
-     * Any other props passing to the Feedback component.
+     * Types for any other props passing to the Feedback component. Optional.
      */
     [x: string]: any
 }
 
-    /**
-     * Types for the react-hook-form form.
-     * 
-     * @remarks
-     * See {@link https://react-hook-form.com/| react-hook-form documentation} for more details.
-     */
+/**
+ * Types for the react-hook-form form.
+ * 
+ * @remarks
+ * See {@link https://react-hook-form.com/| react-hook-form documentation} for more details.
+ */
 type FeedbackInput = {
     /**
-     * Unique ID of the current charging session.
+     * Type of Unique ID of the current charging session. Required.
      */
     sessionId: number,
     /**
-     * Rating must be between 1 to 5 if rated; 0 by default.
+     * Type of Rating must be between 1 to 5 if rated; 0 by default. Required.
      */
     rating: number,
     /**
-     * Four comments are suggested, only one needs to be chosen.
+     * Type of Four comments are suggested, only one needs to be chosen. Required.
      */
     suggestedComment: string,
     /**
-     * Any additional comments/remarks that the User may have.
+     * Type of any additional comments/remarks that the User may have. Required.
      */
     openComment: string,
 }
 
 /**
- * Feedback component of the web application.
- * @param user          current User details
- * @param sessionId     current session ID
+ * Feedback component of the web application. All fields of the Feedback Form are optional.
+ * Constructed using {@link https://react-hook-form.com/api/useformcontext | Form Provider} to pass form context to nested components.
+ * @param user          - Current User details
+ * @param sessionId     - Current session ID
+ * @returns             - Returns Feedback Form with the following widgets:
+ *                          1. {@link src\components\widgets\CustomRating.tsx | "5-bolt" Rating }
+ *                          2. {@link src\components\widgets\Comments.tsx | Suggested Comments }
+ *                          3. {@link src\components\styled\TextField.tsx | Text Field for remarks}
  */
-export default function Feedback({...props}: FeedbackProps) {
+export default function Feedback({ ...props }: FeedbackProps) {
     const history = useHistory();
 
     /**
@@ -88,8 +96,8 @@ export default function Feedback({...props}: FeedbackProps) {
 
     /**
      * React-hook-form.
-     * @param defaultValues     initial value for each of the fields to be submited; ensures proper form validation
-     * @param mode              onBlur runs form validation whenever the input loses focus.
+     * @param defaultValues     - initial value for each of the fields to be submited; ensures proper form validation
+     * @param mode              - onBlur runs form validation whenever the input loses focus.
      */
     const form = useForm({
         defaultValues: { ...initialValues },
@@ -105,6 +113,7 @@ export default function Feedback({...props}: FeedbackProps) {
 
     /**
      * Submits the Feedback Form. Automatically transfers the User to {@link src\components\pages\Start.tsx | Start page} after timeout.
+     * @param data  - data inputed in the form
      */
     const onSubmit: SubmitHandler<FeedbackInput> = useCallback((data) => {
         setTimeout(() => {history.push("/")}, 3000);
@@ -125,13 +134,6 @@ export default function Feedback({...props}: FeedbackProps) {
         }
     }, [form, alertText, hasFeedback])
 
-    /**
-     * Constructed using {@link https://react-hook-form.com/api/useformcontext | Form Provider} to pass form context to nested components.
-     * Returns Feedback Form with the following widgets:
-     *  1. {@link src\components\widgets\CustomRating.tsx | "5-bolt" Rating }
-     *  2. {@link src\components\widgets\Comments.tsx | Suggested Comments }
-     *  3. {@link src\components\styled\TextField.tsx | Text Field for remarks}
-     */
     return (
         <Container className="feedback p-0">
             <Alert className={hasFeedback ? "feedbackAlert" : "feedbackAlertBad"} isOpen={form.formState.isSubmitted} color={hasFeedback ? "success" : "danger"}>{alertText}</Alert>

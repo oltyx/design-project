@@ -5,14 +5,35 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import '../../styles/lightMode.scss';
 
+
+/**
+ * Types for the Text Field Props.
+ */
 interface TextFieldProps {
+    /**
+     * Type of the field name to be registered in Controller. Required.
+     */
     name: string,
+    /**
+     * ClassName. Optional.
+     */
     className?: string,
+    /**
+     * Types of Any other Props. Optional.
+     */
     [x: string]: any
 }
 
-
-export default function TextField({name, className,...props}: TextFieldProps) {
+/**
+ * Text Field for the User's additional comment/remarks.
+ * @param name          - Name of the registered Input
+ * @param props         - Other props 
+ * @returns             - Registered Text Input component (via {@link https://react-hook-form.com/api/usecontroller/controller | Controller})
+ */
+export default function TextField({ name, ...props }: TextFieldProps) {
+    /**
+     * Form context passed via {@link https://react-hook-form.com/api/useformcontext | Form Provider}.
+     */
     const context = useFormContext();
     return(
         <Controller
@@ -21,7 +42,7 @@ export default function TextField({name, className,...props}: TextFieldProps) {
         render={({ field: { onChange, onBlur, value, ref } }) => (
             <Label check className={"w-100 responsiveText"}>
                 <Input
-                    className={`${className} textFieldStyle`}
+                    className={`${props.className} textFieldStyle`}
                     type={"text"} 
                     innerRef={ref}
                     onChange={onChange} 

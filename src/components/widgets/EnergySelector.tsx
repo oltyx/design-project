@@ -12,19 +12,14 @@ import { useFormContext } from 'react-hook-form';
 import StyledSlider from '../styled/StyledSlider';
 import {MdAutorenew} from "react-icons/all";
 
-// /**
-//  * @field energy    The current state of the Selector.
-//  * @field setEnergy Setter for energy.
-//  */
-// interface Energy {
-//     energy?: number, 
-//     setEnergy?: (newValue: number) => void
-// }
 
-// Slider for km and kWh, with conversion from Conversion.ts
+/**
+ * 
+ * @returns 
+ */
 export default function EnergySelector() {
     const context = useFormContext();
-    const energy = context.watch("desiredEnergy")
+    const energy = context.getValues("desiredEnergy")
     // The component body
     return(
         <Container className="energySelector">
