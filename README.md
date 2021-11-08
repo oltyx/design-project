@@ -1,4 +1,4 @@
-# design-project
+# Quick Start
 I.D.E. - WebStorm 
 
 0. Install Node.js and execute `npm install --global yarn`
