@@ -4,6 +4,9 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+/**
+ * Entry point of the web application.
+ */
 ReactDOM.render(
   <React.StrictMode>
     <App />

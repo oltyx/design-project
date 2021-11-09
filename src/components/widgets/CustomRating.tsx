@@ -5,12 +5,27 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import '../../styles/feedback.scss';
 
-
+/**
+ * Types for the Comments Component Props.
+ */
 interface RatingProps {
+    /**
+     * Type of the name to be registered in the Controller. Required.
+     */
+    name: string
+    /**
+     * Type of Any other Props. Optional.
+     */
     [x: string]: any,
 }
 
-export default function CustomRating({...props}: RatingProps) {
+
+/**
+ * "5-bolt" Rating used in the Feedback Form. 
+ * @param name - Name of the registered Input
+ * @returns    - Custom Rating Controlled Component (via {@link https://react-hook-form.com/api/usecontroller/controller | Controller})
+ */
+export default function CustomRating({ name }: RatingProps) {
     /**
      * Form context passed via {@link https://react-hook-form.com/api/useformcontext | Form Provider}.
      */
@@ -22,9 +37,10 @@ export default function CustomRating({...props}: RatingProps) {
     return(
         <Controller
         control={context.control}
-        name={props.name}
+        name={name}
         render={({ field }) => (
             <Rating {...field}
+                value={parseInt(field.value)}
                 size={"large"}
                 defaultValue={0}
                 precision={1}

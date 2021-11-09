@@ -13,18 +13,21 @@ import * as Types from "../../App";
 
 interface ChargingSessionProps {
     settings: Types.SessionType;
-    setSettings: React.Dispatch<React.SetStateAction<Types.SessionType>>,
 }
 
 
 // Page for the charging session as it goes on ("Session Page" on Figma)
-export default function ChargingSession({ settings, setSettings }: ChargingSessionProps) {
+export default function ChargingSession({ settings }: ChargingSessionProps) {
+    const history = useHistory();
     const [modal, setModal] = useState(false);
-    const handleYes = () => {
+    const mode = settings.mode;
+    
+    const handleYes = useCallback(() => {
         setModal(!modal);
         history.push("/feedback");
-    }
-    const handleCancel = () => setModal(!modal);
+    }, [modal, setModal, history]);
+    
+    const handleCancel = useCallback(() => setModal(!modal), [modal, setModal]);
 
     const [sessionTitle, setSessionTitle] = useState<string>("Departure at ");
     const [button, setButton] = useState<string>("Stop");
@@ -32,17 +35,13 @@ export default function ChargingSession({ settings, setSettings }: ChargingSessi
     const { progress, getProgress } = useProgress();
     const [finished, setFinished] = useState<boolean>(false);
 
-    const today = new Date();
-
-    const history = useHistory();
-
     const handleClick = useCallback(() => {
         if (finished) {
             history.push("/feedback");
         }  else {
             setModal(!modal);
         }
-    }, [history, button, today]);
+    }, [history, finished, modal]);
 
     useEffect(() => {
         getProgress();
@@ -51,7 +50,7 @@ export default function ChargingSession({ settings, setSettings }: ChargingSessi
         return () => {
             clearInterval(interval);
         }
-    }, [progress])
+    }, [progress, getProgress])
 
     useEffect(() => {
         if(progress === 100){
@@ -84,7 +83,7 @@ export default function ChargingSession({ settings, setSettings }: ChargingSessi
             </Row>
             <Row>
                 <Col>
-                    <Stats mode={settings.mode}/>
+                    <Stats mode={mode}/>
                 </Col>
             </Row>
             <Row style={{marginBottom: "1rem"}}> 
