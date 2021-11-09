@@ -33,4 +33,4 @@ I.D.E. - WebStorm
 
 # Documentation
 In order to document our code we use [TypeDoc](https://typedoc.org/). And the Documentation can be found in [here](https://documentation-chargeview.web.app/).
-
+To generate new documentation simply execute `yarn docs`
