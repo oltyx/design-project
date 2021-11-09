@@ -31,7 +31,7 @@ export default function TimeSelector() {
     const hourInputRef = useRef() as MutableRefObject<HTMLInputElement>;
     const minutesInputRef = useRef() as MutableRefObject<HTMLInputElement>;
 
-    const [time, setTime] = useState({hour: 0, minutes: 0});
+    const [time, setTime] = useState({hour: 17, minutes: 30});
 
     useEffect(() => {
         let d = new Date();
