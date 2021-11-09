@@ -56,6 +56,9 @@ feedback.scss file
 ```
 
 To achieve smooth behaviour of the [Time Selector](./src/components/widgets/TimeSelector.tsx), its style was defined separetly in [timeSelector.scss](.src/components/styles/timeSelector.scss).
+
+Inline styling was used in cases when the element needed minor touching, but not be overwritten completely. For example to increase/decrease `margin`/ `padding` or align texts in the center.
+
 ### Responsive Design	
 The web appication resizes to a smartphone screen. This was achieved using Flexbox properties in the CSS. Most of the components are defined using `Container, Row, Column` components from `reactstrap`. Please consider the example below:
 
