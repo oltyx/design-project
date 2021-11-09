@@ -11,6 +11,7 @@ import '../../styles/lightMode.scss';
  * If in the future, it will be necessary to allow the users to choose 1+ commments, checkboxes should used instead.
  */
 
+
 /**
  * Types for the Checkbox component.
  */
@@ -20,7 +21,7 @@ interface CheckboxProps {
      */
     name: string,
     /**
-     * Type of the Checkbox text. Optioanl.
+     * Type of the Checkbox text. Optional.
      */
     text?: string,
     /**
@@ -36,17 +37,21 @@ interface CheckboxProps {
      */
     disabled?: boolean,
     /**
-     * 
+     * Types of Any other Props. Optional.
      */
     [x: string]: any
 }
 
+
 /**
- * 
- * @param name  - Name of the registered Input. 
+ * Checkbox to select one or more suggested comments on the Feedback Page.
+ * @param name  - Name of the registered Input 
  * @returns     - Controlled Checkbox Component (via {@link https://react-hook-form.com/api/usecontroller/controller | Controller}).
  */
 export const Checkbox=({name, ...props}: CheckboxProps) => {
+    /**
+     * Form context passed via {@link https://react-hook-form.com/api/useformcontext | Form Context Hook}.
+     */
     const context = useFormContext();
     return(
         <Controller

@@ -24,15 +24,16 @@ interface TextFieldProps {
     [x: string]: any
 }
 
+
 /**
- * Text Field for the User's additional comment/remarks.
+ * Text Field for the User's additional comment/remarks on the Feedback page.
  * @param name          - Name of the registered Input
  * @param props         - Other props 
  * @returns             - Registered Text Input component (via {@link https://react-hook-form.com/api/usecontroller/controller | Controller})
  */
 export default function TextField({ name, ...props }: TextFieldProps) {
     /**
-     * Form context passed via {@link https://react-hook-form.com/api/useformcontext | Form Provider}.
+     * Form context passed via {@link https://react-hook-form.com/api/useformcontext | Form Context Hook}.
      */
     const context = useFormContext();
     return(

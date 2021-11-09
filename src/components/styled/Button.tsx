@@ -34,6 +34,7 @@ interface GlobalButtonProps {
     [x: string]: any
 }
 
+
 /**
  * Global Green Button that is used on every page of the application.
  * @param onClick       - OnClick Action

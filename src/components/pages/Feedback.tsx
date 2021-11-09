@@ -31,13 +31,13 @@ interface FeedbackProps {
      */
     sessionId?: number,
     /**
-     * Types for any other props passing to the Feedback component. Optional.
+     * Types for Any other Props. Optional.
      */
     [x: string]: any
 }
 
 /**
- * Types for the react-hook-form form.
+ * Types for the react-hook-form.
  * 
  * @remarks
  * See {@link https://react-hook-form.com/| react-hook-form documentation} for more details.
@@ -96,7 +96,7 @@ export default function Feedback({ ...props }: FeedbackProps) {
 
     /**
      * React-hook-form.
-     * @param defaultValues     - initial value for each of the fields to be submited; ensures proper form validation
+     * @param defaultValues     - initial value for each of the fields to be submited; ensures proper form validation.
      * @param mode              - onBlur runs form validation whenever the input loses focus.
      */
     const form = useForm({
@@ -106,7 +106,7 @@ export default function Feedback({ ...props }: FeedbackProps) {
 
     /**
      * State of the Alert text: 
-     *  case 1 - User submits feedback; 
+     *  case 1 - User submits feedback 
      *  case 2 - User does not submit feedback
      */
     const [alertText, setAlertText] = useState<string>("Please rate us next time! Your feedback is very important for us :)")
@@ -129,6 +129,9 @@ export default function Feedback({ ...props }: FeedbackProps) {
 
     const hasFeedback = form.formState.isDirty && Object.keys(form.formState.touchedFields).length !== 0;
 
+    /**
+     * Sets Alert text based on form changed and user's feedback.
+     */
     useEffect(() => {
         if (hasFeedback) {
             setAlertText("Thank you for your feedback!")

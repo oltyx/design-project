@@ -18,6 +18,7 @@ interface CommentsProps {
     [x: string]: any,
 }
 
+
 /**
  * Suggested Commments Component for the User to choose one out of four suggested comments.
  * Constructed via {@link https://mui.com/api/radio-group/ | RadioGroup}
@@ -42,26 +43,6 @@ export default function Comments({ values }: CommentsProps) {
                             control={<Radio size={"medium"} classes={{root: "radioboxStyle", checked: "radioboxStyle:checked"}} />}
                             label={value}
                         />)}
-                        {/* <FormControlLabel
-                            value={values[0]}
-                            control={<Radio size={"medium"} classes={{root: "radioboxStyle", checked: "radioboxStyle:checked"}} />}
-                            label={values[0]}
-                        />
-                        <FormControlLabel
-                            value={values[1]}
-                            control={<Radio classes={{root: "radioboxStyle", checked: "radioboxStyle:checked"}} />}
-                            label={values[1]}
-                        />
-                        <FormControlLabel
-                            value={values[2]}
-                            control={<Radio classes={{root: "radioboxStyle", checked: "radioboxStyle:checked"}} />}
-                            label={values[2]}
-                        />
-                        <FormControlLabel
-                            value={values[3]}
-                            control={<Radio classes={{root: "radioboxStyle", checked: "radioboxStyle:checked"}} />}
-                            label={values[3]}
-                        /> */}
                     </RadioGroup>
                 )}
             />
