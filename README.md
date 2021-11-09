@@ -8,7 +8,9 @@ I.D.E. - WebStorm
 2. To start the front-end server: `yarn start`
 
 # System Description
-
+The current system is intended to be a lightweight web app, thus it has been built in the form of a Single Page Application (SPA). 
+The user interface has no back-end API to the Energy Management System (EMS), therefore dummy data has been used for generating the graph on the Schedule page. 
+The user needs to connect to the system using a QR code. 
 # Global Architecture and Design
 
 ## Frameworks and Tools
