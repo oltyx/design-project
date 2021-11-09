@@ -1,5 +1,4 @@
 /**
- * @module
  * Plans the charging sessions based on the provided data to the functions.
  */
 import {ChargingMode} from "../../data/models/ChargingMode";

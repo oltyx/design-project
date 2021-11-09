@@ -1,5 +1,4 @@
 /**
- * @module
  * Evaluates the price and CO2 emissions of a planned charging session.
  */
 import {ChargingData} from "../../data/models/ChargingData";

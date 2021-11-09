@@ -1,5 +1,4 @@
 /**
- * @module
  * Used for selecting the required energy with a slider.
  */
 import React, { useEffect } from 'react';

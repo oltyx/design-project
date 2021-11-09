@@ -1,5 +1,4 @@
 /**
- * @module
  * Graph which is displayed on the schedule page.
  */
 import React, {useCallback, useEffect, useMemo} from 'react';

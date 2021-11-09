@@ -1,5 +1,4 @@
 /**
- * @module
  * Schedule page, allows the user to set their preferences for the charging session.
  */
 import React, {useCallback, useEffect, useState} from 'react';
