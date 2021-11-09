@@ -10,39 +10,86 @@ import '../../styles/chargingSession.scss';
 import useProgress from "../../hooks/useProgress.js";
 import * as Types from "../../App";
 
-
+/**
+ * Type for ChargingSession component props.
+ */
 interface ChargingSessionProps {
     settings: Types.SessionType;
 }
 
-
-// Page for the charging session as it goes on ("Session Page" on Figma)
+/**
+ * ChargingSession component of the web application. 
+ * @param settings Type of Charging Session based on the user input from Schedule page.
+ */
 export default function ChargingSession({ settings }: ChargingSessionProps) {
     const history = useHistory();
+
+    /**
+     * Default value of pop-up.
+     */
     const [modal, setModal] = useState(false);
     const mode = settings.mode;
-    
+
+    /**
+     * The user confirms the abortion of the session.
+     */
     const handleYes = useCallback(() => {
+
+        /**
+         * Modal is set to default value.
+         */
         setModal(!modal);
+
+        /**
+         * The user goes to Feedback page.
+         */
         history.push("/feedback");
     }, [modal, setModal, history]);
-    
-    const handleCancel = useCallback(() => setModal(!modal), [modal, setModal]);
 
+    /**
+     * The user cancels the abortion and remains on ChargingSession page.
+     */
+    const handleCancel = useCallback(() => setModal(!modal), [modal, setModal]);
+    
+    /**
+     * Default values of elements from ChargingSession page.
+     */
     const [sessionTitle, setSessionTitle] = useState<string>("Departure at ");
     const [button, setButton] = useState<string>("Stop");
-    const [time, setTime] = useState<string>(settings.hour + " : " + settings.minutes);
-    const { progress, getProgress } = useProgress();
     const [finished, setFinished] = useState<boolean>(false);
+    
+    /**
+     * Departure time
+     * @param settings.hour     Hour set by user for departure.
+     * @param settings.minutes  Minutes set by user for departure.
+     */
+    const [time, setTime] = useState<string>(settings.hour + " : " + settings.minutes);
+    
+    /**
+     * Value of progress bar set.
+     */
+    const { progress, getProgress } = useProgress();
+
 
     const handleClick = useCallback(() => {
+        
+        /**
+         * if button===finished, the user goes to Feedback page.
+         */
         if (finished) {
             history.push("/feedback");
         }  else {
+
+            /**
+             * Modal becomes true, pop-up appears.
+             */
             setModal(!modal);
         }
     }, [history, finished, modal]);
 
+    /**
+     * Updates the value of progress bar.
+     */
     useEffect(() => {
         getProgress();
         const interval = setInterval(() =>
@@ -52,11 +99,14 @@ export default function ChargingSession({ settings }: ChargingSessionProps) {
         }
     }, [progress, getProgress])
 
+    /**
+     * Progress bar is at 100%, the charging has finished.
+     */
     useEffect(() => {
         if(progress === 100){
             setFinished(true);
             setTime("");
-            setSessionTitle("Charging it's done!");
+            setSessionTitle("Charging is done!");
             setButton("Finish");
         }
     }, [progress, finished, time, sessionTitle, button])

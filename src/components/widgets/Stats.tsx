@@ -4,10 +4,22 @@ import { Table, Container, Row, Col } from 'reactstrap'
 import '../../styles/chargingSession.scss';
 import {ChargingMode} from "../../data/models/ChargingMode";
 
+/**
+ * Type for the Stats Component Props.
+ */
 interface StatsProps {
+
+    /**
+     * Types of ChargingMode and null for the Stats mode.
+     * ChargingMode has Fast Charging and Solar Power.
+     */
     mode: ChargingMode | null
 }
-// Charging stats table
+
+/**
+ * Charging Stats Table, containing predicted finish time, kWh, km, price, CO2 emissions, and the charging mode.
+ * @param mode ChargingMode set in the Schedule page.
+ */
 export default function Stats({ mode }: StatsProps) {
     return(
     <Container className="statsContainer">
