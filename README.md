@@ -31,4 +31,6 @@ I.D.E. - WebStorm
 
 # Support	
 
-# Typedocs	
+# Documentation
+In order to document our code we use [TypeDoc](https://typedoc.org/). And the Documentation can be found in [here](https://documentation-chargeview.web.app/).
+
