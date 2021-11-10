@@ -21,6 +21,7 @@ I.D.E. - WebStorm
 
 ## Components
 ### Start 
+This is the initial page when the web app is started and it only allows users to proceed to the next page.
 ### Schedule
 This page is used for the scheduling of the charging session. The user can enter their preferences and see the planned session together with the price and CO2 emissions.
 If the user requests 0 kWh of energy or does not select a charging mode, the UI should reject the session and ask the user to set the energy and/or mode.
@@ -30,7 +31,8 @@ If the user requests 0 kWh of energy or does not select a charging mode, the UI 
 
 # Testing	
 
-# Deployment	
+# Deployment
+Hosting is done using Firebase. In order to preview execute `yarn build` and `firebase hosting:channel:deploy branch-preview-name` and to release in production use `firebase deploy --only hosting`. For more information please refer to the Firebase [documentation](https://firebase.google.com/docs/hosting/test-preview-deploy).
 
 # Further Development	
 
