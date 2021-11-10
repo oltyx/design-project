@@ -29,17 +29,17 @@ The user needs to connect to the system using a QR code.
 ### Session
 This component keeps track of the charging session. The state of charging is updated through a progress bar and a table. This page supports three phases, with the following distinctions:
 
-0.	If the charging session is in progress:
+1.	If the charging session is in progress:
 
 -	The user will be able to see the selected departure time on top of the screen.
 -	The progress bar will be green, ranging from 0 to 99%.
 -	There will be a “Stop” button.
-1.	If the charging session has finished:
+2.	If the charging session has finished:
 
 -	The user will see the finished charging time on top of the screen.
 -	The green progress bar will be filled 100%.
 -	There will be a “Finish” button.
-2.	If the charging session has been aborted:
+3.	If the charging session has been aborted:
 
 -	The user will see the aborted time on top of the screen.
 -	The progress bar will stop and become red.
