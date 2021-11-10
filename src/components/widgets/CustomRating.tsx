@@ -27,13 +27,9 @@ interface RatingProps {
  */
 export default function CustomRating({ name }: RatingProps) {
     /**
-     * Form context passed via {@link https://react-hook-form.com/api/useformcontext | Form Provider}.
+     * Form context passed via {@link https://react-hook-form.com/api/useformcontext | Form Context Hook}.
      */
     const context = useFormContext();
-
-    /**
-     * Controlled Rating component.
-     */
     return(
         <Controller
         control={context.control}
