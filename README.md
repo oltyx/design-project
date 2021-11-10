@@ -8,7 +8,11 @@ I.D.E. - WebStorm
 2. To start the front-end server: `yarn start`
 
 # System Description
+The current system is intended to be a lightweight web app, thus it has been built in the form of a Single Page Application (SPA). 
 
+The user interface has no back-end API to the Energy Management System (EMS), therefore dummy data has been used for generating the graph on the Schedule page. 
+
+The user needs to connect to the system using a QR code. 
 # Global Architecture and Design
 This section provides an overview of the entire system and its functionalities.
 The section covers frameworks and tools used during the development of the web application, as well as describes styling, reporository structres and provides throughout description of the main components.
@@ -111,6 +115,29 @@ This page is used for the scheduling of the charging session. The user can enter
 If the user requests 0 kWh of energy or does not select a charging mode, the UI should reject the session and ask the user to set the energy and/or mode.
 
 ### Session
+This component keeps track of the charging session. The state of charging is updated through a progress bar and a table. This page supports three phases, with the following distinctions:
+
+1.	If the charging session is in progress:
+
+-	The user will be able to see the selected departure time on top of the screen.
+-	The progress bar will be green, ranging from 0 to 99%.
+-	There will be a “Stop” button.
+2.	If the charging session has finished:
+
+-	The user will see the finished charging time on top of the screen.
+-	The green progress bar will be filled 100%.
+-	There will be a “Finish” button.
+3.	If the charging session has been aborted:
+
+-	The user will see the aborted time on top of the screen.
+-	The progress bar will stop and become red.
+-	There will be a “Finish” button.
+
+The “Stop” button triggers the pop-up which asks for a confirmation of the abortion. The pop-up comes with two button options: “Yes” and “Cancel”. In case the user choose “Yes”, the session page will be in the abortion phase described above. If “Cancel” is picked, the session will still be in progress, remaining in the same phase. 
+
+The “Finish” button will redirect the user to the Feedback page.
+
+The table shows the expected finish time of charging at the top, followed by the progress state of the requested energy from the user, taken from the Schedule page, in the form of both kWh and km charged. The charging mode, price, and CO2 emissions of the charging session are also displayed in the table.
 ### Feedback
 The Feedback component stores the feedback from users after each charging session. [React-Hook-Form](https://react-hook-form.com/) manages the state of the form. The form is unitialised using `useForm()` hook, which takes `defaultValues` (of the input fields) and (validation) `mode`  as parameters. The form is wrapped in `FormProvider` which passes the `form` object and its context to child components. 
 
