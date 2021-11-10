@@ -35,7 +35,8 @@
     "build": "node_modules/.bin/react-scripts build",
     "test": "node_modules/.bin/react-scripts test",
     "eject": "node_modules/.bin/react-scripts eject",
-    "docs": "npx typedoc --entryPointStrategy expand ./src"
+    "docs": "npx typedoc --entryPointStrategy expand ./src",
+    "tests": "cypress open"
   },
   "eslintConfig": {
     "extends": [
