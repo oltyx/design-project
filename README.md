@@ -131,7 +131,15 @@ If in future it will be decided to allow users to choose one or more suggested c
 
 The styling of Feedback page and its child components is defined in [feedback.scss](./src/styles/feedback.scss) file.
 
-# Testing	
+# Testing
+System testing is done in [Cypress](https://www.cypress.io/) and all the test files can be found in this directory
+   ```
+   
+   ── cypress                         # Compiled files 
+    |    ├── ...
+    |    └── integration                # Cypress testing files for each main component
+   
+   ```
 ## Feedback Component Testing
 
 # Deployment
