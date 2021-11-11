@@ -186,7 +186,7 @@ System testing is done in [Cypress](https://www.cypress.io/) and all the test fi
 # Deployment
 Hosting is done using Firebase. 
 1. In order to build and release in production use `yarn deploy app`
-2. To generate and host use `yarn deploy docs`
+2. To generate the documentation and host it use `yarn deploy docs`
 
 For more information please refer to the Firebase [documentation](https://firebase.google.com/docs/hosting/test-preview-deploy).
 
