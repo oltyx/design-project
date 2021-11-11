@@ -196,4 +196,5 @@ which means that you do not have to duplicate style values but instead can set t
 
 # Documentation
 The code was documented using [TypeDoc](https://typedoc.org/) and can be found in [here](https://documentation-chargeview.web.app/).
-To generate new documentation simply execute `yarn docs`.
+1. To generate new documentation simply execute `yarn docs`. 
+2. To deploy the new documentation you can use `yarn deploy docs`
