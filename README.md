@@ -106,13 +106,17 @@ Please refer below for the detailed overview of the Repository structure.
 ## Components
 ### Start 
 This is the initial page when the web app is started and it only allows users to proceed to the next page.
+
 ### Schedule
 This page is used for the scheduling of the charging session. The user can enter their preferences and see the planned session together with the price and CO2 emissions.
 If the user requests 0 kWh of energy or does not select a charging mode, the UI should reject the session and ask the user to set the energy and/or mode.
 
+#### TimeSelector
+This component records the departure time of the user. It consists of an hour and minute part, which can be changed by the user with the respective up and down arrow buttons
+
 ### Session
 ### Feedback
-The Feedback component stores the feedback from users after each charging session. [React-Hook-Form](https://react-hook-form.com/) manages the state of the form. The form is unitialised using `useForm()` hook, which takes `defaultValues` (of the input fields) and (validation) `mode`  as parameters. The form is wrapped in `FormProvider` which passes the `form` object and its context to child components. 
+The Feedback component stores the feedback from users after each charging session. [React-Hook-Form](https://react-hook-form.com/) manages the state of the form. The form is initialised using `useForm()` hook, which takes `defaultValues` (of the input fields) and (validation) `mode`  as parameters. The form is wrapped in `FormProvider` which passes the `form` object and its context to child components. 
 
 Users may either submit feedback or exit the feedback session. In case the feedback is submitted the alert message `"Thank you for your feedback!"` appears on top of the screen and the user is redirected back to the Start page after timeout. In case no feedback is submitted, the alert displays `"Please rate us next time! Your feedback is very important for us :)"` and the user is redirected to Start page after timeout. The state of the alert is set in `useEffect()`. 
 
