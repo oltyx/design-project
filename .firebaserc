@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "design-project-c4242"
+  },
+  "targets": {
+    "design-project-c4242": {
+      "hosting": {
+        "design-project-c4242": [
+          "design-project-c4242"
+        ]
+      }
+    }
   }
 }

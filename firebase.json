@@ -1,6 +1,7 @@
 {
   "hosting": [
     {
+      "target": "design-project-c4242",
       "public": "build/",
       "ignore": [
         "firebase.json",
