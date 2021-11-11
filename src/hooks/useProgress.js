@@ -5,8 +5,12 @@ export default function useProgress() {
     const [progress, setProgress] = useState(0);
 
     const getProgress = async () => {
-      const response = await mockApi.get('/progress');
-      setProgress(response.data.progress);
+        try {
+            const response = await mockApi.get('/progress');
+            setProgress(response.data.progress);
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     return {progress: progress, getProgress: getProgress};

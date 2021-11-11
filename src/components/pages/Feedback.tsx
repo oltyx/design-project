@@ -109,7 +109,8 @@ export default function Feedback({ ...props }: FeedbackProps) {
      *  case 1 - User submits feedback 
      *  case 2 - User does not submit feedback
      */
-    const [alertText, setAlertText] = useState<string>("Please rate us next time! Your feedback is very important for us :)")
+    const [alertText, setAlertText] = useState<string>("Please rate us next time! Your feedback is very important for us :)");
+    const [quiting, setQuiting] = useState<boolean>(false);
 
     /**
      * Submits the Feedback Form. Automatically transfers the User to {@link src\components\pages\Start.tsx | Start page} after timeout.
@@ -124,6 +125,7 @@ export default function Feedback({ ...props }: FeedbackProps) {
      * Exits the Feedback Form without submission. Automatically transfers the User to {@link src\components\pages\Start.tsx | Start page} after timeout.
      */
     const quit = useCallback(() => {
+        setQuiting(true);
         setTimeout(() => {history.push("/")}, 3000);
     }, [history]);
 
@@ -140,7 +142,7 @@ export default function Feedback({ ...props }: FeedbackProps) {
 
     return (
         <Container className="feedback p-0">
-            <Alert className={hasFeedback ? "feedbackAlert" : "feedbackAlertBad"} isOpen={form.formState.isSubmitted} color={hasFeedback ? "success" : "danger"}>{alertText}</Alert>
+            <Alert className={hasFeedback ? "feedbackAlert" : "feedbackAlertBad"} isOpen={form.formState.isSubmitted || quiting} color={hasFeedback ? "success" : "danger"}>{alertText}</Alert>
             <Row className={"w-100"}>
                 <Col className="p-0">
                     <Button className="exitButton" onClick={quit}><BsX style={{height: "8vh", width: "8vh"}}/></Button>

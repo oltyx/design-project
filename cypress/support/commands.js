@@ -22,6 +22,6 @@
 //
 //
 // -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })\
 import '@testing-library/cypress/add-commands';
 import 'cypress-react-selector';
