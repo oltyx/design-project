@@ -115,8 +115,20 @@ This is the initial page when the web app is started and it only allows users to
 This page is used for the scheduling of the charging session. The user can enter their preferences and see the planned session together with the price and CO2 emissions.
 If the user requests 0 kWh of energy or does not select a charging mode, the UI should reject the session and ask the user to set the energy and/or mode.
 
+#### Navbar
+This component houses the price and emissions elements.
+
 #### TimeSelector
-This component records the departure time of the user. It consists of an hour and minute part, which can be changed by the user with the respective up and down arrow buttons
+This component records the departure time of the user. It consists of an hour and minute part, which can be changed by the user with the respective up and down arrow buttons.
+
+#### EnergySelector
+This component has a slider and displays the selected amount of energy in kWh as well as the estimated range in km.
+
+#### ModeSelector
+This component consists of two buttons, each representing the charging modes (fast and solar).
+
+#### Graph
+This component contains the graph, displaying the predicted solar power and the scheduled charging power against time.
 
 ### Session
 This component keeps track of the charging session. The state of charging is updated through a progress bar and a table. This page supports three phases, with the following distinctions:
