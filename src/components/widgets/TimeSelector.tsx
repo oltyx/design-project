@@ -1,6 +1,6 @@
 /**
- * @module
  * Selector for departure time.
+ * @module
  */
 import React, {MutableRefObject, useCallback, useEffect, useRef, useState} from 'react';
 

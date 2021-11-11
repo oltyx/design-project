@@ -1,6 +1,6 @@
 /**
- * @module
  * Used for selecting the required energy with a slider.
+ * @module
  */
 import React, { useEffect } from 'react';
 import { Container, Row, Col } from 'reactstrap';
