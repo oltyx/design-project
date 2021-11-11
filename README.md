@@ -110,7 +110,6 @@ Please refer below for the detailed overview of the Repository structure.
 ## Components
 ### Start 
 This is the initial page when the web app is started and it only allows users to proceed to the next page.
-
 ### Schedule
 This page is used for the scheduling of the charging session. The user can enter their preferences and see the planned session together with the price and CO2 emissions.
 If the user requests 0 kWh of energy or does not select a charging mode, the UI should reject the session and ask the user to set the energy and/or mode.
@@ -155,7 +154,7 @@ The “Finish” button will redirect the user to the Feedback page.
 
 The table shows the expected finish time of charging at the top, followed by the progress state of the requested energy from the user, taken from the Schedule page, in the form of both kWh and km charged. The charging mode, price, and CO2 emissions of the charging session are also displayed in the table.
 ### Feedback
-The Feedback component stores the feedback from users after each charging session. [React-Hook-Form](https://react-hook-form.com/) manages the state of the form. The form is initialised using `useForm()` hook, which takes `defaultValues` (of the input fields) and (validation) `mode`  as parameters. The form is wrapped in `FormProvider` which passes the `form` object and its context to child components. 
+The Feedback component stores the feedback from users after each charging session. [React-Hook-Form](https://react-hook-form.com/) manages the state of the form. The form is unitialised using `useForm()` hook, which takes `defaultValues` (of the input fields) and (validation) `mode`  as parameters. The form is wrapped in `FormProvider` which passes the `form` object and its context to child components. 
 
 Users may either submit feedback or exit the feedback session. In case the feedback is submitted the alert message `"Thank you for your feedback!"` appears on top of the screen and the user is redirected back to the Start page after timeout. In case no feedback is submitted, the alert displays `"Please rate us next time! Your feedback is very important for us :)"` and the user is redirected to Start page after timeout. The state of the alert is set in `useEffect()`. 
 
@@ -183,7 +182,6 @@ System testing is done in [Cypress](https://www.cypress.io/) and all the test fi
     |    └── integration                # Cypress testing files for each main component
    
    ```
-## Feedback Component Testing
 
 # Deployment
 Hosting is done using Firebase. In order to preview execute `yarn build` and `firebase hosting:channel:deploy branch-preview-name` and to release in production use `firebase deploy --only hosting`. For more information please refer to the Firebase [documentation](https://firebase.google.com/docs/hosting/test-preview-deploy).
@@ -213,4 +211,5 @@ which means that you do not have to duplicate style values but instead can set t
 
 # Documentation
 The code was documented using [TypeDoc](https://typedoc.org/) and can be found in [here](https://documentation-chargeview.web.app/).
-To generate new documentation simply execute `yarn docs`.
+1. To generate new documentation simply execute `yarn docs`. 
+2. To deploy the new documentation you can use `yarn deploy docs`

@@ -1,7 +1,7 @@
 /**
- * @module
  * User datatype plus some dummy users.
  * Currently a User only consists of an id (6 bytes encoded as 8 Base64 characters) and a name.
+ * @module
  */
 
 export type User = {id: string, name: string};

@@ -1,6 +1,6 @@
 /**
- * @module
  * Selector for the charging mode.
+ * @module
  */
 import React, { useCallback, useEffect, useState } from 'react';
 
