@@ -114,6 +114,21 @@ This is the initial page when the web app is started and it only allows users to
 This page is used for the scheduling of the charging session. The user can enter their preferences and see the planned session together with the price and CO2 emissions.
 If the user requests 0 kWh of energy or does not select a charging mode, the UI should reject the session and ask the user to set the energy and/or mode.
 
+#### Navbar
+This component houses the price and emissions elements.
+
+#### TimeSelector
+This component records the departure time of the user. It consists of an hour and minute part, which can be changed by the user with the respective up and down arrow buttons.
+
+#### EnergySelector
+This component has a slider and displays the selected amount of energy in kWh as well as the estimated range in km.
+
+#### ModeSelector
+This component consists of two buttons, each representing the charging modes (fast and solar).
+
+#### Graph
+This component contains the graph, displaying the predicted solar power and the scheduled charging power against time.
+
 ### Session
 This component keeps track of the charging session. The state of charging is updated through a progress bar and a table. This page supports three phases, with the following distinctions:
 
@@ -174,7 +189,11 @@ System testing is done in [Cypress](https://www.cypress.io/) and all the test fi
    ```
 
 # Deployment
-Hosting is done using Firebase. In order to preview execute `yarn build` and `firebase hosting:channel:deploy branch-preview-name` and to release in production use `firebase deploy --only hosting`. For more information please refer to the Firebase [documentation](https://firebase.google.com/docs/hosting/test-preview-deploy).
+Hosting is done using Firebase. 
+1. In order to build and release in production use `yarn deploy app`
+2. To generate the documentation and host it use `yarn deploy docs`
+
+For more information please refer to the Firebase [documentation](https://firebase.google.com/docs/hosting/test-preview-deploy).
 
 # Further Development	
 
@@ -201,4 +220,5 @@ which means that you do not have to duplicate style values but instead can set t
 
 # Documentation
 The code was documented using [TypeDoc](https://typedoc.org/) and can be found in [here](https://documentation-chargeview.web.app/).
-To generate new documentation simply execute `yarn docs`.
+1. To generate new documentation simply execute `yarn docs`. 
+2. To deploy the new documentation you can use `yarn deploy docs`

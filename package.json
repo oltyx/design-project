@@ -39,6 +39,8 @@
     "test": "node_modules/.bin/react-scripts test",
     "eject": "node_modules/.bin/react-scripts eject",
     "docs": "npx typedoc --entryPointStrategy expand ./src",
+    "deploy docs": "yarn docs && firebase deploy --only hosting:documentation-chargeview",
+    "deploy app": "yarn build && firebase deploy --only hosting:design-project-c4242",
     "tests": "cypress open"
   },
   "eslintConfig": {
