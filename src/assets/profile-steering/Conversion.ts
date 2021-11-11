@@ -1,6 +1,6 @@
 /**
- * @module
  * Module used for the conversion between units.
+ * @module
  */
 // ---- BEGIN CONSTANTS ----
 

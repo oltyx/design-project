@@ -1,6 +1,6 @@
 /**
- * @module
  * Plans the charging sessions based on the provided data to the functions.
+ * @module
  */
 import {ChargingMode} from "../../data/models/ChargingMode";
 import {getSolarPower, ChargingData, zipData, getIntervals} from "../../data/models/ChargingData";

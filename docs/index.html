@@ -15,30 +15,90 @@
 <a href="#system-description" id="system-description" style="color: inherit; text-decoration: none;">
   <h1>System Description</h1>
 </a>
+<p>The current system is intended to be a lightweight web app, thus it has been built in the form of a Single Page Application (SPA). </p>
+<p>The user interface has no back-end API to the Energy Management System (EMS), therefore dummy data has been used for generating the graph on the Schedule page. </p>
+<p>The user needs to connect to the system using a QR code. </p>
 
 <a href="#global-architecture-and-design" id="global-architecture-and-design" style="color: inherit; text-decoration: none;">
   <h1>Global Architecture and Design</h1>
 </a>
+<p>This section provides an overview of the entire system and its functionalities.
+The section covers frameworks and tools used during the development of the web application, as well as describes styling, reporository structres and provides throughout description of the main components.</p>
 
 <a href="#frameworks-and-tools" id="frameworks-and-tools" style="color: inherit; text-decoration: none;">
   <h2>Frameworks and Tools</h2>
 </a>
+<p>Below is the Table of all frameworks and tools used during the product implementation.</p>
+<table>
+<thead>
+<tr>
+<th>Framework/Library</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>React</td>
+<td>Functional components to build UI</td>
+</tr>
+<tr>
+<td>Typescript</td>
+<td>Static typing for Javascript</td>
+</tr>
+<tr>
+<td>React Hook Form</td>
+<td>Hook for functional components to handle the state of the form</td>
+</tr>
+<tr>
+<td>Reactstrap</td>
+<td>React Bootstrap 4 library</td>
+</tr>
+<tr>
+<td>Material UI</td>
+<td>React Component Library</td>
+</tr>
+<tr>
+<td>Typedoc</td>
+<td>Documentation generator</td>
+</tr>
+<tr>
+<td>Firebase</td>
+<td>Deployment of the UI</td>
+</tr>
+<tr>
+<td>Cypress</td>
+<td>Unit &amp; System Testing</td>
+</tr>
+</tbody></table>
 
 <a href="#design-overview" id="design-overview" style="color: inherit; text-decoration: none;">
   <h2>Design Overview</h2>
 </a>
+<p>The next paraghraphs provide overview of styling techniques used in the project, as well as describe how responsiveness of the pages was achieved. </p>
 
 <a href="#styling" id="styling" style="color: inherit; text-decoration: none;">
   <h3>Styling</h3>
 </a>
+<p>The <a href="./src/styles">styles</a> folder contains scss files for each of the main component (and styles for all child components), as well global styling variables for light mode (<a href="./src/styles/lightMode.scss">lightMode.scss</a>) and dark mode (<a href="./src/styles/darkMode.scss">darkMode.scss</a>). Currently the application operates on light mode only.</p>
+<p>The individual scss files for the main pages (Start, Schedule, Session and Feedback) are constructed using nested classes. This specifies the class name of the elements precisely and ensures that they would not be overwritten by accident. In the example below the .feedbackForm element is wrapped inside the .feedback parent element: </p>
+<pre><code class="language-css"><span class="hl-0">example from feedback</span><span class="hl-1">.scss</span><span class="hl-0"> file</span><br/><br/><span class="hl-1">.feedback</span><span class="hl-0"> {</span><br/><span class="hl-0">    </span><span class="hl-2">display</span><span class="hl-0">: </span><span class="hl-3">flex</span><span class="hl-0">;</span><br/><span class="hl-0">    </span><span class="hl-2">align-items</span><span class="hl-0">: </span><span class="hl-3">center</span><span class="hl-0">;</span><br/><span class="hl-0">    </span><span class="hl-2">background</span><span class="hl-0">: $global_background_color;</span><br/><span class="hl-0">    </span><span class="hl-2">flex-direction</span><span class="hl-0">: </span><span class="hl-3">column</span><span class="hl-0">;</span><br/><br/><span class="hl-0">    ...</span><br/><br/><span class="hl-0">    .feedbackForm {</span><br/><span class="hl-0">        </span><span class="hl-2">display</span><span class="hl-0">: </span><span class="hl-3">flex</span><span class="hl-0">;</span><br/><span class="hl-0">        </span><span class="hl-2">align-items</span><span class="hl-0">: </span><span class="hl-3">center</span><span class="hl-0">;</span><br/><span class="hl-0">        </span><span class="hl-2">flex-direction</span><span class="hl-0">: </span><span class="hl-3">column</span><span class="hl-0">;</span><br/><span class="hl-0">        </span><span class="hl-2">height</span><span class="hl-0">: </span><span class="hl-4">100%</span><span class="hl-0">;</span><br/><span class="hl-0">        </span><span class="hl-2">justify-content</span><span class="hl-0">: </span><span class="hl-3">center</span><span class="hl-0">;</span><br/><span class="hl-0">    }</span><br/><br/><span class="hl-0">    ...</span><br/><span class="hl-0">}</span>
+</code></pre>
+<p>To achieve smooth behaviour of the <a href="./src/components/widgets/TimeSelector.tsx">Time Selector</a>, its style was defined separetly in <a href=".src/components/styles/timeSelector.scss">timeSelector.scss</a>.</p>
+<p>Inline styling was used in cases when the element needed minor touching, but not be overwritten completely. For example to increase/decrease <code>margin</code>/ <code>padding</code> or align texts in the center.</p>
 
 <a href="#responsive-design" id="responsive-design" style="color: inherit; text-decoration: none;">
   <h3>Responsive Design</h3>
 </a>
+<p>The web appication resizes to a smartphone screen. This was achieved using Flexbox properties in the CSS. Most of the components are defined using <code>Container, Row, Column</code> components from <code>reactstrap</code>. Please consider the example below:</p>
+<pre><code class="language-javascript"><span class="hl-5">&lt;</span><span class="hl-6">Container</span><span class="hl-5">&gt;</span><br/><span class="hl-0">    </span><span class="hl-5">&lt;</span><span class="hl-6">Row</span><span class="hl-5">&gt;</span><br/><span class="hl-0">        </span><span class="hl-5">&lt;</span><span class="hl-6">Column</span><span class="hl-5">&gt;</span><br/><span class="hl-0">        ... content</span><br/><span class="hl-0">        </span><span class="hl-5">&lt;/</span><span class="hl-6">Column</span><span class="hl-5">&gt;</span><br/><span class="hl-0">    </span><span class="hl-5">&lt;/</span><span class="hl-6">Row</span><span class="hl-5">&gt;</span><br/><span class="hl-5">&lt;/</span><span class="hl-6">Container</span><span class="hl-5">&gt;</span>
+</code></pre>
+<p>The <a href="./src/App.tsx">App.scss</a> and <a href="./src/index.scss">index.scss</a> files overwrite styling of html and body to allow content spread at full screen. Most of the <code>Container</code>&#39;s also use <code>display: flex</code> property to align and justify the content. </p>
 
 <a href="#repository-structure" id="repository-structure" style="color: inherit; text-decoration: none;">
   <h2>Repository structure</h2>
 </a>
+<p>Please refer below for the detailed overview of the Repository structure. </p>
+<pre><code><span class="hl-0">.</span><br/><span class="hl-0">├── </span><span class="hl-7">cypress</span><span class="hl-0">                         # </span><span class="hl-7">Compiled</span><span class="hl-0"> </span><span class="hl-7">files</span><span class="hl-0"> </span><br/><span class="hl-0">|    ├── ...</span><br/><span class="hl-0">|    └── </span><span class="hl-7">integration</span><span class="hl-0">                # </span><span class="hl-7">Cypress</span><span class="hl-0"> </span><span class="hl-7">testing</span><span class="hl-0"> </span><span class="hl-7">files</span><span class="hl-0"> </span><span class="hl-7">for</span><span class="hl-0"> </span><span class="hl-7">each</span><span class="hl-0"> </span><span class="hl-7">main</span><span class="hl-0"> </span><span class="hl-7">component</span><br/><span class="hl-0">|             </span><br/><span class="hl-0">├── </span><span class="hl-7">docs</span><span class="hl-0">                            # </span><span class="hl-7">Typedoc</span><span class="hl-0"> </span><span class="hl-7">documentation</span><span class="hl-0"> </span><span class="hl-7">files</span><br/><span class="hl-0">├── </span><span class="hl-7">public</span><span class="hl-0">                          # </span><span class="hl-7">Public</span><span class="hl-0"> </span><span class="hl-8">files</span><span class="hl-0"> (</span><span class="hl-7">e</span><span class="hl-0">.</span><span class="hl-7">g</span><span class="hl-0">. </span><span class="hl-7">car</span><span class="hl-0"> </span><span class="hl-7">image</span><span class="hl-0">)</span><br/><span class="hl-0">├── </span><span class="hl-7">src</span><span class="hl-0">                             # </span><span class="hl-7">Source</span><span class="hl-0"> </span><span class="hl-7">folder</span><span class="hl-0"> </span><br/><span class="hl-0">|    ├── </span><span class="hl-7">api</span><span class="hl-0">                        # </span><span class="hl-7">Mock</span><span class="hl-0"> </span><span class="hl-7">api</span><span class="hl-0"> </span><span class="hl-7">file</span><br/><span class="hl-0">|    ├── </span><span class="hl-7">assets</span><span class="hl-0">                     # </span><span class="hl-7">Profile</span><span class="hl-0"> </span><span class="hl-7">Steering</span><span class="hl-0"> </span><span class="hl-7">files</span><br/><span class="hl-0">|    ├── </span><span class="hl-7">components</span><span class="hl-0">                 # </span><span class="hl-7">React</span><span class="hl-0"> </span><span class="hl-7">components</span><span class="hl-0"> </span><br/><span class="hl-0">|    |   ├── </span><span class="hl-7">pages</span><span class="hl-0">                  # </span><span class="hl-7">Main</span><span class="hl-0"> </span><span class="hl-7">React</span><span class="hl-0"> </span><span class="hl-7">pages</span><span class="hl-0">/</span><span class="hl-7">components</span><br/><span class="hl-0">|    |   ├── </span><span class="hl-7">styled</span><span class="hl-0">                 # </span><span class="hl-7">Styled</span><span class="hl-0"> </span><span class="hl-9">MUI</span><span class="hl-0">/</span><span class="hl-7">Reactstrap</span><span class="hl-0"> </span><span class="hl-7">components</span><br/><span class="hl-0">|    |   └── </span><span class="hl-7">widgets</span><span class="hl-0">                # </span><span class="hl-7">Complex</span><span class="hl-0"> </span><span class="hl-7">styled</span><span class="hl-0"> </span><span class="hl-7">components</span><span class="hl-0"> </span><span class="hl-7">used</span><span class="hl-0"> </span><span class="hl-7">on</span><span class="hl-0"> </span><span class="hl-7">the</span><span class="hl-0"> </span><span class="hl-7">main</span><span class="hl-0"> </span><span class="hl-7">pages</span><br/><span class="hl-0">|    ├── </span><span class="hl-7">data</span><span class="hl-0">                       # </span><span class="hl-7">Dummy</span><span class="hl-0"> </span><span class="hl-7">data</span><br/><span class="hl-0">|    ├── </span><span class="hl-7">hooks</span><span class="hl-0">                      # </span><span class="hl-7">Hook</span><span class="hl-0"> </span><span class="hl-7">for</span><span class="hl-0"> </span><span class="hl-7">the</span><span class="hl-0"> </span><span class="hl-7">mock</span><span class="hl-0"> </span><span class="hl-9">API</span><br/><span class="hl-0">|    ├── </span><span class="hl-7">styles</span><span class="hl-0">                     # </span><span class="hl-9">SCSS</span><span class="hl-0"> </span><span class="hl-7">files</span><br/><span class="hl-0">|    ├── </span><span class="hl-7">index</span><span class="hl-0">.</span><span class="hl-7">tsx</span><span class="hl-0">                  # </span><span class="hl-7">Entry</span><span class="hl-0"> </span><span class="hl-7">point</span><span class="hl-0"> </span><span class="hl-10">of</span><span class="hl-0"> </span><span class="hl-7">the</span><span class="hl-0"> </span><span class="hl-7">web</span><span class="hl-0"> </span><span class="hl-7">application</span><br/><span class="hl-0">|    └── ...</span><br/><span class="hl-0">├── </span><span class="hl-7">test</span><span class="hl-0">                            # </span><span class="hl-7">Manual</span><span class="hl-0"> </span><span class="hl-7">testing</span><br/><span class="hl-0">├── </span><span class="hl-7">firebase</span><span class="hl-0">.</span><span class="hl-7">json</span><span class="hl-0">                   # </span><span class="hl-7">Firebase</span><span class="hl-0"> </span><span class="hl-7">config</span><span class="hl-0"> </span><span class="hl-7">file</span><br/><span class="hl-0">|── </span><span class="hl-7">package</span><span class="hl-0">.</span><span class="hl-7">json</span><span class="hl-0">                    # </span><span class="hl-7">Project</span><span class="hl-11">&#39;s metadat</span><span class="hl-12">a</span><br/><span class="hl-0">├── </span><span class="hl-13">package</span><span class="hl-0">-</span><span class="hl-7">lock</span><span class="hl-0">.</span><span class="hl-7">json</span><span class="hl-0">               # </span><span class="hl-9">NPM</span><span class="hl-0"> </span><span class="hl-7">files</span><span class="hl-0"> </span><span class="hl-7">dependency</span><span class="hl-0"> </span><span class="hl-8">tree</span><span class="hl-0"> (</span><span class="hl-9">DO</span><span class="hl-0"> </span><span class="hl-9">NOT</span><span class="hl-0"> </span><span class="hl-9">EDIT</span><span class="hl-0"> </span><span class="hl-9">DIRECTLY</span><span class="hl-0">)</span><br/><span class="hl-0">|── </span><span class="hl-7">tsconfig</span><span class="hl-0">.</span><span class="hl-7">json</span><span class="hl-0">                   # </span><span class="hl-7">Typescript</span><span class="hl-0"> </span><span class="hl-7">config</span><span class="hl-0"> </span><span class="hl-7">file</span><br/><span class="hl-0">|── </span><span class="hl-7">cypress</span><span class="hl-0">.</span><span class="hl-7">json</span><span class="hl-0">                    # </span><span class="hl-7">Cypress</span><span class="hl-0"> </span><span class="hl-7">config</span><span class="hl-0"> </span><span class="hl-7">file</span><br/><span class="hl-0">|── </span><span class="hl-9">README</span><span class="hl-0">.</span><span class="hl-7">md</span><span class="hl-0">                       # </span><span class="hl-7">Manual</span><span class="hl-0"> </span><span class="hl-7">file</span><br/><span class="hl-0">└── ...</span>
+</code></pre>
 
 <a href="#components" id="components" style="color: inherit; text-decoration: none;">
   <h2>Components</h2>
@@ -47,33 +107,107 @@
 <a href="#start" id="start" style="color: inherit; text-decoration: none;">
   <h3>Start</h3>
 </a>
+<p>This is the initial page when the web app is started and it only allows users to proceed to the next page.</p>
 
 <a href="#schedule" id="schedule" style="color: inherit; text-decoration: none;">
   <h3>Schedule</h3>
 </a>
+<p>This page is used for the scheduling of the charging session. The user can enter their preferences and see the planned session together with the price and CO2 emissions.
+If the user requests 0 kWh of energy or does not select a charging mode, the UI should reject the session and ask the user to set the energy and/or mode.</p>
 
 <a href="#session" id="session" style="color: inherit; text-decoration: none;">
   <h3>Session</h3>
 </a>
+<p>This component keeps track of the charging session. The state of charging is updated through a progress bar and a table. This page supports three phases, with the following distinctions:</p>
+<ol>
+<li>If the charging session is in progress:</li>
+</ol>
+<ul>
+<li>The user will be able to see the selected departure time on top of the screen.</li>
+<li>The progress bar will be green, ranging from 0 to 99%.</li>
+<li>There will be a “Stop” button.</li>
+</ul>
+<ol start="2">
+<li>If the charging session has finished:</li>
+</ol>
+<ul>
+<li>The user will see the finished charging time on top of the screen.</li>
+<li>The green progress bar will be filled 100%.</li>
+<li>There will be a “Finish” button.</li>
+</ul>
+<ol start="3">
+<li>If the charging session has been aborted:</li>
+</ol>
+<ul>
+<li>The user will see the aborted time on top of the screen.</li>
+<li>The progress bar will stop and become red.</li>
+<li>There will be a “Finish” button.</li>
+</ul>
+<p>The “Stop” button triggers the pop-up which asks for a confirmation of the abortion. The pop-up comes with two button options: “Yes” and “Cancel”. In case the user choose “Yes”, the session page will be in the abortion phase described above. If “Cancel” is picked, the session will still be in progress, remaining in the same phase. </p>
+<p>The “Finish” button will redirect the user to the Feedback page.</p>
+<p>The table shows the expected finish time of charging at the top, followed by the progress state of the requested energy from the user, taken from the Schedule page, in the form of both kWh and km charged. The charging mode, price, and CO2 emissions of the charging session are also displayed in the table.</p>
 
 <a href="#feedback" id="feedback" style="color: inherit; text-decoration: none;">
   <h3>Feedback</h3>
 </a>
+<p>The Feedback component stores the feedback from users after each charging session. <a href="https://react-hook-form.com/">React-Hook-Form</a> manages the state of the form. The form is unitialised using <code>useForm()</code> hook, which takes <code>defaultValues</code> (of the input fields) and (validation) <code>mode</code>  as parameters. The form is wrapped in <code>FormProvider</code> which passes the <code>form</code> object and its context to child components. </p>
+<p>Users may either submit feedback or exit the feedback session. In case the feedback is submitted the alert message <code>&quot;Thank you for your feedback!&quot;</code> appears on top of the screen and the user is redirected back to the Start page after timeout. In case no feedback is submitted, the alert displays <code>&quot;Please rate us next time! Your feedback is very important for us :)&quot;</code> and the user is redirected to Start page after timeout. The state of the alert is set in <code>useEffect()</code>. </p>
+<p>The boolean <code>hasFeedback</code> determines if any feedback was submitted. If the form is dirty (if any of the fields are not the same as default values anymore) and if user did not touch any of the fields, then the <code>hasFeedback</code> is set to <code>true</code>. </p>
+<p>The form consists of 3 fields (Controlled Components): </p>
+<ol>
+<li>&quot;5-bolt&quot; Rating - <a href="./src/components/widgets/CustomRating.tsx">CustomRating</a> </li>
+<li>Suggested Comments (only one could be chosen) - <a href="./src/components/widgets/Comments.tsx">Comments</a> </li>
+<li>Text Field for additional remarks - <a href="./src/components/styled/TextField.tsx">TextField</a></li>
+</ol>
+<p>Each field is wrapped in <a href="https://react-hook-form.com/api/usecontroller/controller">Controller</a> with control of the form passed as <code>context.control</code> via <code>useFormContext()</code>.</p>
+<p>None of the fields of the Feedback Form are mandatory. The Suggested Comments component dynamically generates Radioboxes depending on the number of elemnets in the <code>values</code> prop inherited from <a href="./src/components/pages/Feedback.tsx">Feedback</a>. So in order to change number of suggested comments or their values, the only modification that needs to be made is add/change/remove elements of <code>commmentValues</code> array in the Feedback page. </p>
+<p>If in future it will be decided to allow users to choose one or more suggested comments, radiobox need to be substituted with checkboxes. For that <a href="./src/components/styled/Checkbox.tsx">Checkbox</a> styled component was defined (which is currently unused).</p>
+<p>The styling of Feedback page and its child components is defined in <a href="./src/styles/feedback.scss">feedback.scss</a> file.</p>
 
 <a href="#testing" id="testing" style="color: inherit; text-decoration: none;">
   <h1>Testing</h1>
 </a>
+<p>System testing is done in <a href="https://www.cypress.io/">Cypress</a> and all the test files can be found in this directory</p>
+<pre><code><br/><span class="hl-0">── </span><span class="hl-7">cypress</span><span class="hl-0">                         # </span><span class="hl-7">Compiled</span><span class="hl-0"> </span><span class="hl-7">files</span><span class="hl-0"> </span><br/><span class="hl-0"> |    ├── ...</span><br/><span class="hl-0"> |    └── </span><span class="hl-7">integration</span><span class="hl-0">                # </span><span class="hl-7">Cypress</span><span class="hl-0"> </span><span class="hl-7">testing</span><span class="hl-0"> </span><span class="hl-7">files</span><span class="hl-0"> </span><span class="hl-7">for</span><span class="hl-0"> </span><span class="hl-7">each</span><span class="hl-0"> </span><span class="hl-7">main</span><span class="hl-0"> </span><span class="hl-7">component</span><br/>
+</code></pre>
 
 <a href="#deployment" id="deployment" style="color: inherit; text-decoration: none;">
   <h1>Deployment</h1>
 </a>
+<p>Hosting is done using Firebase. In order to preview execute <code>yarn build</code> and <code>firebase hosting:channel:deploy branch-preview-name</code> and to release in production use <code>firebase deploy --only hosting</code>. For more information please refer to the Firebase <a href="https://firebase.google.com/docs/hosting/test-preview-deploy">documentation</a>.</p>
 
-<a href="#support" id="support" style="color: inherit; text-decoration: none;">
-  <h1>Support</h1>
+<a href="#further-development" id="further-development" style="color: inherit; text-decoration: none;">
+  <h1>Further Development</h1>
 </a>
 
-<a href="#typedocs" id="typedocs" style="color: inherit; text-decoration: none;">
-  <h1>Typedocs</h1>
+<a href="#extending-components" id="extending-components" style="color: inherit; text-decoration: none;">
+  <h2>Extending Components</h2>
 </a>
-</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Modules</a></li><li class=" tsd-kind-module"><a href="modules/App.html">App</a></li><li class=" tsd-kind-module"><a href="modules/Evaluates_the_price_and_CO2_emissions_of_a_planned_charging_session_.html">Evaluates the price and CO2 emissions of a planned charging session.</a></li><li class=" tsd-kind-module"><a href="modules/Graph_which_is_displayed_on_the_schedule_page_.html">Graph which is displayed on the schedule page.</a></li><li class=" tsd-kind-module"><a href="modules/Module_used_for_the_conversion_between_units_.html">Module used for the conversion between units.</a></li><li class=" tsd-kind-module"><a href="modules/Plans_the_charging_sessions_based_on_the_provided_data_to_the_functions_.html">Plans the charging sessions based on the provided data to the functions.</a></li><li class=" tsd-kind-module"><a href="modules/Schedule_page__allows_the_user_to_set_their_preferences_for_the_charging_session_.html">Schedule page, allows the user to set their preferences for the charging session.</a></li><li class=" tsd-kind-module"><a href="modules/Selector_for_departure_time_.html">Selector for departure time.</a></li><li class=" tsd-kind-module"><a href="modules/Selector_for_the_charging_mode_.html">Selector for the charging mode.</a></li><li class=" tsd-kind-module"><a href="modules/Used_for_selecting_the_required_energy_with_a_slider_.html">Used for selecting the required energy with a slider.</a></li><li class=" tsd-kind-module"><a href="modules/User_datatype_plus_some_dummy_users__Currently_a_User_only_consists_of_an_id__6_bytes_encoded_as_8_Base64_characters__and_a_name_.html">User datatype plus some dummy users.
-<wbr/>Currently a <wbr/>User only consists of an id (6 bytes encoded as 8 <wbr/>Base64 characters) and a name.</a></li><li class=" tsd-kind-module"><a href="modules/api_mockApi.html">api/mock<wbr/>Api</a></li><li class=" tsd-kind-module"><a href="modules/components_pages_ChargingSession.html">components/pages/<wbr/>Charging<wbr/>Session</a></li><li class=" tsd-kind-module"><a href="modules/components_pages_Feedback.html">components/pages/<wbr/>Feedback</a></li><li class=" tsd-kind-module"><a href="modules/components_pages_Start.html">components/pages/<wbr/>Start</a></li><li class=" tsd-kind-module"><a href="modules/components_styled_Button.html">components/styled/<wbr/>Button</a></li><li class=" tsd-kind-module"><a href="modules/components_styled_Checkbox.html">components/styled/<wbr/>Checkbox</a></li><li class=" tsd-kind-module"><a href="modules/components_styled_StepIcon.html">components/styled/<wbr/>Step<wbr/>Icon</a></li><li class=" tsd-kind-module"><a href="modules/components_styled_StyledSlider.html">components/styled/<wbr/>Styled<wbr/>Slider</a></li><li class=" tsd-kind-module"><a href="modules/components_styled_TextField.html">components/styled/<wbr/>Text<wbr/>Field</a></li><li class=" tsd-kind-module"><a href="modules/components_widgets_Comments.html">components/widgets/<wbr/>Comments</a></li><li class=" tsd-kind-module"><a href="modules/components_widgets_CustomRating.html">components/widgets/<wbr/>Custom<wbr/>Rating</a></li><li class=" tsd-kind-module"><a href="modules/components_widgets_ProgressBar.html">components/widgets/<wbr/>Progress<wbr/>Bar</a></li><li class=" tsd-kind-module"><a href="modules/components_widgets_Stats.html">components/widgets/<wbr/>Stats</a></li><li class=" tsd-kind-module"><a href="modules/data_models_ChargingData.html">data/models/<wbr/>Charging<wbr/>Data</a></li><li class=" tsd-kind-module"><a href="modules/data_models_ChargingMode.html">data/models/<wbr/>Charging<wbr/>Mode</a></li><li class=" tsd-kind-module"><a href="modules/hooks_useProgress.html">hooks/use<wbr/>Progress</a></li><li class=" tsd-kind-module"><a href="modules/reportWebVitals.html">report<wbr/>Web<wbr/>Vitals</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li><li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li><li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
+<p>To add a new component for a new feature, make a .tsx file in the widgets package and export a function that returns the type of the widget you make. 
+Within this function, you can return an HTML literal with the markup of the widget.
+Hooks and values for this widget can be initialized in this function, whereas the model (the blueprint for the properties of the component) can be defined as an interface above.<br>This procedure is similar for the styled components.</p>
+<p>To insert a widget into a page, you can start using the widget with an HTML tag.<br>To add a new page to the application, add a <code>&lt;Route&gt;</code> tag with the corresponding URI template to <code>App.tsx</code>.<br>To modify the content of widgets, you can go to the page and access the content of the component there.</p>
+
+<a href="#data-structures-across-modules" id="data-structures-across-modules" style="color: inherit; text-decoration: none;">
+  <h2>Data structures across modules</h2>
+</a>
+<p>In case the same data structure is used in multiple modules, it is better to centralize a definition of this data structure in the models package.</p>
+
+<a href="#adding-api-calls" id="adding-api-calls" style="color: inherit; text-decoration: none;">
+  <h2>Adding API calls</h2>
+</a>
+<p>The recommended way to implement API calls is within custom hooks, similar to <code>useProgress</code>.
+The connection to the API itself can be defined in the api package, which also allows for multiple APIs to work with the UI.</p>
+
+<a href="#adding-a-stylesheet" id="adding-a-stylesheet" style="color: inherit; text-decoration: none;">
+  <h2>Adding a stylesheet</h2>
+</a>
+<p>You can write a .scss file (stylesheet) to house styling rules. The stylesheets can inherit properties from each other, 
+which means that you do not have to duplicate style values but instead can set them as variables to call back elsewhere.</p>
+
+<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+  <h1>Documentation</h1>
+</a>
+<p>The code was documented using <a href="https://typedoc.org/">TypeDoc</a> and can be found in <a href="https://documentation-chargeview.web.app/">here</a>.
+To generate new documentation simply execute <code>yarn docs</code>.</p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Modules</a></li><li class=" tsd-kind-module"><a href="modules/App.html">App</a></li><li class=" tsd-kind-module"><a href="modules/api_mockApi.html">api/mock<wbr/>Api</a></li><li class=" tsd-kind-module"><a href="modules/assets_profile_steering_Conversion.html">assets/profile-<wbr/>steering/<wbr/>Conversion</a></li><li class=" tsd-kind-module"><a href="modules/assets_profile_steering_PriceEmissions.html">assets/profile-<wbr/>steering/<wbr/>Price<wbr/>Emissions</a></li><li class=" tsd-kind-module"><a href="modules/assets_profile_steering_ProfileSteering.html">assets/profile-<wbr/>steering/<wbr/>Profile<wbr/>Steering</a></li><li class=" tsd-kind-module"><a href="modules/components_pages_ChargingSession.html">components/pages/<wbr/>Charging<wbr/>Session</a></li><li class=" tsd-kind-module"><a href="modules/components_pages_Feedback.html">components/pages/<wbr/>Feedback</a></li><li class=" tsd-kind-module"><a href="modules/components_pages_Schedule.html">components/pages/<wbr/>Schedule</a></li><li class=" tsd-kind-module"><a href="modules/components_pages_Start.html">components/pages/<wbr/>Start</a></li><li class=" tsd-kind-module"><a href="modules/components_styled_Button.html">components/styled/<wbr/>Button</a></li><li class=" tsd-kind-module"><a href="modules/components_styled_Checkbox.html">components/styled/<wbr/>Checkbox</a></li><li class=" tsd-kind-module"><a href="modules/components_styled_StepIcon.html">components/styled/<wbr/>Step<wbr/>Icon</a></li><li class=" tsd-kind-module"><a href="modules/components_styled_StyledSlider.html">components/styled/<wbr/>Styled<wbr/>Slider</a></li><li class=" tsd-kind-module"><a href="modules/components_styled_TextField.html">components/styled/<wbr/>Text<wbr/>Field</a></li><li class=" tsd-kind-module"><a href="modules/components_widgets_Comments.html">components/widgets/<wbr/>Comments</a></li><li class=" tsd-kind-module"><a href="modules/components_widgets_CustomRating.html">components/widgets/<wbr/>Custom<wbr/>Rating</a></li><li class=" tsd-kind-module"><a href="modules/components_widgets_EnergySelector.html">components/widgets/<wbr/>Energy<wbr/>Selector</a></li><li class=" tsd-kind-module"><a href="modules/components_widgets_Graph.html">components/widgets/<wbr/>Graph</a></li><li class=" tsd-kind-module"><a href="modules/components_widgets_ModeSelector.html">components/widgets/<wbr/>Mode<wbr/>Selector</a></li><li class=" tsd-kind-module"><a href="modules/components_widgets_ProgressBar.html">components/widgets/<wbr/>Progress<wbr/>Bar</a></li><li class=" tsd-kind-module"><a href="modules/components_widgets_Stats.html">components/widgets/<wbr/>Stats</a></li><li class=" tsd-kind-module"><a href="modules/components_widgets_TimeSelector.html">components/widgets/<wbr/>Time<wbr/>Selector</a></li><li class=" tsd-kind-module"><a href="modules/data_models_ChargingData.html">data/models/<wbr/>Charging<wbr/>Data</a></li><li class=" tsd-kind-module"><a href="modules/data_models_ChargingMode.html">data/models/<wbr/>Charging<wbr/>Mode</a></li><li class=" tsd-kind-module"><a href="modules/data_models_User.html">data/models/<wbr/>User</a></li><li class=" tsd-kind-module"><a href="modules/hooks_useProgress.html">hooks/use<wbr/>Progress</a></li><li class=" tsd-kind-module"><a href="modules/reportWebVitals.html">report<wbr/>Web<wbr/>Vitals</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li><li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li><li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>

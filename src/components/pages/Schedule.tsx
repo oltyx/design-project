@@ -1,6 +1,6 @@
 /**
- * @module
  * Schedule page, allows the user to set their preferences for the charging session.
+ * @module
  */
 import React, {useCallback, useEffect, useState} from 'react';
 import { Container, Row, Col, Form, FormGroup, Alert, Navbar, Nav, NavItem} from 'reactstrap';
