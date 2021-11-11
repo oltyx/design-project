@@ -40,11 +40,11 @@ export interface SessionType {
    */
   mode: ChargingMode | null,
   /**
-   * Type of the hour of expected departure time.
+   * Type of the hour of the user's expected departure time.
    */
   hour: number,
     /**
-   * Type of the minutes of expected departure time.
+   * Type of the minutes of the user's expected departure time.
    */
   minutes: number,
   /**
@@ -52,9 +52,12 @@ export interface SessionType {
    */
   price: number,
   /**
-   * Type of the hour of expected departure time.
+   * Type of the CO2 emmisions of the charging session.
    */
   CO2: number,
+  /**
+   * Type of the user's desired energy.
+   */
   energy: number,
 }
 
@@ -84,9 +87,12 @@ export default function App() {
      */
     price: 0,
     /**
-     * CO2 are 0 by default.
+     * CO2 emmisisons are 0 by default.
      */
     CO2: 0,
+    /**
+     * Desired energy is 0 be default.
+     */
     energy: 0,
   }
 

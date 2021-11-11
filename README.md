@@ -139,11 +139,18 @@ The “Finish” button will redirect the user to the Feedback page.
 
 The table shows the expected finish time of charging at the top, followed by the progress state of the requested energy from the user, taken from the Schedule page, in the form of both kWh and km charged. The charging mode, price, and CO2 emissions of the charging session are also displayed in the table.
 ### Feedback
-The Feedback component stores the feedback from users after each charging session. [React-Hook-Form](https://react-hook-form.com/) manages the state of the form. The form is unitialised using `useForm()` hook, which takes `defaultValues` (of the input fields) and (validation) `mode`  as parameters. The form is wrapped in `FormProvider` which passes the `form` object and its context to child components. 
+The Feedback component stores the feedback from users after each charging session. [React-Hook-Form](https://react-hook-form.com/) manages the state of the form. There are several possible scenarios of user interaction: 
 
-Users may either submit feedback or exit the feedback session. In case the feedback is submitted the alert message `"Thank you for your feedback!"` appears on top of the screen and the user is redirected back to the Start page after timeout. In case no feedback is submitted, the alert displays `"Please rate us next time! Your feedback is very important for us :)"` and the user is redirected to Start page after timeout. The state of the alert is set in `useEffect()`. 
+1. User submits feedback.
+-  "Thank you for your feedback" alert is displayed. User is redirected to the start page after timeout. Form is saved with entered input values.
 
-The boolean `hasFeedback` determines if any feedback was submitted. If the form is dirty (if any of the fields are not the same as default values anymore) and if user did not touch any of the fields, then the `hasFeedback` is set to `true`. 
+2. User submits empty feedback.
+-  "Please rate us next time" alert is displayed. User is redirected to the start page after timeout. No form is saved.
+
+3. User exits.
+-  "Please rate us next time" alert is displayed. User is redirected to the start page after timeout. No form is saved.
+
+To prevent empty form submission, the boolean `hasFeedback` determines if any feedback was submitted. If the form is dirty (if any of the fields are not the same as default values anymore) and if user did not touch any of the fields, then the `hasFeedback` is set to `true`. 
 
 The form consists of 3 fields (Controlled Components): 
 1. "5-bolt" Rating - [CustomRating](./src/components/widgets/CustomRating.tsx) 
@@ -155,8 +162,6 @@ Each field is wrapped in [Controller](https://react-hook-form.com/api/usecontrol
 None of the fields of the Feedback Form are mandatory. The Suggested Comments component dynamically generates Radioboxes depending on the number of elemnets in the `values` prop inherited from [Feedback](./src/components/pages/Feedback.tsx). So in order to change number of suggested comments or their values, the only modification that needs to be made is add/change/remove elements of `commmentValues` array in the Feedback page. 
 
 If in future it will be decided to allow users to choose one or more suggested comments, radiobox need to be substituted with checkboxes. For that [Checkbox](./src/components/styled/Checkbox.tsx) styled component was defined (which is currently unused).
-
-The styling of Feedback page and its child components is defined in [feedback.scss](./src/styles/feedback.scss) file.
 
 # Testing
 System testing is done in [Cypress](https://www.cypress.io/) and all the test files can be found in this directory
