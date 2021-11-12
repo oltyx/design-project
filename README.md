@@ -1,9 +1,16 @@
 # chargEView - User interface for smart EV charging
+Design Project, BrainChargers
+
 Authors:\
-Alex Olteanu\
-Alexandra Iosif\
-Aydan Allahverdiyeva\
-Ivo Broekhof
+Alex Olteanu, s1990675\
+Alexandra Iosif, s2189496\
+Aydan Allahverdiyeva, s1933906\
+Ivo Broekhof, s2185970
+
+Supervisor: Marco Gerards
+
+Course code: 202001048\
+November, 2021
 
 # Visit the app
 [**Live web app**](https://design-project-c4242.web.app/)
