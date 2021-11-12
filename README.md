@@ -1,11 +1,18 @@
-# Checkout our app
+# chargEView - User interface for smart EV charging
+Authors:\
+Alex Olteanu\
+Alexandra Iosif\
+Aydan Allahverdiyeva\
+Ivo Broekhof
+
+# Visit the app
 [**Live web app**](https://design-project-c4242.web.app/)
 
 # Quick Start
 
 0. Install Node.js and execute `npm install --global yarn`
 
-1. To install dependecies: `yarn install`
+1. To install dependencies: `yarn install`
 
 2. To start the front-end server: `yarn start`
 
@@ -33,7 +40,7 @@ Typedoc            | Documentation generator
 Firebase           | Deployment of the UI
 Cypress            | Unit & System Testing
 ## Design Overview
-The next paraghraphs provide overview of styling techniques used in the project, as well as describe how responsiveness of the pages was achieved. 
+The next paragraphs provide overview of styling techniques used in the project, as well as describe how responsiveness of the pages was achieved. 
 ### Styling
 The [styles](./src/styles) folder contains scss files for each of the main component (and styles for all child components), as well global styling variables for light mode ([lightMode.scss](./src/styles/lightMode.scss)) and dark mode ([darkMode.scss](./src/styles/darkMode.scss)). Currently the application operates on light mode only.
 
@@ -183,13 +190,10 @@ If in future it will be decided to allow users to choose one or more suggested c
 
 # Testing
 System testing is done in [Cypress](https://www.cypress.io/) and all the test files can be found in this directory
-   ```
-   
-   ── cypress                         # Compiled files 
-    |    ├── ...
-    |    └── integration                # Cypress testing files for each main component
-   
-   ```
+
+    cypress              # Compiled files 
+     ├── ...
+     └── integration    # Cypress testing files for each main component
 
 # Deployment
 Hosting is done using Firebase. 
