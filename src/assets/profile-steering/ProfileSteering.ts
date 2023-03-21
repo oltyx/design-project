@@ -3,7 +3,7 @@
  * @module
  */
 import {ChargingMode} from "../../data/models/ChargingMode";
-import {getSolarPower, ChargingData, zipData, getIntervals} from "../../data/models/ChargingData";
+import {ChargingData, getIntervals, getSolarPower, zipData} from "../../data/models/ChargingData";
 
 // ---- BEGIN CONSTANTS ----
 
@@ -151,6 +151,9 @@ export function planEV(chargeRequired: number, endTime: [number, number], mode: 
             break;
         case ChargingMode.Smart:
             result = discreteBufferPlanningSmart(desired.slice(startInterval, endInterval), chargeRequired, chargingPowers);
+            break;
+        case ChargingMode.Balanced:
+            result = discreteBufferPlanningFast(desired.slice(startInterval, endInterval), chargeRequired, chargingPowers);
             break;
         case null:
             result = new Array<number>(Math.max(0, endInterval - startInterval)).fill(0);

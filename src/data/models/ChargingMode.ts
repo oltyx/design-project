@@ -4,5 +4,6 @@
  */
 export enum ChargingMode {
     Fast = "Fast Charging",
-    Smart = "Solar Power"
+    Smart = "Solar Power",
+    Balanced = "Balanced Charging"
 }

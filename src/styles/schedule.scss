@@ -1,12 +1,12 @@
 @import "lightMode.scss";
 
 .schedule {
-    position: fixed; 
+    position: fixed;
     overflow-y: scroll;
-    top: 0; 
-    right: 0; 
-    bottom: 0; 
-    left: 0; 
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     min-width: 100%;
     width: 100%;
     display: flex;
@@ -21,18 +21,18 @@
 
     .scheduleAlert {
         position: fixed;
-        height: 10%; 
-        top: 40%; 
-        right: 0; 
-        bottom: 0; 
+        height: 10%;
+        top: 40%;
+        right: 0;
+        bottom: 0;
         left: 0;
         margin-left: 1rem;
-        margin-right: 1rem; 
+        margin-right: 1rem;
     }
 
     .energyRow {
         margin-top: 1rem;
-    
+
     }
 
     .modeRow {
@@ -66,10 +66,14 @@
 
         .fastCol {
             padding-right: 0;
+            width:33%;
         }
-
+        .balancedCol{
+            width:33%;
+        }
         .solarCol {
             padding-left: 0;
+            width:33%;
         }
 
         .selected {
@@ -80,12 +84,12 @@
             border-color: $global_border_color !important;
             .modeText {
                 color: white;
-                font-size: 2vh; 
+                font-size: 2vh;
              }
-             
+
              .modeIcon {
                 color: white;
-                font-size: 5vh; 
+                font-size: 5vh;
              }
         }
 
@@ -97,14 +101,14 @@
             border-color: $global_border_color !important;
             .modeText {
                color: $global_text_color;
-               font-size: 2vh; 
+               font-size: 2vh;
             }
 
             .modeIcon {
                 color: $global_text_color;
-                font-size: 5vh; 
+                font-size: 5vh;
              }
-            
+
         }
     }
 

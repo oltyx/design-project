@@ -30,11 +30,12 @@ export default function ModeSelector() {
     // Perform this action every time one of the dependencies changes
     useEffect(() => {
         context.setValue("mode", mode)
-    }, [context, mode]) 
+    }, [context, mode])
 
     // Set a CSS class based on being selected or deselected
     const fast: string = mode === ChargingMode.Fast? "selected" : "deselected";
     const smart: string = mode === ChargingMode.Smart? "selected" : "deselected";
+    const balanced: string = mode === ChargingMode.Balanced? "selected" : "deselected";
 
     // const setMode = useCallback((mode: ChargingMode | null) => {
     //     setSettings({
@@ -48,21 +49,30 @@ export default function ModeSelector() {
         <Container className="modeSelector">
             <Row>
                 <Col className="fastCol">
-                    <Button 
-                        className={fast} 
-                        onClick={() => setMode(ChargingMode.Fast)} 
+                    <Button
+                        className={fast}
+                        onClick={() => setMode(ChargingMode.Fast)}
                         style={{borderTopRightRadius: "0", borderBottomRightRadius: "0"}}>
                         <MdOfflineBolt className={"modeIcon"}/>
                         <h4 className={"modeText"}>Fast Charging</h4>
                     </Button>
                 </Col>
                 <Col className="solarCol" >
-                    <Button 
-                        className={smart} 
-                        onClick={() => setMode(ChargingMode.Smart) }  
+                    <Button
+                        className={smart}
+                        onClick={() => setMode(ChargingMode.Smart) }
                         style={{borderTopLeftRadius: "0", borderBottomLeftRadius: "0"}}>
                         <MdWbSunny className={"modeIcon"}/>
                         <h4 className={"modeText"}>Solar Power</h4>
+                    </Button>
+                </Col>
+                <Col className="balancedCol">
+                    <Button
+                        className={balanced}
+                        onClick={() => setMode(ChargingMode.Balanced)}
+                        style={{borderTopRightRadius: "0", borderBottomRightRadius: "0"}}>
+                        <MdOfflineBolt className={"modeIcon"}/>
+                        <h4 className={"modeText"}>Balanced Charging</h4>
                     </Button>
                 </Col>
             </Row>
