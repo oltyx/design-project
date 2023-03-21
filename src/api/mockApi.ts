@@ -1,4 +1,3 @@
-// @ts-ignore
 import axios from 'axios';
 
 const PORT = 3333;
